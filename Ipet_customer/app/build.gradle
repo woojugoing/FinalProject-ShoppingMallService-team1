@@ -1,0 +1,61 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'likelion.project.ipet_customer'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "likelion.project.ipet_customer"
+        minSdk 24
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    // androidx
+    implementation AndroidXDeps.CORE_KTX
+    implementation AndroidXDeps.APPCOMPAT
+    implementation AndroidXDeps.CONSTRAINT_LAYOUT
+    implementation AndroidXDeps.VIEWMODEL
+
+    // Google
+    implementation GoogleDeps.MATERIAL
+
+    // Firebase
+    implementation platform(FirebaseDeps.FIREBASE_BOM)
+    implementation FirebaseDeps.FIREBASE_ANALYTICS_KTX
+    implementation FirebaseDeps.FIREBASE_DATABASE
+    implementation FirebaseDeps.FIREBASE_STORAGE
+
+    // Lottie
+    implementation LottieDeps.LOTTIE
+
+    // Skeleton
+    implementation SkeletonDeps.SHIMMER
+
+    // Test
+    testImplementation TestDeps.JUNIT
+    androidTestImplementation TestDeps.JUNIT_EXT
+    androidTestImplementation TestDeps.ESPRESSO_CORE
+}

@@ -1,3 +1,11 @@
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+/captures
+
 # Created by https://www.toptal.com/developers/gitignore/api/macos,windows,androidstudio,android,kotlin,java
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,windows,androidstudio,android,kotlin,java
 
