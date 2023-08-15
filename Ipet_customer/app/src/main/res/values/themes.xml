@@ -1,9 +1,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Ipet_customer" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="AppTheme.Ipet_customer" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/rose_200</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
-    <style name="Theme.Ipet_customer" parent="Base.Theme.Ipet_customer" />
+    <!-- Splash Screen -->
+    <style name="AppTheme.Ipet_customer.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_ipet</item>
+        <item name="postSplashScreenTheme">@style/AppTheme.Ipet_customer</item>
+
+    </style>
 </resources>
