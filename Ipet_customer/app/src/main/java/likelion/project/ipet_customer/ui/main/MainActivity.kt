@@ -1,30 +1,17 @@
-package likelion.project.ipet_customer.ui
+package likelion.project.ipet_customer.ui.main
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
-import android.view.View
-import android.view.ViewTreeObserver
-import androidx.annotation.RequiresApi
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.transition.MaterialSharedAxis
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.ActivityMainBinding
+import likelion.project.ipet_customer.ui.permission.PermissionFragment
 import likelion.project.ipet_customer.viewmodel.MainViewModel
-import java.time.Clock
-import java.time.Instant
-import java.time.temporal.ChronoUnit
-import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package likelion.project.ipet_customer.ui
+package likelion.project.ipet_customer.ui.permission
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
