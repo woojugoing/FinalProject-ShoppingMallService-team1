@@ -1,4 +1,4 @@
-package likelion.project.ipet_customer.viewmodel
+package likelion.project.ipet_customer.ui.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
