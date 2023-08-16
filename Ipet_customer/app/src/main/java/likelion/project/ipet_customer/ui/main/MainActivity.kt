@@ -11,7 +11,6 @@ import com.google.android.material.transition.MaterialSharedAxis
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.ActivityMainBinding
 import likelion.project.ipet_customer.ui.permission.PermissionFragment
-import likelion.project.ipet_customer.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
