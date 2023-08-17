@@ -18,19 +18,6 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         fragmentLoginBinding = FragmentLoginBinding.inflate(inflater)
-
-        fragmentLoginBinding.run{
-            // 제목
-            textViewLoginTitle1.run{
-                setTextColor(resources.getColor(R.color.brown_200))
-            }
-
-            // 부제목
-            textViewLoginTitle2.run{
-                setTextAppearance(R.style.Typography_Bold24)
-                setTextColor(resources.getColor(R.color.rose_200))
-            }
-        }
         return fragmentLoginBinding.root
     }
 }

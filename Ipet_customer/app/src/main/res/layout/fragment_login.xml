@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/yeongdo"
         android:text="@string/login_icon_title1"
+        android:textColor="@color/brown_200"
         android:textSize="96sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,6 +40,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="84dp"
         android:text="@string/login_icon_title2"
+        android:textAppearance="@style/Typography.Bold24"
+        android:textColor="@color/rose_200"
         app:layout_constraintBottom_toBottomOf="@+id/textViewLoginTitle1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
