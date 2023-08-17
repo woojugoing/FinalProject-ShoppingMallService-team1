@@ -13,4 +13,9 @@
         <item name="postSplashScreenTheme">@style/AppTheme.Ipet_customer</item>
 
     </style>
+
+    <style name="Theme.Ipet_customer.Toolbar" parent="ThemeOverlay.Material3.Toolbar.Surface">
+        <item name="colorPrimary">@color/material_dynamic_tertiary99</item>
+    </style>
+
 </resources>
