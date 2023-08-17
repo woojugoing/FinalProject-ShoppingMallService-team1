@@ -43,9 +43,7 @@ class OnboardFragment : Fragment() {
                     when (position) {
                         OnboardingPage.FOURTH_PAGE.position -> buttonOnboardingNext.text =
                             getString(R.string.start)
-
                         else -> buttonOnboardingNext.text = getString(R.string.next)
-
                     }
                 }
             })
@@ -57,7 +55,7 @@ class OnboardFragment : Fragment() {
             buttonOnboardingNext.setOnClickListener {
                 viewpagerOnboarding.run {
                     if (currentItem == END_PAGE) {
-
+                        mainActivity.replaceFragment(MainActivity.LOGIN_FRAGMENT, false, null)
                     } else {
                         currentItem += 1
                     }
