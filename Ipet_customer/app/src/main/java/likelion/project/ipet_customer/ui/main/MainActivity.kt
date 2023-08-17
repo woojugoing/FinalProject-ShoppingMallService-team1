@@ -19,6 +19,11 @@ import likelion.project.ipet_customer.ui.login.LoginFragment
 import likelion.project.ipet_customer.ui.permission.PermissionFragment
 import likelion.project.ipet_customer.ui.product.ProductListFragment
 import likelion.project.ipet_customer.ui.review.ReviewAllFragment
+import java.time.Clock
+import java.time.Instant
+import java.time.temporal.ChronoUnit
+import kotlin.concurrent.thread
+import likelion.project.ipet_customer.ui.product.ProductInfoFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -51,6 +56,8 @@ class MainActivity : AppCompatActivity() {
             checkPermission() || shouldShowPermissionRationale() -> replaceFragment(ONBOARDING_FRAGMENT, false, null)
             else -> replaceFragment(PERMISSION_FRAGMENT, false, null)
         }
+        // test
+        replaceFragment(PRODUCT_INFO_FRAGMENT, false, null)
     }
 
     private fun startSplash() {
@@ -77,6 +84,7 @@ class MainActivity : AppCompatActivity() {
             ONBOARDING_FRAGMENT -> OnboardFragment()
             PRODUCT_LIST_FRAGMENT -> ProductListFragment()
             LOGIN_FRAGMENT -> LoginFragment()
+            PRODUCT_INFO_FRAGMENT -> ProductInfoFragment()
             else -> Fragment()
         }
     }
@@ -139,5 +147,6 @@ class MainActivity : AppCompatActivity() {
         val PRODUCT_LIST_FRAGMENT = "ProductListFragment"
         const val PERMISSION_REQUEST_ACCESS = 100
         val LOGIN_FRAGMENT = "LoginFragment"
+        val PRODUCT_INFO_FRAGMENT = "ProductInfoFragment"
     }
 }
