@@ -8,152 +8,152 @@
 
     <TextView
         android:id="@+id/textView_permission_guide_title"
-        style="@style/Typography.Bold36"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/permission_guide_title"
+        android:textAppearance="@style/Typography.Bold36"
         app:layout_constraintStart_toStartOf="@id/guideLine_permission_start_boundary"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView_permission_guide_descript"
-        style="@style/Typography.Bold16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/permission_guide_descript"
+        android:textAppearance="@style/Typography.Bold16"
         app:layout_constraintStart_toStartOf="@id/guideLine_permission_start_boundary"
         app:layout_constraintTop_toBottomOf="@id/textView_permission_guide_title" />
 
     <TextView
         android:id="@+id/textView_permission_required_access"
-        style="@style/Typography.Bold20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="@string/required_access_permission"
+        android:textAppearance="@style/Typography.Bold20"
         android:textColor="@color/rose_100"
         app:layout_constraintStart_toStartOf="@id/guideLine_permission_start_boundary"
         app:layout_constraintTop_toBottomOf="@id/textView_permission_guide_descript" />
 
     <TextView
         android:id="@+id/textView_permission_optional_access"
-        style="@style/Typography.Bold20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:text="@string/optional_access_permission"
+        android:textAppearance="@style/Typography.Bold20"
         android:textColor="@color/rose_100"
         app:layout_constraintStart_toStartOf="@id/guideLine_permission_start_boundary"
         app:layout_constraintTop_toBottomOf="@+id/textView_permission_required_access" />
 
     <TextView
         android:id="@+id/textView_permission_bullet1"
-        style="@style/Typography.Medium15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/bullet"
+        android:textAppearance="@style/Typography.Medium15"
         app:layout_constraintStart_toStartOf="@id/guideLine_permission_start_boundary"
         app:layout_constraintTop_toBottomOf="@+id/textView_permission_optional_access" />
 
     <TextView
         android:id="@+id/textView_permission_photo_and_camera"
-        style="@style/Typography.Bold15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/photo_and_camera_permission"
+        android:textAppearance="@style/Typography.Bold15"
         app:layout_constraintStart_toStartOf="@id/guideLine_permission_bullet_boundary"
         app:layout_constraintTop_toBottomOf="@id/textView_permission_optional_access" />
 
     <TextView
         android:id="@+id/textView_permission_photo_and_camera_descript"
-        style="@style/Typography.Medium15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/photo_and_camera_permission_descript"
+        android:textAppearance="@style/Typography.Medium15"
         app:layout_constraintStart_toEndOf="@id/guideLine_permission_access_boundary"
         app:layout_constraintTop_toTopOf="@id/textView_permission_photo_and_camera" />
 
     <TextView
         android:id="@+id/textView_permission_call"
-        style="@style/Typography.Bold15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/call_permission"
+        android:textAppearance="@style/Typography.Bold15"
         app:layout_constraintStart_toStartOf="@id/guideLine_permission_bullet_boundary"
         app:layout_constraintTop_toBottomOf="@+id/textView_permission_photo_and_camera" />
 
     <TextView
         android:id="@+id/textView_permission_bullet2"
-        style="@style/Typography.Medium15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/bullet"
+        android:textAppearance="@style/Typography.Medium15"
         app:layout_constraintStart_toStartOf="@id/guideLine_permission_start_boundary"
         app:layout_constraintTop_toBottomOf="@+id/textView_permission_photo_and_camera" />
 
     <TextView
         android:id="@+id/textView_permission_call_descript"
-        style="@style/Typography.Medium15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/call_permission_descrip"
+        android:textAppearance="@style/Typography.Medium15"
         app:layout_constraintStart_toEndOf="@id/guideLine_permission_access_boundary"
         app:layout_constraintTop_toTopOf="@id/textView_permission_call" />
 
     <TextView
         android:id="@+id/textView_permission_bullet3"
-        style="@style/Typography.Medium15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="@string/bullet"
+        android:textAppearance="@style/Typography.Medium15"
         app:layout_constraintStart_toStartOf="@id/guideLine_permission_start_boundary"
         app:layout_constraintTop_toBottomOf="@+id/textView_permission_call_descript" />
 
     <TextView
         android:id="@+id/textView_permission_descript"
-        style="@style/Typography.Medium15"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="@string/permission_descript"
+        android:textAppearance="@style/Typography.Medium15"
         app:layout_constraintEnd_toEndOf="@id/guideLine_permission_end_boundary"
         app:layout_constraintStart_toStartOf="@+id/guideLine_permission_bullet_boundary"
         app:layout_constraintTop_toBottomOf="@id/textView_permission_call" />
 
     <TextView
         android:id="@+id/textView_permission_bullet4"
-        style="@style/Typography.Medium15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/bullet"
+        android:textAppearance="@style/Typography.Medium15"
         app:layout_constraintStart_toStartOf="@id/guideLine_permission_start_boundary"
         app:layout_constraintTop_toBottomOf="@+id/textView_permission_descript" />
 
     <TextView
-        style="@style/Typography.Medium15"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/permissio_setting"
+        android:textAppearance="@style/Typography.Medium15"
         app:layout_constraintEnd_toEndOf="@id/guideLine_permission_end_boundary"
         app:layout_constraintStart_toStartOf="@+id/guideLine_permission_bullet_boundary"
         app:layout_constraintTop_toBottomOf="@+id/textView_permission_descript" />
 
     <Button
         android:id="@+id/button_permission_confirm"
-        style="@style/Typography.Bold24"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_rect"
         android:text="@string/confirm"
+        android:textAppearance="@style/Typography.Bold24"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -186,6 +186,4 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="150dp" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
