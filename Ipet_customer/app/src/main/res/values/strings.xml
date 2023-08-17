@@ -2,4 +2,8 @@
     <string name="app_name">ipet_customer</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- 로그인 화면 -->
+    <string name="login_icon_title1">아이펫</string>
+    <string name="login_icon_title2">반려 동물 용품의 중심</string>
 </resources>

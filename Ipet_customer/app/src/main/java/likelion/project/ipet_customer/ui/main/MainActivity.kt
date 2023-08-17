@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.transition.MaterialSharedAxis
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.ActivityMainBinding
+import likelion.project.ipet_customer.ui.login.LoginFragment
 import likelion.project.ipet_customer.ui.permission.PermissionFragment
 
 class MainActivity : AppCompatActivity() {
@@ -28,7 +29,8 @@ class MainActivity : AppCompatActivity() {
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityMainBinding.root)
 
-        replaceFragment(PERMISSION_FRAGMENT, false, null)
+        // replaceFragment(PERMISSION_FRAGMENT, false, null)
+        replaceFragment(LOGIN_FRAGMENT, false, null)
     }
 
     private fun startSplash() {
@@ -51,6 +53,7 @@ class MainActivity : AppCompatActivity() {
     private fun getFragmentByName(name: String): Fragment? {
         return when (name) {
             PERMISSION_FRAGMENT -> PermissionFragment()
+            LOGIN_FRAGMENT -> LoginFragment()
             else -> Fragment()
         }
     }
@@ -93,5 +96,6 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         val PERMISSION_FRAGMENT = "PermissionFragment"
+        val LOGIN_FRAGMENT = "LoginFragment"
     }
 }
