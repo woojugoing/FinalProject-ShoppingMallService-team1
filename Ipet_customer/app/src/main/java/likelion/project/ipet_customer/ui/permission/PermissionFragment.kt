@@ -47,6 +47,7 @@ class PermissionFragment : Fragment() {
     private fun showPermissionRationDialog() {
         val builder = AlertDialog.Builder(mainActivity)
         builder.apply {
+            setCancelable(false)
             setMessage(PERMISSION_DIALOG_MESSAGE)
             setNegativeButton("취소") { dialog, _ ->
                 mainActivity.replaceFragment(MainActivity.ONBOARDING_FRAGMENT, false, null)
