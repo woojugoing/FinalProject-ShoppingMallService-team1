@@ -25,6 +25,7 @@ import java.time.Clock
 import java.time.Instant
 import java.time.temporal.ChronoUnit
 import kotlin.concurrent.thread
+import likelion.project.ipet_customer.ui.product.ProductInfoFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,7 +43,8 @@ class MainActivity : AppCompatActivity() {
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityMainBinding.root)
 
-        replaceFragment(PERMISSION_FRAGMENT, false, null)
+        // test
+        replaceFragment(PRODUCT_INFO_FRAGMENT, false, null)
     }
 
     private fun startSplash() {
@@ -65,6 +67,7 @@ class MainActivity : AppCompatActivity() {
     private fun getFragmentByName(name: String): Fragment? {
         return when (name) {
             PERMISSION_FRAGMENT -> PermissionFragment()
+            PRODUCT_INFO_FRAGMENT -> ProductInfoFragment()
             else -> Fragment()
         }
     }
@@ -107,5 +110,6 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         val PERMISSION_FRAGMENT = "PermissionFragment"
+        val PRODUCT_INFO_FRAGMENT = "ProductInfoFragment"
     }
 }
