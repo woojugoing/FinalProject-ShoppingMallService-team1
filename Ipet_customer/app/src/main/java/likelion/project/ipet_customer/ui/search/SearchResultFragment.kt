@@ -1,6 +1,6 @@
-package likelion.project.ipet_customer.ui.product
+package likelion.project.ipet_customer.ui.search
 
-import android.inputmethodservice.Keyboard.Row
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,28 +11,28 @@ import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import likelion.project.ipet_customer.R
-import likelion.project.ipet_customer.databinding.FragmentProductFoodBinding
+import likelion.project.ipet_customer.databinding.FragmentSearchResultBinding
 import likelion.project.ipet_customer.databinding.RowProductCardBinding
 import likelion.project.ipet_customer.ui.main.MainActivity
 
-class ProductFoodFragment : Fragment() {
+class SearchResultFragment : Fragment() {
 
-    lateinit var fragmentProductFoodBinding: FragmentProductFoodBinding
+    lateinit var fragmentSearchResultBinding: FragmentSearchResultBinding
     lateinit var mainActivity: MainActivity
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        fragmentProductFoodBinding = FragmentProductFoodBinding.inflate(inflater)
+        fragmentSearchResultBinding = FragmentSearchResultBinding.inflate(inflater)
         mainActivity = activity as MainActivity
-        fragmentProductFoodBinding.run {
-            recyclerProductList.run {
+        fragmentSearchResultBinding.run {
+            recyclerViewSearchResult.run {
                 adapter = Adapter()
                 layoutManager = GridLayoutManager(context, 2)
             }
         }
-        return fragmentProductFoodBinding.root
+        return fragmentSearchResultBinding.root
     }
 
     inner class Adapter: RecyclerView.Adapter<Adapter.Holder>() {
