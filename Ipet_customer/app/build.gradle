@@ -58,6 +58,10 @@ dependencies {
     // Skeleton
     implementation SkeletonDeps.SHIMMER
 
+    // DataStore
+    implementation DataStore.PREFERENCES
+    implementation DataStore.PREFERENCES_CORE
+
     // Test
     testImplementation TestDeps.JUNIT
     androidTestImplementation TestDeps.JUNIT_EXT

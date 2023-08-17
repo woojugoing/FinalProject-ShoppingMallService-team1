@@ -5,19 +5,25 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
-import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.transition.MaterialSharedAxis
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.ActivityMainBinding
+import likelion.project.ipet_customer.ui.login.LoginFragment
 import likelion.project.ipet_customer.ui.onboarding.OnboardFragment
 import likelion.project.ipet_customer.ui.permission.PermissionFragment
 import likelion.project.ipet_customer.ui.product.ProductListFragment
 import likelion.project.ipet_customer.ui.review.ReviewAllFragment
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,26 +38,39 @@ class MainActivity : AppCompatActivity() {
         Manifest.permission.CALL_PHONE,
     )
 
+    private var isFirstVisitor = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        viewModel = ViewModelProvider(this, MainViewModelFactory(this))[MainViewModel::class.java]
         startSplash()
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityMainBinding.root)
-
-        replaceFragment(PRODUCT_LIST_FRAGMENT, false, null)
-        //navigateToPermissionOrOnboarding()
+        observe()
+        navigateToPermissionOrOnboardingOrLogin()
     }
 
-    private fun navigateToPermissionOrOnboarding() {
-        when {
-            checkPermission() || shouldShowPermissionRationale() -> replaceFragment(ONBOARDING_FRAGMENT, false, null)
-            else -> replaceFragment(PERMISSION_FRAGMENT, false, null)
+    private fun observe() {
+        lifecycleScope.launch {
+            viewModel.isFistVisitor.collect {
+                isFirstVisitor = it
+            }
         }
     }
 
+    private fun navigateToPermissionOrOnboardingOrLogin() {
+        CoroutineScope(Dispatchers.Main).launch {
+            if ((checkPermission() || shouldShowPermissionRationale()) && isFirstVisitor) {
+                replaceFragment(ONBOARDING_FRAGMENT, false, null)
+            } else if (!isFirstVisitor) {
+                replaceFragment(LOGIN_FRAGMENT, false, null)
+            } else {
+                replaceFragment(PERMISSION_FRAGMENT, false, null)
+            }
+            delay(500)
+        }
+    }
     private fun startSplash() {
         installSplashScreen().apply {
             setKeepOnScreenCondition {
@@ -74,6 +93,7 @@ class MainActivity : AppCompatActivity() {
             REVIEWALL_FRAGMENT -> ReviewAllFragment()
             PERMISSION_FRAGMENT -> PermissionFragment()
             ONBOARDING_FRAGMENT -> OnboardFragment()
+            LOGIN_FRAGMENT -> LoginFragment()
             PRODUCT_LIST_FRAGMENT -> ProductListFragment()
             else -> Fragment()
         }
@@ -134,6 +154,7 @@ class MainActivity : AppCompatActivity() {
         val REVIEWALL_FRAGMENT = "ReviewAllFragment"
         val PERMISSION_FRAGMENT = "PermissionFragment"
         val ONBOARDING_FRAGMENT = "OnboardingFragment"
+        val LOGIN_FRAGMENT = "LoginFragment"
         val PRODUCT_LIST_FRAGMENT = "ProductListFragment"
         const val PERMISSION_REQUEST_ACCESS = 100
     }
