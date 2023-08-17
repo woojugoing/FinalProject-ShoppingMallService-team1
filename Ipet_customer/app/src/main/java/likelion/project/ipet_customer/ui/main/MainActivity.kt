@@ -16,6 +16,7 @@ import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.ActivityMainBinding
 import likelion.project.ipet_customer.ui.onboarding.OnboardFragment
 import likelion.project.ipet_customer.ui.permission.PermissionFragment
+import likelion.project.ipet_customer.ui.product.ProductListFragment
 import likelion.project.ipet_customer.ui.review.ReviewAllFragment
 
 class MainActivity : AppCompatActivity() {
@@ -40,7 +41,8 @@ class MainActivity : AppCompatActivity() {
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityMainBinding.root)
 
-        navigateToPermissionOrOnboarding()
+        replaceFragment(PRODUCT_LIST_FRAGMENT, false, null)
+        //navigateToPermissionOrOnboarding()
     }
 
     private fun navigateToPermissionOrOnboarding() {
@@ -72,6 +74,7 @@ class MainActivity : AppCompatActivity() {
             REVIEWALL_FRAGMENT -> ReviewAllFragment()
             PERMISSION_FRAGMENT -> PermissionFragment()
             ONBOARDING_FRAGMENT -> OnboardFragment()
+            PRODUCT_LIST_FRAGMENT -> ProductListFragment()
             else -> Fragment()
         }
     }
@@ -131,6 +134,7 @@ class MainActivity : AppCompatActivity() {
         val REVIEWALL_FRAGMENT = "ReviewAllFragment"
         val PERMISSION_FRAGMENT = "PermissionFragment"
         val ONBOARDING_FRAGMENT = "OnboardingFragment"
+        val PRODUCT_LIST_FRAGMENT = "ProductListFragment"
         const val PERMISSION_REQUEST_ACCESS = 100
     }
 }

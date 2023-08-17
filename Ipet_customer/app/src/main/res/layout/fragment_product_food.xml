@@ -20,42 +20,54 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="주니어" />
+                android:fontFamily="@font/pretendard_regular"
+                android:text="주니어"
+                android:textAlignment="center" />
 
             <Button
                 style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="어덜트" />
+                android:fontFamily="@font/pretendard_regular"
+                android:text="어덜트"
+                android:textAlignment="center" />
 
             <Button
                 style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="시니어" />
+                android:fontFamily="@font/pretendard_regular"
+                android:text="시니어"
+                android:textAlignment="center" />
 
             <Button
                 style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="다이어트" />
+                android:fontFamily="@font/pretendard_regular"
+                android:text="다이어트"
+                android:textAlignment="center" />
 
             <Button
                 style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="건식 사료" />
+                android:fontFamily="@font/pretendard_regular"
+                android:text="건식 사료"
+                android:textAlignment="center" />
 
             <Button
                 style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="습식 사료" />
+                android:fontFamily="@font/pretendard_regular"
+                android:text="습식 사료"
+                android:textAlignment="center" />
 
         </LinearLayout>
     </HorizontalScrollView>

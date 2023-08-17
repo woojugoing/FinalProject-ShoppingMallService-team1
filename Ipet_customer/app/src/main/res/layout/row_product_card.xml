@@ -41,14 +41,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="강아지 사료"
-                        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                        android:textAppearance="@style/Typography.Bold14"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/textView_card_cost"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="10,000원" />
+                        android:text="10,000원"
+                        android:textAppearance="@style/Typography.Regular12" />
 
                 </LinearLayout>
 
