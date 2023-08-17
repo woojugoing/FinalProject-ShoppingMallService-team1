@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
+import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
@@ -15,11 +16,8 @@ import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.ActivityMainBinding
 import likelion.project.ipet_customer.ui.onboarding.OnboardFragment
 import likelion.project.ipet_customer.ui.permission.PermissionFragment
-import likelion.project.ipet_customer.ui.product.ProductJointListFragment
 import likelion.project.ipet_customer.ui.product.ProductListFragment
 import likelion.project.ipet_customer.ui.review.ReviewAllFragment
-import likelion.project.ipet_customer.ui.search.SearchMainFragment
-import likelion.project.ipet_customer.ui.search.SearchResultFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,7 +40,9 @@ class MainActivity : AppCompatActivity() {
         startSplash()
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityMainBinding.root)
-        navigateToPermissionOrOnboarding()
+
+        replaceFragment(PRODUCT_LIST_FRAGMENT, false, null)
+        //navigateToPermissionOrOnboarding()
     }
 
     private fun navigateToPermissionOrOnboarding() {
@@ -75,9 +75,6 @@ class MainActivity : AppCompatActivity() {
             PERMISSION_FRAGMENT -> PermissionFragment()
             ONBOARDING_FRAGMENT -> OnboardFragment()
             PRODUCT_LIST_FRAGMENT -> ProductListFragment()
-            PRODUCT_JOINT_LIST_FRAGMENT -> ProductJointListFragment()
-            SEARCH_MAIN_FRAGMENT -> SearchMainFragment()
-            SEARCH_RESULT_FRAGMENT -> SearchResultFragment()
             else -> Fragment()
         }
     }
@@ -138,9 +135,6 @@ class MainActivity : AppCompatActivity() {
         val PERMISSION_FRAGMENT = "PermissionFragment"
         val ONBOARDING_FRAGMENT = "OnboardingFragment"
         val PRODUCT_LIST_FRAGMENT = "ProductListFragment"
-        val PRODUCT_JOINT_LIST_FRAGMENT = "ProductJointListFragment"
-        val SEARCH_MAIN_FRAGMENT = "SearchMainFragment"
-        val SEARCH_RESULT_FRAGMENT = "SearchResultFragment"
         const val PERMISSION_REQUEST_ACCESS = 100
     }
 }
