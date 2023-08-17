@@ -19,4 +19,16 @@
     <string name="confirm">확인</string>
     <string name="next">다음</string>
     <string name="start">시작하기</string>
+
+    <!-- reviewAll -->
+    <string name="reviewAll_goods_name">상품 이름</string>
+    <string name="reviewAll_newest">최신순</string>
+    <string name="reviewAll_rating">평점순</string>
+    <!-- 로그인 화면 -->
+    <string name="login_icon_title1">아이펫</string>
+    <string name="login_icon_title2">반려 동물 용품의 중심</string>
+    <string name="login_button_kakao">카카오 로그인</string>
+    <string name="login_button_naver">네이버 로그인</string>
+    <string name="login_button_google">구글 로그인</string>
+>>>>>>> develop
 </resources>
