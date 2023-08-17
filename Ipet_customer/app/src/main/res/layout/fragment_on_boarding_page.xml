@@ -8,18 +8,20 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieAnimationView_onboardingpage_first"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        app:layout_constraintEnd_toEndOf="@id/textView_onboardingpage_first_descript1"
-        app:layout_constraintBottom_toTopOf="@+id/textView_onboardingpage_first_descript1"
+        android:layout_width="96dp"
+        android:layout_height="68dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="@id/guideLine_oboarding_end_boundary"
+        app:layout_constraintTop_toTopOf="@id/textView_onboardingpage_first_descript1"
         app:lottie_loop="true" />
 
     <TextView
         android:id="@+id/textView_onboardingpage_first_descript1"
-        style="@style/Typography.Bold64"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="center"
+        android:fontFamily="@font/yeongdo"
+        android:textSize="96sp"
         android:textColor="@color/brown_200"
         app:layout_constraintBottom_toTopOf="@+id/textView_onboardingpage_third_descript1"
         app:layout_constraintEnd_toEndOf="@id/guideLine_oboarding_end_boundary"
@@ -33,7 +35,8 @@
         style="@style/Typography.Bold24"
         android:textColor="@color/rose_100"
         android:textAlignment="center"
-        app:layout_constraintTop_toBottomOf="@id/textView_onboardingpage_first_descript1"
+        android:layout_marginBottom="84dp"
+        app:layout_constraintBottom_toBottomOf="@id/textView_onboardingpage_first_descript1"
         app:layout_constraintStart_toStartOf="@id/guideLine_oboarding_start_boundary"
         app:layout_constraintEnd_toEndOf="@id/guideLine_oboarding_end_boundary"/>
 
