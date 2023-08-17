@@ -11,12 +11,12 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import likelion.project.ipet_customer.R
-import likelion.project.ipet_customer.databinding.FragmentOnboardBinding
+import likelion.project.ipet_customer.databinding.FragmentOnboardingBinding
 import likelion.project.ipet_customer.ui.main.MainActivity
 
 class OnboardFragment : Fragment() {
 
-    lateinit var fragmentOnboardBinding: FragmentOnboardBinding
+    lateinit var fragmentOnboardBinding: FragmentOnboardingBinding
     lateinit var mainActivity: MainActivity
     lateinit var viewModel: OnboardingViewModel
 
@@ -25,7 +25,7 @@ class OnboardFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         mainActivity = activity as MainActivity
-        fragmentOnboardBinding = FragmentOnboardBinding.inflate(inflater)
+        fragmentOnboardBinding = FragmentOnboardingBinding.inflate(inflater)
         viewModel = ViewModelProvider(this, OnboardingViewModelFactory(mainActivity))[OnboardingViewModel::class.java]
         initViewPager()
         initEvent()
