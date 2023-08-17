@@ -17,4 +17,6 @@
     <string name="permissio_setting">접근 권한은 휴대폰의 [설정] -> [애플리케이션] -> \n[아이펫] -> [권한]에서 바꿀 수 있습니다.</string>
 
     <string name="confirm">확인</string>
+    <string name="next">다음</string>
+    <string name="start">시작하기</string>
 </resources>
