@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.login.LoginFragment">
 
-
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieAnimationViewLogin"
         android:layout_width="96dp"
@@ -43,5 +42,52 @@
         app:layout_constraintBottom_toBottomOf="@+id/textViewLoginTitle1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonLoginKakao"
+        style="@style/Widget.Material3.Button.Icon"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#FEE500"
+        android:drawableLeft="@drawable/ic_kakao_logo"
+        android:text="@string/login_button_kakao"
+        android:textAppearance="@style/Typography.Bold24"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLoginTitle1" />
+
+    <Button
+        android:id="@+id/buttonLoginNaver"
+        style="@style/Widget.Material3.Button.Icon"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#02C75A"
+        android:drawableLeft="@drawable/ic_naver_logo"
+        android:text="@string/login_button_naver"
+        android:textAppearance="@style/Typography.Bold24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLoginKakao" />
+
+    <Button
+        android:id="@+id/buttonLoginGoogle"
+        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#FFFFFF"
+        android:drawableLeft="@drawable/ic_google_logo"
+        android:text="@string/login_button_google"
+        android:textAppearance="@style/Typography.Bold24"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLoginNaver" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,4 +6,7 @@
     <!-- 로그인 화면 -->
     <string name="login_icon_title1">아이펫</string>
     <string name="login_icon_title2">반려 동물 용품의 중심</string>
+    <string name="login_button_kakao">카카오 로그인</string>
+    <string name="login_button_naver">네이버 로그인</string>
+    <string name="login_button_google">구글 로그인</string>
 </resources>
