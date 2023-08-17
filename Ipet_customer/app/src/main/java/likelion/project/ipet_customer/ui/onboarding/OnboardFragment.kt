@@ -96,7 +96,7 @@ class OnboardFragment : Fragment() {
 
                 OnboardingPage.SECOND_PAGE.position -> {
                     OnBoardingPageFragment.newInstance(
-                        descripts = arrayOf("함께 사면 더 저렴", "공동구매로 할인 혜택을", " 받아보세요."),
+                        descripts = arrayOf("함께 사면 더 저렴", "공동구매로 할인 혜택을", "받아보세요."),
                         lottieResIds = intArrayOf(R.raw.raw_sale),
                         page = OnboardingPage.SECOND_PAGE.position
                     )
