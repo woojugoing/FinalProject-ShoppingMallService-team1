@@ -16,6 +16,7 @@ import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.ActivityMainBinding
 import likelion.project.ipet_customer.ui.onboarding.OnboardFragment
 import likelion.project.ipet_customer.ui.permission.PermissionFragment
+import likelion.project.ipet_customer.ui.review.ReviewAllFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -68,6 +69,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getFragmentByName(name: String): Fragment? {
         return when (name) {
+            REVIEWALL_FRAGMENT -> ReviewAllFragment()
             PERMISSION_FRAGMENT -> PermissionFragment()
             ONBOARDING_FRAGMENT -> OnboardFragment()
             else -> Fragment()
@@ -126,6 +128,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
+        val REVIEWALL_FRAGMENT = "ReviewAllFragment"
         val PERMISSION_FRAGMENT = "PermissionFragment"
         val ONBOARDING_FRAGMENT = "OnboardingFragment"
         const val PERMISSION_REQUEST_ACCESS = 100
