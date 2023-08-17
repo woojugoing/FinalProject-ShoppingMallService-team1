@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <HorizontalScrollView
@@ -87,7 +88,7 @@
             android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_productList_food"
+                android:id="@+id/recycler_productList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 

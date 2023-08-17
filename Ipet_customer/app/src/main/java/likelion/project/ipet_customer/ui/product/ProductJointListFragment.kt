@@ -1,6 +1,5 @@
 package likelion.project.ipet_customer.ui.product
 
-import android.inputmethodservice.Keyboard.Row
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,28 +10,33 @@ import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import likelion.project.ipet_customer.R
-import likelion.project.ipet_customer.databinding.FragmentProductFoodBinding
+import likelion.project.ipet_customer.databinding.FragmentProductJointListBinding
 import likelion.project.ipet_customer.databinding.RowProductCardBinding
 import likelion.project.ipet_customer.ui.main.MainActivity
 
-class ProductFoodFragment : Fragment() {
+class ProductJointListFragment : Fragment() {
 
-    lateinit var fragmentProductFoodBinding: FragmentProductFoodBinding
+    lateinit var fragmentProductJointListBinding: FragmentProductJointListBinding
     lateinit var mainActivity: MainActivity
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        fragmentProductFoodBinding = FragmentProductFoodBinding.inflate(inflater)
+        fragmentProductJointListBinding = FragmentProductJointListBinding.inflate(inflater)
         mainActivity = activity as MainActivity
-        fragmentProductFoodBinding.run {
-            recyclerProductList.run {
+
+        fragmentProductJointListBinding.run {
+            toolbarProductJointList.run {
+                title = "공동 구매 상품 리스트"
+                setNavigationIcon(R.drawable.ic_back_24dp)
+            }
+            recyclerProductJointList.run {
                 adapter = Adapter()
                 layoutManager = GridLayoutManager(context, 2)
             }
         }
-        return fragmentProductFoodBinding.root
+        return fragmentProductJointListBinding.root
     }
 
     inner class Adapter: RecyclerView.Adapter<Adapter.Holder>() {
@@ -69,4 +73,5 @@ class ProductFoodFragment : Fragment() {
             holder.textViewCardCost.text = "${position+1}0000원"
         }
     }
+
 }

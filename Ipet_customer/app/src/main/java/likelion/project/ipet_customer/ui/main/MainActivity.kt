@@ -15,7 +15,6 @@ import com.google.android.material.transition.MaterialSharedAxis
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.ActivityMainBinding
 import likelion.project.ipet_customer.ui.onboarding.OnboardFragment
-import likelion.project.ipet_customer.ui.login.LoginFragment
 import likelion.project.ipet_customer.ui.permission.PermissionFragment
 import likelion.project.ipet_customer.ui.product.ProductListFragment
 import likelion.project.ipet_customer.ui.review.ReviewAllFragment
@@ -76,7 +75,6 @@ class MainActivity : AppCompatActivity() {
             PERMISSION_FRAGMENT -> PermissionFragment()
             ONBOARDING_FRAGMENT -> OnboardFragment()
             PRODUCT_LIST_FRAGMENT -> ProductListFragment()
-            LOGIN_FRAGMENT -> LoginFragment()
             else -> Fragment()
         }
     }
@@ -138,6 +136,5 @@ class MainActivity : AppCompatActivity() {
         val ONBOARDING_FRAGMENT = "OnboardingFragment"
         val PRODUCT_LIST_FRAGMENT = "ProductListFragment"
         const val PERMISSION_REQUEST_ACCESS = 100
-        val LOGIN_FRAGMENT = "LoginFragment"
     }
 }
