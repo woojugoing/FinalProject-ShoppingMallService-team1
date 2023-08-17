@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
@@ -17,6 +18,7 @@ class OnboardFragment : Fragment() {
 
     lateinit var fragmentOnboardBinding: FragmentOnboardBinding
     lateinit var mainActivity: MainActivity
+    lateinit var viewModel: OnboardingViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,6 +26,7 @@ class OnboardFragment : Fragment() {
     ): View? {
         mainActivity = activity as MainActivity
         fragmentOnboardBinding = FragmentOnboardBinding.inflate(inflater)
+        viewModel = ViewModelProvider(this, OnboardingViewModelFactory(mainActivity))[OnboardingViewModel::class.java]
         initViewPager()
         initEvent()
         return fragmentOnboardBinding.root
@@ -55,6 +58,7 @@ class OnboardFragment : Fragment() {
             buttonOnboardingNext.setOnClickListener {
                 viewpagerOnboarding.run {
                     if (currentItem == END_PAGE) {
+                        viewModel.writeFirstVisitor()
                         mainActivity.replaceFragment(MainActivity.LOGIN_FRAGMENT, false, null)
                     } else {
                         currentItem += 1
