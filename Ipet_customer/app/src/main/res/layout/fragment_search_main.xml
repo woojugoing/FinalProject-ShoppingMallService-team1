@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    tools:context=".ui.search.SearchMainFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <view
+            android:id="@+id/searchBar_search"
+            class="com.google.android.material.search.SearchBar"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/background"
+            android:backgroundTint="@color/background"
+            app:navigationIcon="@drawable/ic_search_24dp"
+            app:navigationIconTint="@color/gray"
+            app:strokeColor="@color/gray"
+            app:strokeWidth="1dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/pretendard_bold"
+            android:text="최근 검색어"
+            android:textAppearance="@style/Typography.Bold14" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_bold"
+            android:text="베스트 상품"
+            android:textAppearance="@style/Typography.Bold14" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="1. "
+                android:textAppearance="@style/Typography.Regular12"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="2. "
+                android:textAppearance="@style/Typography.Regular12"
+                app:layout_constraintEnd_toEndOf="@+id/textView3"
+                app:layout_constraintStart_toStartOf="@+id/textView3"
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="3. "
+                android:textAppearance="@style/Typography.Regular12"
+                app:layout_constraintEnd_toEndOf="@+id/textView4"
+                app:layout_constraintStart_toStartOf="@+id/textView4"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="4. "
+                android:textAppearance="@style/Typography.Regular12"
+                app:layout_constraintEnd_toEndOf="@+id/textView5"
+                app:layout_constraintStart_toStartOf="@+id/textView5"
+                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="5. "
+                android:textAppearance="@style/Typography.Regular12"
+                app:layout_constraintEnd_toEndOf="@+id/textView6"
+                app:layout_constraintStart_toStartOf="@+id/textView6"
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+            <Button
+                android:id="@+id/button_searchMain_1"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:text="1위 상품"
+                app:layout_constraintBottom_toBottomOf="@+id/textView3"
+                app:layout_constraintStart_toEndOf="@+id/textView3"
+                app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+            <Button
+                android:id="@+id/button_searchMain_2"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:text="2위 상품"
+                app:layout_constraintBottom_toBottomOf="@+id/textView4"
+                app:layout_constraintStart_toEndOf="@+id/textView4"
+                app:layout_constraintTop_toTopOf="@+id/textView4" />
+
+            <Button
+                android:id="@+id/button_searchMain_3"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:text="3위 상품"
+                app:layout_constraintBottom_toBottomOf="@+id/textView5"
+                app:layout_constraintStart_toEndOf="@+id/textView5"
+                app:layout_constraintTop_toTopOf="@+id/textView5" />
+
+            <Button
+                android:id="@+id/button_searchMain_4"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:text="4위 상품"
+                app:layout_constraintBottom_toBottomOf="@+id/textView6"
+                app:layout_constraintStart_toEndOf="@+id/textView6"
+                app:layout_constraintTop_toTopOf="@+id/textView6" />
+
+            <Button
+                android:id="@+id/button_searchMain_5"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:text="5위 상품"
+                app:layout_constraintBottom_toBottomOf="@+id/textView7"
+                app:layout_constraintStart_toEndOf="@+id/textView7"
+                app:layout_constraintTop_toTopOf="@+id/textView7" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</LinearLayout>
