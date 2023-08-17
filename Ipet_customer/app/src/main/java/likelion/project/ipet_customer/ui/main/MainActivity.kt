@@ -1,8 +1,12 @@
 package likelion.project.ipet_customer.ui.main
 
+import android.Manifest
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
+import android.util.Log
+import androidx.core.app.ActivityCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -10,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.transition.MaterialSharedAxis
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.ActivityMainBinding
+import likelion.project.ipet_customer.ui.onboarding.OnboardFragment
 import likelion.project.ipet_customer.ui.permission.PermissionFragment
 
 class MainActivity : AppCompatActivity() {
@@ -20,6 +25,12 @@ class MainActivity : AppCompatActivity() {
     var newFragment: Fragment? = null
     var oldFragment: Fragment? = null
 
+    val permissionList = arrayOf(
+        Manifest.permission.CAMERA,
+        Manifest.permission.CALL_PHONE,
+    )
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -28,7 +39,14 @@ class MainActivity : AppCompatActivity() {
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityMainBinding.root)
 
-        replaceFragment(PERMISSION_FRAGMENT, false, null)
+        navigateToPermissionOrOnboarding()
+    }
+
+    private fun navigateToPermissionOrOnboarding() {
+        when {
+            checkPermission() || shouldShowPermissionRationale() -> replaceFragment(ONBOARDING_FRAGMENT, false, null)
+            else -> replaceFragment(PERMISSION_FRAGMENT, false, null)
+        }
     }
 
     private fun startSplash() {
@@ -51,6 +69,7 @@ class MainActivity : AppCompatActivity() {
     private fun getFragmentByName(name: String): Fragment? {
         return when (name) {
             PERMISSION_FRAGMENT -> PermissionFragment()
+            ONBOARDING_FRAGMENT -> OnboardFragment()
             else -> Fragment()
         }
     }
@@ -87,11 +106,28 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun shouldShowPermissionRationale(): Boolean {
+        return permissionList.any { permission ->
+            shouldShowRequestPermissionRationale(permission)
+        }
+    }
+
+    fun checkPermission(): Boolean {
+        return permissionList.all { permission ->
+            ActivityCompat.checkSelfPermission(
+                this,
+                permission
+            ) == PackageManager.PERMISSION_GRANTED
+        }
+    }
+
     fun removeFragment(name: String) {
         supportFragmentManager.popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE)
     }
 
     companion object {
         val PERMISSION_FRAGMENT = "PermissionFragment"
+        val ONBOARDING_FRAGMENT = "OnboardingFragment"
+        const val PERMISSION_REQUEST_ACCESS = 100
     }
 }

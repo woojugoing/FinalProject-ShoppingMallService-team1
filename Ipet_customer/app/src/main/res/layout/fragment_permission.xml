@@ -1,9 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.permission.PermissionFragment">
+
+    <TextView
+        android:id="@+id/textView_permission_guide_title"
+        style="@style/Typography.Bold36"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/permission_guide_title"
+        app:layout_constraintStart_toStartOf="@id/guideLine_permission_start_boundary"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_permission_guide_descript"
+        style="@style/Typography.Bold16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/permission_guide_descript"
+        app:layout_constraintStart_toStartOf="@id/guideLine_permission_start_boundary"
+        app:layout_constraintTop_toBottomOf="@id/textView_permission_guide_title" />
+
+    <TextView
+        android:id="@+id/textView_permission_required_access"
+        style="@style/Typography.Bold20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/required_access_permission"
+        android:textColor="@color/rose_100"
+        app:layout_constraintStart_toStartOf="@id/guideLine_permission_start_boundary"
+        app:layout_constraintTop_toBottomOf="@id/textView_permission_guide_descript" />
+
+    <TextView
+        android:id="@+id/textView_permission_optional_access"
+        style="@style/Typography.Bold20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/optional_access_permission"
+        android:textColor="@color/rose_100"
+        app:layout_constraintStart_toStartOf="@id/guideLine_permission_start_boundary"
+        app:layout_constraintTop_toBottomOf="@+id/textView_permission_required_access" />
+
+    <TextView
+        android:id="@+id/textView_permission_bullet1"
+        style="@style/Typography.Medium15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/bullet"
+        app:layout_constraintStart_toStartOf="@id/guideLine_permission_start_boundary"
+        app:layout_constraintTop_toBottomOf="@+id/textView_permission_optional_access" />
+
+    <TextView
+        android:id="@+id/textView_permission_photo_and_camera"
+        style="@style/Typography.Bold15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/photo_and_camera_permission"
+        app:layout_constraintStart_toStartOf="@id/guideLine_permission_bullet_boundary"
+        app:layout_constraintTop_toBottomOf="@id/textView_permission_optional_access" />
+
+    <TextView
+        android:id="@+id/textView_permission_photo_and_camera_descript"
+        style="@style/Typography.Medium15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/photo_and_camera_permission_descript"
+        app:layout_constraintStart_toEndOf="@id/guideLine_permission_access_boundary"
+        app:layout_constraintTop_toTopOf="@id/textView_permission_photo_and_camera" />
+
+    <TextView
+        android:id="@+id/textView_permission_call"
+        style="@style/Typography.Bold15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/call_permission"
+        app:layout_constraintStart_toStartOf="@id/guideLine_permission_bullet_boundary"
+        app:layout_constraintTop_toBottomOf="@+id/textView_permission_photo_and_camera" />
+
+    <TextView
+        android:id="@+id/textView_permission_bullet2"
+        style="@style/Typography.Medium15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/bullet"
+        app:layout_constraintStart_toStartOf="@id/guideLine_permission_start_boundary"
+        app:layout_constraintTop_toBottomOf="@+id/textView_permission_photo_and_camera" />
+
+    <TextView
+        android:id="@+id/textView_permission_call_descript"
+        style="@style/Typography.Medium15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/call_permission_descrip"
+        app:layout_constraintStart_toEndOf="@id/guideLine_permission_access_boundary"
+        app:layout_constraintTop_toTopOf="@id/textView_permission_call" />
+
+    <TextView
+        android:id="@+id/textView_permission_bullet3"
+        style="@style/Typography.Medium15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/bullet"
+        app:layout_constraintStart_toStartOf="@id/guideLine_permission_start_boundary"
+        app:layout_constraintTop_toBottomOf="@+id/textView_permission_call_descript" />
+
+    <TextView
+        android:id="@+id/textView_permission_descript"
+        style="@style/Typography.Medium15"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/permission_descript"
+        app:layout_constraintEnd_toEndOf="@id/guideLine_permission_end_boundary"
+        app:layout_constraintStart_toStartOf="@+id/guideLine_permission_bullet_boundary"
+        app:layout_constraintTop_toBottomOf="@id/textView_permission_call" />
+
+    <TextView
+        android:id="@+id/textView_permission_bullet4"
+        style="@style/Typography.Medium15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/bullet"
+        app:layout_constraintStart_toStartOf="@id/guideLine_permission_start_boundary"
+        app:layout_constraintTop_toBottomOf="@+id/textView_permission_descript" />
+
+    <TextView
+        style="@style/Typography.Medium15"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/permissio_setting"
+        app:layout_constraintEnd_toEndOf="@id/guideLine_permission_end_boundary"
+        app:layout_constraintStart_toStartOf="@+id/guideLine_permission_bullet_boundary"
+        app:layout_constraintTop_toBottomOf="@+id/textView_permission_descript" />
+
+    <Button
+        android:id="@+id/button_permission_confirm"
+        style="@style/Typography.Bold24"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_rect"
+        android:text="@string/confirm"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLine_permission_bullet_boundary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="35dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLine_permission_start_boundary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLine_permission_end_boundary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLine_permission_access_boundary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="150dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

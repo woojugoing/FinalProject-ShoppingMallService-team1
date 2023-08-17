@@ -2,4 +2,19 @@
     <string name="app_name">ipet_customer</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--    permission-->
+    <string name="permission_guide_title">접근 권한 설정 안내</string>
+    <string name="permission_guide_descript">아이펫 서비스를 제공하는 데 필요한 권한입니다. \n앱을 사용하기 위해서는 \n다음과 같은 권한 설정이 필요합니다.</string>
+    <string name="required_access_permission">필수 접근 권한</string>
+    <string name="optional_access_permission">선택 접근 권한</string>
+    <string name="bullet">•  </string>
+    <string name="photo_and_camera_permission">사진앨범/카메라</string>
+    <string name="photo_and_camera_permission_descript">후기 작성 시 사진 첨부 및 촬영</string>
+    <string name="call_permission">전화</string>
+    <string name="call_permission_descrip">고객 상담</string>
+    <string name="permission_descript">앱을 편리하게 사용하고 싶다면 선택적인 접근 권한을 \n허용해주세요. \n필수 접근 권한 허용해도 기본 서비스를 이용할 수 있습니다.</string>
+    <string name="permissio_setting">접근 권한은 휴대폰의 [설정] -> [애플리케이션] -> \n[아이펫] -> [권한]에서 바꿀 수 있습니다.</string>
+
+    <string name="confirm">확인</string>
 </resources>
