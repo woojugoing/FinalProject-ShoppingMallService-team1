@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/imageView_orderStatus_thumbNail"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:srcCompat="@drawable/img_dogfood" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView_orderStatus_brand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="아이펫"
+                android:textAppearance="@style/Typography.Regular10" />
+
+            <TextView
+                android:id="@+id/textView_orderStatus_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="강아지 사료"
+                android:textAppearance="@style/Typography.Bold14" />
+
+            <TextView
+                android:id="@+id/textView_orderStatus_cost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="10,000원"
+                android:textAppearance="@style/Typography.Medium12" />
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp">
+
+            <TextView
+                android:id="@+id/textView_orderStatus_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="결제 완료"
+                android:textAppearance="@style/Typography.Medium14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/button_orderStatus_cancel"
+                style="@style/Typography.Regular10"
+                android:layout_width="100dp"
+                android:layout_height="32dp"
+                android:text="교환/반품"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toTopOf="@+id/button_orderStatus_review"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <Button
+                android:id="@+id/button_orderStatus_review"
+                style="@style/Typography.Regular10"
+                android:layout_width="100dp"
+                android:layout_height="32dp"
+                android:text="리뷰 작성"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

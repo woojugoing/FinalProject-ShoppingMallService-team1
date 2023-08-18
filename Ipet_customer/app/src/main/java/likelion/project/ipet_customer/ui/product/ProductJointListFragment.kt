@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.FragmentProductJointListBinding
-import likelion.project.ipet_customer.databinding.RowProductCardBinding
+import likelion.project.ipet_customer.databinding.ItemProductCardBinding
 import likelion.project.ipet_customer.ui.main.MainActivity
 
 class ProductJointListFragment : Fragment() {
@@ -40,7 +40,7 @@ class ProductJointListFragment : Fragment() {
     }
 
     inner class Adapter: RecyclerView.Adapter<Adapter.Holder>() {
-        inner class Holder(rowBinding: RowProductCardBinding): RecyclerView.ViewHolder(rowBinding.root) {
+        inner class Holder(rowBinding: ItemProductCardBinding): RecyclerView.ViewHolder(rowBinding.root) {
             val imageViewCardThumbnail: ImageView
             val textViewCardTitle: TextView
             val textViewCardCost: TextView
@@ -53,7 +53,7 @@ class ProductJointListFragment : Fragment() {
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-            val rowBinding = RowProductCardBinding.inflate(layoutInflater)
+            val rowBinding = ItemProductCardBinding.inflate(layoutInflater)
             val holder = Holder(rowBinding)
 
             rowBinding.root.layoutParams = ViewGroup.LayoutParams(
