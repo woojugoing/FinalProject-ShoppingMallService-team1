@@ -23,6 +23,7 @@ import likelion.project.ipet_customer.ui.onboarding.OnboardFragment
 import likelion.project.ipet_customer.ui.permission.PermissionFragment
 import likelion.project.ipet_customer.ui.product.ProductListFragment
 import likelion.project.ipet_customer.ui.review.ReviewAllFragment
+import likelion.project.ipet_customer.ui.shoppingbasket.ShoppingBasketFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -90,6 +91,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getFragmentByName(name: String): Fragment? {
         return when (name) {
+            SHOPPING_BASKET_FRAGMENT -> ShoppingBasketFragment()
             REVIEWALL_FRAGMENT -> ReviewAllFragment()
             PERMISSION_FRAGMENT -> PermissionFragment()
             ONBOARDING_FRAGMENT -> OnboardFragment()
@@ -151,6 +153,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
+        val SHOPPING_BASKET_FRAGMENT = "ShoppingBasketFragment"
         val REVIEWALL_FRAGMENT = "ReviewAllFragment"
         val PERMISSION_FRAGMENT = "PermissionFragment"
         val ONBOARDING_FRAGMENT = "OnboardingFragment"
