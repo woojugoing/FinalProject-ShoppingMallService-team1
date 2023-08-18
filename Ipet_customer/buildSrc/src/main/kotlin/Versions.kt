@@ -14,6 +14,7 @@ object Versions {
     const val ESPRESSO_VERSION = "3.5.1"
     const val VIEWMODEL_VERSION = "2.6.1"
     const val DATASTORE_VERSION = "1.0.0"
+    const val KAKAO_VERSION = "2.15.0"
 }
 
 object AndroidXDeps {
@@ -52,5 +53,9 @@ object TestDeps {
 object DataStore {
     const val PREFERENCES = "androidx.datastore:datastore-preferences:${Versions.DATASTORE_VERSION}"
     const val PREFERENCES_CORE =  "androidx.datastore:datastore-preferences-core:${Versions.DATASTORE_VERSION}"
+}
+
+object KakaoDeps {
+    const val KAKAO = "com.kakao.sdk:v2-all:${Versions.KAKAO_VERSION}" // 전체 모듈 설치, 2.11.0 버전부터 지원
 }
 
