@@ -50,6 +50,17 @@
                     android:scheme="kakao5df3b9c98bc3e67c567b6fc7de06e997" />
             </intent-filter>
         </activity>
+
+        <!-- 촬영된 사진을 저장하는 프로바이더 -->
+        <provider
+            android:authorities="com.test.getpicture.file_provider"
+            android:name="androidx.core.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_path"/>
+        </provider>
     </application>
 
 </manifest>
