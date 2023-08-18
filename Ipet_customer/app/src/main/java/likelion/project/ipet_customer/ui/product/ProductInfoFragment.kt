@@ -56,8 +56,8 @@ class ProductInfoFragment : Fragment() {
                 adapter = ProductInfoFragmentStateAdapter(mainActivity)
             }
 
-            // 상세 이미지
-            imageviewProductinfoDetail.run {
+            // 상세 이미지1
+            imageviewProductinfoDetail1.run {
                 setImageResource(R.drawable.img_dog_food_detail)
             }
 
