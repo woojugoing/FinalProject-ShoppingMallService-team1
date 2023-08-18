@@ -18,8 +18,6 @@ class ReviewWriteFragment : Fragment() {
     ): View? {
         fragmentReviewWriteBinding = FragmentReviewWriteBinding.inflate(layoutInflater)
 
-
-
         return fragmentReviewWriteBinding.root
     }
 }
