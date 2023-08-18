@@ -15,6 +15,7 @@ object Versions {
     const val VIEWMODEL_VERSION = "2.6.1"
     const val DATASTORE_VERSION = "1.0.0"
     const val KAKAO_VERSION = "2.15.0"
+    const val NAVER_VERSION = "5.7.0"
 }
 
 object AndroidXDeps {
@@ -57,5 +58,9 @@ object DataStore {
 
 object KakaoDeps {
     const val KAKAO = "com.kakao.sdk:v2-all:${Versions.KAKAO_VERSION}" // 전체 모듈 설치, 2.11.0 버전부터 지원
+}
+
+object NaverDeps {
+    const val NAVER = "com.navercorp.nid:oauth-jdk8:${Versions.NAVER_VERSION}"
 }
 

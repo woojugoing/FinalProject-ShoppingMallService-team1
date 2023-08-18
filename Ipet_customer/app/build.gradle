@@ -69,4 +69,7 @@ dependencies {
 
     // Kakao
     implementation KakaoDeps.KAKAO
+
+    // Naver
+    implementation NaverDeps.NAVER
 }
