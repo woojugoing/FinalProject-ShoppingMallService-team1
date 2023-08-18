@@ -97,10 +97,11 @@ class PermissionFragment : Fragment() {
     }
 
     companion object {
-        private val PERMISSION_DIALOG_MESSAGE = """선택 접근 권한을 거부하였습니다.
-            해당 기능을 사용하기 위해서는
-            권한 허용이 필요합니다.
-            기능 사용을 원하신다면 설정 > 애플리케이션
-            > 아이펫 에서 권한 설정을 해주세요""".trimMargin()
+        private val PERMISSION_DIALOG_MESSAGE =
+            """선택 접근 권한을 거부하였습니다.
+            |해당 기능을 사용하기 위해서는
+            |권한 허용이 필요합니다.
+            |기능 사용을 원하신다면 설정 > 애플리케이션
+            |> 아이펫 에서 권한 설정을 해주세요""".trimMargin()
     }
 }

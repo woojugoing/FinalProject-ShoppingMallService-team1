@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import likelion.project.ipet_customer.databinding.FragmentOnBoardingPageBinding
+import likelion.project.ipet_customer.databinding.FragmentOnboardingPageBinding
 
 const val ARG_PARM1 = "param1"
 const val ARG_PARM2 = "param2"
@@ -13,7 +13,7 @@ const val ARG_PARM3 = "param3"
 
 class OnBoardingPageFragment : Fragment() {
 
-    lateinit var onBoardingPageBinding: FragmentOnBoardingPageBinding
+    lateinit var onboardingPageBinding: FragmentOnboardingPageBinding
     private var descripts: Array<String>? = null
     private var lottieResIds: IntArray? = null
     private var page: Int? = null
@@ -22,18 +22,18 @@ class OnBoardingPageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        onBoardingPageBinding = FragmentOnBoardingPageBinding.inflate(inflater)
+        onboardingPageBinding = FragmentOnboardingPageBinding.inflate(inflater)
         arguments?.let {
             descripts = it.getStringArray(ARG_PARM1)
             lottieResIds = it.getIntArray(ARG_PARM2)
             page = it.getInt(ARG_PARM3)
         }
         setOnboarding()
-        return onBoardingPageBinding.root
+        return onboardingPageBinding.root
     }
 
     private fun setOnboarding() {
-        onBoardingPageBinding.run {
+        onboardingPageBinding.run {
             when (page) {
                 OnboardingPage.FIRST_PAGE.position -> showFirstPage()
                 OnboardingPage.SECOND_PAGE.position -> showSecondPage()
@@ -44,7 +44,7 @@ class OnBoardingPageFragment : Fragment() {
     }
 
     private fun showFirstPage() {
-        onBoardingPageBinding.run {
+        onboardingPageBinding.run {
             lottieAnimationViewOnboardingpageFirst.apply {
                 lottieResIds?.let {
                     setAnimation(it[0])
@@ -59,7 +59,7 @@ class OnBoardingPageFragment : Fragment() {
     }
 
     private fun showSecondPage() {
-        onBoardingPageBinding.run {
+        onboardingPageBinding.run {
             lottieAnimationViewOnboardingpageSecond.apply {
                 lottieResIds?.let {
                     setAnimation(it[0])
@@ -75,7 +75,7 @@ class OnBoardingPageFragment : Fragment() {
     }
 
     private fun showThirdPage() {
-        onBoardingPageBinding.run {
+        onboardingPageBinding.run {
             lottieAnimationViewOnboardingpageThirdCat.apply {
                 lottieResIds?.let {
                     setAnimation(it[0])
@@ -98,7 +98,7 @@ class OnBoardingPageFragment : Fragment() {
     }
 
     private fun showFourthPage() {
-        onBoardingPageBinding.run {
+        onboardingPageBinding.run {
             lottieAnimationViewOnboardingpageFourth.apply {
                 lottieResIds?.let {
                     setAnimation(it[0])
