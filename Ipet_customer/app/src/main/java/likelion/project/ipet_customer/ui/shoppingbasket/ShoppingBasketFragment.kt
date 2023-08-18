@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.FragmentShoppingBasketBinding
-import likelion.project.ipet_customer.databinding.RowShoppingBasketGroupBuyingBinding
-import likelion.project.ipet_customer.databinding.RowShoppingBasketProductBinding
+import likelion.project.ipet_customer.databinding.ItemShoppingBasketGroupBuyingBinding
+import likelion.project.ipet_customer.databinding.ItemShoppingBasketProductBinding
 import likelion.project.ipet_customer.ui.main.MainActivity
 
 class ShoppingBasketFragment : Fragment() {
@@ -61,7 +61,7 @@ class ShoppingBasketFragment : Fragment() {
 
     inner class ShoppingBasketAdapter : RecyclerView.Adapter<ShoppingBasketAdapter.ShoppingBasketHolder>() {
 
-        inner class ShoppingBasketHolder(rowShoppingBasketProductBinding: RowShoppingBasketProductBinding) : RecyclerView.ViewHolder(rowShoppingBasketProductBinding.root) {
+        inner class ShoppingBasketHolder(itemShoppingBasketProductBinding: ItemShoppingBasketProductBinding) : RecyclerView.ViewHolder(itemShoppingBasketProductBinding.root) {
 
             val checkBoxProdut : CheckBox
             val imageViewProduct : ImageView
@@ -70,20 +70,20 @@ class ShoppingBasketFragment : Fragment() {
             val textViewProductPrice : TextView
 
             init {
-                checkBoxProdut = rowShoppingBasketProductBinding.checkBoxProdut
-                imageViewProduct = rowShoppingBasketProductBinding.imageViewProduct
-                textViewProductName = rowShoppingBasketProductBinding.textViewProductName
-                textViewProductCount = rowShoppingBasketProductBinding.textViewProductCount
-                textViewProductPrice = rowShoppingBasketProductBinding.textViewProductPrice
+                checkBoxProdut = itemShoppingBasketProductBinding.checkBoxProdut
+                imageViewProduct = itemShoppingBasketProductBinding.imageViewProduct
+                textViewProductName = itemShoppingBasketProductBinding.textViewProductName
+                textViewProductCount = itemShoppingBasketProductBinding.textViewProductCount
+                textViewProductPrice = itemShoppingBasketProductBinding.textViewProductPrice
             }
 
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShoppingBasketHolder {
-            val rowShoppingBasketProductBinding = RowShoppingBasketProductBinding.inflate(layoutInflater)
-            val shoppingBasketHolder = ShoppingBasketHolder(rowShoppingBasketProductBinding)
+            val itemShoppingBasketProductBinding = ItemShoppingBasketProductBinding.inflate(layoutInflater)
+            val shoppingBasketHolder = ShoppingBasketHolder(itemShoppingBasketProductBinding)
 
-            rowShoppingBasketProductBinding.root.layoutParams = ViewGroup.LayoutParams(
+            itemShoppingBasketProductBinding.root.layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
@@ -103,7 +103,7 @@ class ShoppingBasketFragment : Fragment() {
 
     inner class ShoppingBasketGroupBuyingAdapter : RecyclerView.Adapter<ShoppingBasketGroupBuyingAdapter.ShoppingBasketGroupBuyingHolder>() {
 
-        inner class ShoppingBasketGroupBuyingHolder(rowShoppingBasketGroupBuyingBinding: RowShoppingBasketGroupBuyingBinding) : RecyclerView.ViewHolder(rowShoppingBasketGroupBuyingBinding.root) {
+        inner class ShoppingBasketGroupBuyingHolder(itemShoppingBasketGroupBuyingBinding: ItemShoppingBasketGroupBuyingBinding) : RecyclerView.ViewHolder(itemShoppingBasketGroupBuyingBinding.root) {
 
             val checkBoxGroupBuying : CheckBox
             val imageViewGroupBuying : ImageView
@@ -113,22 +113,22 @@ class ShoppingBasketFragment : Fragment() {
             val textViewGroupBuyingPrice : TextView
 
             init {
-                checkBoxGroupBuying = rowShoppingBasketGroupBuyingBinding.checkBoxGroupBuying
-                imageViewGroupBuying = rowShoppingBasketGroupBuyingBinding.imageViewGroupBuying
-                textViewGroupBuyingName = rowShoppingBasketGroupBuyingBinding.textViewGroupBuyingName
-                textViewGroupBuyingCount = rowShoppingBasketGroupBuyingBinding.textViewGroupBuyingCount
-                textViewGroupBuyingPeriod = rowShoppingBasketGroupBuyingBinding.textViewGroupBuyingPeriod
-                textViewGroupBuyingPrice = rowShoppingBasketGroupBuyingBinding.textViewGroupBuyingPrice
+                checkBoxGroupBuying = itemShoppingBasketGroupBuyingBinding.checkBoxGroupBuying
+                imageViewGroupBuying = itemShoppingBasketGroupBuyingBinding.imageViewGroupBuying
+                textViewGroupBuyingName = itemShoppingBasketGroupBuyingBinding.textViewGroupBuyingName
+                textViewGroupBuyingCount = itemShoppingBasketGroupBuyingBinding.textViewGroupBuyingCount
+                textViewGroupBuyingPeriod = itemShoppingBasketGroupBuyingBinding.textViewGroupBuyingPeriod
+                textViewGroupBuyingPrice = itemShoppingBasketGroupBuyingBinding.textViewGroupBuyingPrice
 
             }
 
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShoppingBasketGroupBuyingHolder {
-            val rowShoppingBasketGroupBuyingBinding = RowShoppingBasketGroupBuyingBinding.inflate(layoutInflater)
-            val shoppingBasketGroupBuyingHolder = ShoppingBasketGroupBuyingHolder(rowShoppingBasketGroupBuyingBinding)
+            val itemShoppingBasketGroupBuyingBinding = ItemShoppingBasketGroupBuyingBinding.inflate(layoutInflater)
+            val shoppingBasketGroupBuyingHolder = ShoppingBasketGroupBuyingHolder(itemShoppingBasketGroupBuyingBinding)
 
-            rowShoppingBasketGroupBuyingBinding.root.layoutParams = ViewGroup.LayoutParams(
+            itemShoppingBasketGroupBuyingBinding.root.layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
