@@ -52,13 +52,15 @@
 
     <TextView
         android:id="@+id/textView_onboardingpage_second_descript1"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:textAlignment="center"
         android:textAppearance="@style/Typography.Bold24"
         android:textColor="@color/rose_100"
         app:layout_constraintTop_toBottomOf="@id/lottieAnimationView_onboardingpage_second"
-        app:layout_constraintStart_toStartOf="@id/guideLine_oboarding_start_boundary"/>
+        app:layout_constraintStart_toStartOf="@id/guideLine_oboarding_start_boundary"
+        app:layout_constraintEnd_toEndOf="@id/guideLine_oboarding_end_boundary"/>
 
     <TextView
         android:id="@+id/textView_onboardingpage_second_descript2"
@@ -66,6 +68,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/Typography.Bold32"
         android:textColor="@color/brown_200"
+        android:textSize="28sp"
+        android:textAlignment="center"
         app:layout_constraintTop_toBottomOf="@id/textView_onboardingpage_second_descript1"
         app:layout_constraintStart_toStartOf="@id/guideLine_oboarding_start_boundary"
         app:layout_constraintEnd_toEndOf="@id/guideLine_oboarding_end_boundary"/>
@@ -76,6 +80,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/Typography.Bold32"
         android:textColor="@color/brown_200"
+        android:textAlignment="center"
         app:layout_constraintTop_toBottomOf="@id/textView_onboardingpage_second_descript2"
         app:layout_constraintStart_toStartOf="@id/guideLine_oboarding_start_boundary"
         app:layout_constraintEnd_toEndOf="@id/guideLine_oboarding_end_boundary"/>
