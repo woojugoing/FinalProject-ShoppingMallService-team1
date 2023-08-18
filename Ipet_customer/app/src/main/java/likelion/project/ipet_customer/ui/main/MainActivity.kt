@@ -19,6 +19,7 @@ import kotlinx.coroutines.launch
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.ActivityMainBinding
 import likelion.project.ipet_customer.ui.heart.HeartFragment
+import likelion.project.ipet_customer.order.OrderStatusFragment
 import likelion.project.ipet_customer.ui.login.LoginFragment
 import likelion.project.ipet_customer.ui.onboarding.OnboardFragment
 import likelion.project.ipet_customer.ui.permission.PermissionFragment
@@ -97,6 +98,7 @@ class MainActivity : AppCompatActivity() {
             PRODUCT_INFO_FRAGMENT -> ProductInfoFragment()
             USER_INFO_MAIN_FRAGMENT -> UserInfoMainFragment()
             HEART_FRAGMENT -> HeartFragment()
+            ORDER_STATUS_FRAGMENT -> OrderStatusFragment()
             else -> Fragment()
         }
     }
@@ -163,6 +165,7 @@ class MainActivity : AppCompatActivity() {
         val PRODUCT_INFO_FRAGMENT = "ProductInfoFragment"
         val USER_INFO_MAIN_FRAGMENT = "UserInfoMainFragment"
         val HEART_FRAGMENT = "HeartFragment"
+        val ORDER_STATUS_FRAGMENT = "OrderStatusFragment"
         const val PERMISSION_REQUEST_ACCESS = 100
     }
 }
