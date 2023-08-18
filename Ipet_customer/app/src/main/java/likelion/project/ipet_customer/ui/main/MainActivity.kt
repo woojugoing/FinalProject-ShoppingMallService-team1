@@ -21,6 +21,7 @@ import likelion.project.ipet_customer.databinding.ActivityMainBinding
 import likelion.project.ipet_customer.ui.login.LoginFragment
 import likelion.project.ipet_customer.ui.onboarding.OnboardFragment
 import likelion.project.ipet_customer.ui.permission.PermissionFragment
+import likelion.project.ipet_customer.ui.product.ProductInfoFragment
 import likelion.project.ipet_customer.ui.product.ProductListFragment
 import likelion.project.ipet_customer.ui.review.ReviewAllFragment
 import likelion.project.ipet_customer.ui.shoppingbasket.ShoppingBasketFragment
@@ -97,6 +98,7 @@ class MainActivity : AppCompatActivity() {
             ONBOARDING_FRAGMENT -> OnboardFragment()
             LOGIN_FRAGMENT -> LoginFragment()
             PRODUCT_LIST_FRAGMENT -> ProductListFragment()
+            PRODUCT_INFO_FRAGMENT -> ProductInfoFragment()
             else -> Fragment()
         }
     }
@@ -159,6 +161,7 @@ class MainActivity : AppCompatActivity() {
         val ONBOARDING_FRAGMENT = "OnboardingFragment"
         val LOGIN_FRAGMENT = "LoginFragment"
         val PRODUCT_LIST_FRAGMENT = "ProductListFragment"
+        val PRODUCT_INFO_FRAGMENT = "ProductInfoFragment"
         const val PERMISSION_REQUEST_ACCESS = 100
     }
 }

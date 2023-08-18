@@ -139,4 +139,9 @@
         <item name="android:textSize">24sp</item>
         <item name="fontFamily">@font/pretendard_regular</item>
     </style>
+
+    <style name="Typography.yeongdo18">
+        <item name="android:textSize">18sp</item>
+        <item name="fontFamily">@font/yeongdo</item>
+    </style>
 </resources>
