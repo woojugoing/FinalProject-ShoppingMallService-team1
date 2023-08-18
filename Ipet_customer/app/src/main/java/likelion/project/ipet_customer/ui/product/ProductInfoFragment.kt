@@ -46,6 +46,24 @@ class ProductInfoFragment : Fragment() {
                 setImageResource(R.drawable.img_dog_food_detail)
             }
 
+            // 찜 버튼
+            imageviewProductinfoHeart.run{
+                var flag = false
+                setOnClickListener {
+                    // 찜한 상태일 때
+                    if(flag){
+                        this.setImageResource(R.drawable.ic_favorite_48dp)
+                    }
+                    // 찜하지 않은 상태일 때
+                    else {
+                        this.setImageResource(R.drawable.ic_favorite_fill_48dp)
+                    }
+
+                    flag = !flag
+                }
+            }
+
+
             // 구매하기 버튼
             buttonProductinfoBuy.run {
                 setOnClickListener {
