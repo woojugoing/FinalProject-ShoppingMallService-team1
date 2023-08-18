@@ -14,6 +14,7 @@ object Versions {
     const val ESPRESSO_VERSION = "3.5.1"
     const val VIEWMODEL_VERSION = "2.6.1"
     const val DATASTORE_VERSION = "1.0.0"
+    const val GLIDE_VERSION = "4.15.1"
 }
 
 object AndroidXDeps {
@@ -52,5 +53,9 @@ object TestDeps {
 object DataStore {
     const val PREFERENCES = "androidx.datastore:datastore-preferences:${Versions.DATASTORE_VERSION}"
     const val PREFERENCES_CORE =  "androidx.datastore:datastore-preferences-core:${Versions.DATASTORE_VERSION}"
+}
+
+object GlideDeps {
+    const val GLIDE = "com.github.bumptech.glide:glide:${Versions.GLIDE_VERSION}"
 }
 
