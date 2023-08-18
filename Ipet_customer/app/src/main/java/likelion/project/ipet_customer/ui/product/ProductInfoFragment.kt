@@ -57,6 +57,18 @@ class ProductInfoFragment : Fragment() {
             includeProductinfoBottomsheet.run {
                 // 원가 가격 표시
                 textviewBottomsheetCostprice.paintFlags = textviewProductinfoCostprice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+
+                var num = 0
+                // 왼쪽 화살표 버튼
+                imagebuttonBottomsheetMinus.setOnClickListener {
+                    if(num > 0){
+                        num--
+                    }
+                }
+                // 오른쪽 화살표 버튼
+                imagebuttonBottomsheetPlus.setOnClickListener {
+                    num++
+                }
             }
         }
 
