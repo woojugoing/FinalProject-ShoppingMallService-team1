@@ -14,6 +14,7 @@ object Versions {
     const val ESPRESSO_VERSION = "3.5.1"
     const val VIEWMODEL_VERSION = "2.6.1"
     const val DATASTORE_VERSION = "1.0.0"
+    const val GLIDE_VERSION = "4.15.1"
     const val KAKAO_VERSION = "2.15.0"
     const val NAVER_VERSION = "5.7.0"
 }
@@ -56,6 +57,9 @@ object DataStore {
     const val PREFERENCES_CORE =  "androidx.datastore:datastore-preferences-core:${Versions.DATASTORE_VERSION}"
 }
 
+object GlideDeps {
+    const val GLIDE = "com.github.bumptech.glide:glide:${Versions.GLIDE_VERSION}"
+}
 object KakaoDeps {
     const val KAKAO = "com.kakao.sdk:v2-all:${Versions.KAKAO_VERSION}" // 전체 모듈 설치, 2.11.0 버전부터 지원
 }

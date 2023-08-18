@@ -62,6 +62,9 @@ dependencies {
     implementation DataStore.PREFERENCES
     implementation DataStore.PREFERENCES_CORE
 
+    //Glide
+    implementation GlideDeps.GLIDE
+
     // Test
     testImplementation TestDeps.JUNIT
     androidTestImplementation TestDeps.JUNIT_EXT
