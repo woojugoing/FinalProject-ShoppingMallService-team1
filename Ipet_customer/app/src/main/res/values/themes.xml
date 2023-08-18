@@ -9,9 +9,8 @@
     <!-- Splash Screen -->
     <style name="AppTheme.Ipet_customer.Splash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/white</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_ipet</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/img_logo_ipet</item>
         <item name="postSplashScreenTheme">@style/AppTheme.Ipet_customer</item>
-
     </style>
 
     <style name="Theme.Ipet_customer.Toolbar" parent="ThemeOverlay.Material3.Toolbar.Surface">

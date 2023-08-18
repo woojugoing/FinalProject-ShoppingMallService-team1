@@ -16,17 +16,10 @@ import likelion.project.ipet_customer.repository.OnboardingRepository
 class MainViewModel(context: Context): ViewModel() {
     private val onboardingRepository = OnboardingRepository(context)
 
-    private val _isLoading = MutableStateFlow(true)
-    val isLoading = _isLoading.asStateFlow()
-
     private val _isFirstVisitor = MutableStateFlow(false)
     val isFistVisitor = _isFirstVisitor.asStateFlow()
 
     init {
-        viewModelScope.launch {
-            delay(3000)
-            _isLoading.value = false
-        }
         checkFirstVisitor()
     }
 

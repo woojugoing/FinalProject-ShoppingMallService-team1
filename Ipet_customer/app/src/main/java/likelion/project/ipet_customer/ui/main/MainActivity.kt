@@ -45,7 +45,6 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this, MainViewModelFactory(this))[MainViewModel::class.java]
-        startSplash()
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityMainBinding.root)
         observe()
@@ -70,13 +69,6 @@ class MainActivity : AppCompatActivity() {
                 replaceFragment(PERMISSION_FRAGMENT, false, null)
             }
             delay(500)
-        }
-    }
-    private fun startSplash() {
-        installSplashScreen().apply {
-            setKeepOnScreenCondition {
-                return@setKeepOnScreenCondition viewModel.isLoading.value
-            }
         }
     }
 
