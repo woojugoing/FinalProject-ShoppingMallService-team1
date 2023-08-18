@@ -22,7 +22,7 @@
             app:navigationIcon="@drawable/ic_back_24dp"
             app:title="아이펫"
             app:titleCentered = "true"
-            app:titleTextAppearance="@style/Typography.yeongdo36"
+            app:titleTextAppearance="@style/Typography.yeongdo18"
             app:titleTextColor="@color/brown_100"/>
 
         <ScrollView
@@ -166,7 +166,14 @@
                     android:textAppearance="@style/Typography.Regular15" />
 
                 <ImageView
-                    android:id="@+id/imageview_productinfo_detail"
+                    android:id="@+id/imageview_productinfo_detail1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@mipmap/ic_launcher" />
+
+                <ImageView
+                    android:id="@+id/imageview_productinfo_detail2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"

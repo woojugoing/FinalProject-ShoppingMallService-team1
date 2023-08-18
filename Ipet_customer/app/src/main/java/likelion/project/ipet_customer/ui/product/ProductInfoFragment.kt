@@ -7,8 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.whenResumed
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.FragmentProductInfoBinding
 import likelion.project.ipet_customer.ui.main.MainActivity
@@ -17,6 +23,15 @@ class ProductInfoFragment : Fragment() {
 
     lateinit var fragmentProductInfoBinding: FragmentProductInfoBinding
     lateinit var mainActivity: MainActivity
+
+    // 임시 데이터
+    val list: ArrayList<Int> = ArrayList<Int>().let {
+        it.apply {
+            add(R.drawable.img_dog_food1)
+            add(R.drawable.img_dog_food2)
+            add(R.drawable.img_dog_food3)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -94,19 +109,16 @@ class ProductInfoFragment : Fragment() {
     }
 
     // viewPager2 Adapter
-    inner class ProductInfoFragmentStateAdapter(fragmentActivity: FragmentActivity): FragmentStateAdapter(fragmentActivity){
+    inner class ProductInfoFragmentStateAdapter(fragmentActivity: FragmentActivity): FragmentStateAdapter(fragmentActivity) {
         // 보여줄 페이지 수
-        override fun getItemCount(): Int {
-            return 3
-        }
+        override fun getItemCount(): Int = 3
 
         override fun createFragment(position: Int): Fragment {
-            return when(position) {
-                0 -> ProductInfoViewPagerFragment(R.drawable.img_dog_food1)
-                1 -> ProductInfoViewPagerFragment(R.drawable.img_dog_food2)
-                else -> ProductInfoViewPagerFragment(R.drawable.img_dog_food3)
+            return when (position) {
+                0 -> ProductInfoViewPagerFragment(list[position])
+                1 -> ProductInfoViewPagerFragment(list[position])
+                else -> ProductInfoViewPagerFragment(list[position])
             }
         }
-
     }
 }
