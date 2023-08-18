@@ -22,7 +22,7 @@
             app:navigationIcon="@drawable/ic_back_24dp"
             app:title="아이펫"
             app:titleCentered = "true"
-            app:titleTextAppearance="@font/yeongdo"
+            app:titleTextAppearance="@style/Typography.yeongdo18"
             app:titleTextColor="@color/brown_100"/>
 
         <ScrollView
@@ -36,10 +36,25 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/viewpager2_productinfo_thumbnail"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content">
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/viewpager2_productinfo_thumbnail"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </androidx.viewpager2.widget.ViewPager2>
+
+                    <ImageView
+                        android:id="@+id/imageview_productinfo_heart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|right"
+                        android:src="@drawable/ic_favorite_48dp" />
+
+                </FrameLayout>
 
                 <TextView
                     android:id="@+id/textView_productinfo_brand"
@@ -151,7 +166,14 @@
                     android:textAppearance="@style/Typography.Regular15" />
 
                 <ImageView
-                    android:id="@+id/imageview_productinfo_detail"
+                    android:id="@+id/imageview_productinfo_detail1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@mipmap/ic_launcher" />
+
+                <ImageView
+                    android:id="@+id/imageview_productinfo_detail2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"

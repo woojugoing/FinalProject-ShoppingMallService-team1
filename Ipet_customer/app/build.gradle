@@ -69,4 +69,7 @@ dependencies {
     testImplementation TestDeps.JUNIT
     androidTestImplementation TestDeps.JUNIT_EXT
     androidTestImplementation TestDeps.ESPRESSO_CORE
+
+    // Kakao
+    implementation KakaoDeps.KAKAO
 }
