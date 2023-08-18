@@ -22,7 +22,7 @@
             app:navigationIcon="@drawable/ic_back_24dp"
             app:title="아이펫"
             app:titleCentered = "true"
-            app:titleTextAppearance="@font/yeongdo"
+            app:titleTextAppearance="@style/Typography.yeongdo36"
             app:titleTextColor="@color/brown_100"/>
 
         <ScrollView
