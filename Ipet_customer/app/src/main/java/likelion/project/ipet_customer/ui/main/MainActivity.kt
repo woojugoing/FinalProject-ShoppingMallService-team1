@@ -53,9 +53,8 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, MainViewModelFactory(this))[MainViewModel::class.java]
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityMainBinding.root)
-        replaceFragment(USER_INFO_MAIN_FRAGMENT, false, null)
-//        observe()
-//        navigateToPermissionOrOnboardingOrLogin()
+        observe()
+        navigateToPermissionOrOnboardingOrLogin()
     }
 
     private fun observe() {
