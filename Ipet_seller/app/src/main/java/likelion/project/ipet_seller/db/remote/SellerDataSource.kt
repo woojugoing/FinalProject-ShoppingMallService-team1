@@ -18,12 +18,20 @@ class SellerDataSource {
             .toObjects(Seller::class.java)
         return flow {
             kotlin.runCatching {
-                sellers.find { it.sellerId == seller.sellerId && it.sellerPw == seller.sellerPw } ?: throw Exception("Seller not found")
+                require(seller.sellerId.isNotEmpty()) { throw Exception(ID_EMPTY_MESSAGE)}
+                require(seller.sellerPw.isNotEmpty()) { throw Exception(PW_EMPTY_MESSAGE)}
+                sellers.find { it.sellerId == seller.sellerId && it.sellerPw == seller.sellerPw } ?: throw Exception(INVALID_CREDENTIALS)
             }.onSuccess {
                 emit(Result.success(it))
             }.onFailure {
                 emit(Result.failure(it))
             }
         }
+    }
+
+    companion object {
+        private val ID_EMPTY_MESSAGE = "아이디를 입력해주세요"
+        private val PW_EMPTY_MESSAGE = "비밀번호를 입력해주세요"
+        private val INVALID_CREDENTIALS = "아이디 또는 비밀번호가 잘못되었습니다"
     }
 }
