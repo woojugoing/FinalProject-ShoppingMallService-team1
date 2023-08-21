@@ -1,7 +1,6 @@
 package likelion.project.ipet_customer.ui.login
 
-import android.app.Application
-import android.graphics.Color
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,12 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.kakao.sdk.common.KakaoSdk
-import com.kakao.sdk.common.util.Utility
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.OAuthLoginCallback
-import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.FragmentLoginBinding
 import likelion.project.ipet_customer.ui.main.MainActivity
 
@@ -22,6 +23,8 @@ class LoginFragment : Fragment() {
 
     private lateinit var fragmentLoginBinding: FragmentLoginBinding
     private lateinit var mainActivity: MainActivity
+
+    val GOOGLE_LOGIN = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,7 +68,38 @@ class LoginFragment : Fragment() {
                     NaverIdLoginSDK.authenticate(mainActivity, oauthLoginCallback)
                 }
             }
+
+            buttonLoginGoogle.run{
+                setOnClickListener {
+                    // 구글 로그인
+                    val gso = GoogleSignInOptions
+                        .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
+                    val mGoogleSignInClient = GoogleSignIn.getClient(mainActivity, gso)
+                    val signInIntent = mGoogleSignInClient.signInIntent
+
+                    startActivityForResult(signInIntent, GOOGLE_LOGIN)
+                }
+            }
         }
         return fragmentLoginBinding.root
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when(requestCode){
+            GOOGLE_LOGIN -> {
+                handleSignInResult(GoogleSignIn.getSignedInAccountFromIntent(data))
+            }
+        }
+    }
+
+    fun handleSignInResult(completedTask: Task<GoogleSignInAccount>){
+        try{
+            val account = completedTask.getResult(ApiException::class.java)
+            Log.i("login", "구글 로그인 성공 ${account.id}")
+        } catch (e: ApiException){
+            Log.w("login", "구글 로그인 실패")
+        }
     }
 }
