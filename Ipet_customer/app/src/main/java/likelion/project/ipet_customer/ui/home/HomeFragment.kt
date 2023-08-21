@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import com.google.android.material.chip.ChipGroup
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.FragmentHomeBinding
 import likelion.project.ipet_customer.ui.main.MainActivity
@@ -27,6 +28,7 @@ class HomeFragment : Fragment() {
             // 시작 시 강아지 버튼 선택으로 지정하여 색상 변경
             buttonHomeDog.setBackgroundColor(ContextCompat.getColor(mainActivity, R.color.rose_200))
 
+            // 좌측 상단 toggle button
             toggleButtonHome.run {
                 addOnButtonCheckedListener { toggleButton, checkedId, isChecked ->
                     if (isChecked){
@@ -42,6 +44,32 @@ class HomeFragment : Fragment() {
                                 buttonHomeCat.setBackgroundColor(ContextCompat.getColor(mainActivity,R.color.rose_200))
                                 buttonHomeDog.setBackgroundColor(ContextCompat.getColor(mainActivity, R.color.white))
                             }
+                        }
+                    }
+                }
+            }
+
+            // 대분류 카테고리 선택 시 UI 변경
+            chipGroupHomeLcategory.run {
+                buttonHomeScategory6.visibility = View.INVISIBLE
+
+                setOnCheckedStateChangeListener { group, checkedIds ->
+                    // test
+                    when(this.checkedChipId){
+                        R.id.chip_home_food -> {
+                            buttonHomeScategory6.visibility = View.INVISIBLE
+                        }
+                        R.id.chip_home_snack -> {
+                            buttonHomeScategory5.visibility = View.INVISIBLE
+                        }
+                        R.id.chip_home_toy -> {
+                            buttonHomeScategory4.visibility = View.INVISIBLE
+                        }
+                        R.id.chip_home_clothes -> {
+                            buttonHomeScategory3.visibility = View.INVISIBLE
+                        }
+                        R.id.chip_home_house -> {
+                            buttonHomeScategory2.visibility = View.INVISIBLE
                         }
                     }
                 }
