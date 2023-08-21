@@ -61,7 +61,7 @@ class LoginViewModel : ViewModel() {
                 if (it.isLogin) {
                     _event.tryEmit("로그인 성공")
                 } else if (it.throwableMessage != null){
-                    _event.tryEmit("로그인 실패")
+                    _event.tryEmit(it.throwableMessage)
                 }
             }
         }
