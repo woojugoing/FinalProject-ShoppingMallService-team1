@@ -25,16 +25,16 @@
         app:titleTextColor="@color/brown_100" />
 
     <com.google.android.material.button.MaterialButtonToggleGroup
-        android:id="@+id/toggleButton"
+        android:id="@+id/toggleButton_home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        app:singleSelection="true"
         app:checkedButton="@id/button_home_dog"
-        app:selectionRequired="true"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar_home"
         app:layout_constraintStart_toStartOf="@+id/toolbar_home"
-        app:layout_constraintTop_toTopOf="@+id/toolbar_home">
+        app:layout_constraintTop_toTopOf="@+id/toolbar_home"
+        app:selectionRequired="true"
+        app:singleSelection="true">
 
         <Button
             android:id="@+id/button_home_dog"
@@ -66,125 +66,121 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:checkedChip="@id/chip_home_food"
+            app:chipSpacingHorizontal="28dp"
             app:singleSelection="true">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_home_food"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:text="사료"
+                android:textAlignment="center"
+                android:textAppearance="@style/Typography.Bold14" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_home_food"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_weight="1"
-                    android:text="사료"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/Typography.Bold14" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_home_snack"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:text="간식"
+                android:textAlignment="center"
+                android:textAppearance="@style/Typography.Bold14" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_home_snack"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_weight="1"
-                    android:text="간식"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/Typography.Bold14" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_home_toy"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:text="장난감"
+                android:textAlignment="center"
+                android:textAppearance="@style/Typography.Bold14" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_home_toy"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_weight="1"
-                    android:text="장난감"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/Typography.Bold14" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_home_clothes"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:text="의류"
+                android:textAlignment="center"
+                android:textAppearance="@style/Typography.Bold14" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_home_clothes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_weight="1"
-                    android:text="의류"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/Typography.Bold14" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_home_house"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:text="집"
+                android:textAlignment="center"
+                android:textAppearance="@style/Typography.Bold14" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_home_house"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_weight="1"
-                    android:text="집"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/Typography.Bold14" />
-
-            </LinearLayout>
         </com.google.android.material.chip.ChipGroup>
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroup_home_Scategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:checkedChip="@id/chip_home_scategory1">
+            app:checkedChip="@id/chip_home_scategory1"
+            app:chipSpacingHorizontal="42dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_home_scategory1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textAppearance="@style/Typography.Bold14" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_home_scategory2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textAppearance="@style/Typography.Bold14" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_home_scategory3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textAppearance="@style/Typography.Bold14" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_home_scategory1"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:textAppearance="@style/Typography.Bold14" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_home_scategory4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textAppearance="@style/Typography.Bold14" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_home_scategory2"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAppearance="@style/Typography.Bold14" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_home_scategory5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textAppearance="@style/Typography.Bold14" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_home_scategory3"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAppearance="@style/Typography.Bold14" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_home_scategory6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textAppearance="@style/Typography.Bold14" />
-            </LinearLayout>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_home_scategory4"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAppearance="@style/Typography.Bold14" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_home_scategory5"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAppearance="@style/Typography.Bold14" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_home_scategory6"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAppearance="@style/Typography.Bold14" />
+
         </com.google.android.material.chip.ChipGroup>
 
         <LinearLayout
