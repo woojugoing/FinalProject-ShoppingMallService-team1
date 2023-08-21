@@ -1,9 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Ipet_seller" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="AppTheme.Ipet_seller" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/rose_200</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
-    <style name="Theme.Ipet_seller" parent="Base.Theme.Ipet_seller" />
+    <style name="Theme.Ipet_seller" parent="AppTheme.Ipet_seller" />
 </resources>
