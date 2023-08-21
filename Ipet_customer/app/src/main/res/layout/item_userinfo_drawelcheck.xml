@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="30dp">
+
+    <TextView
+        style="@style/Typography.Bold20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="홍길동님" />
+
+    <TextView
+        style="@style/Typography.Medium20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="정말로 아이펫을 떠나시겠어요?" />
+
+    <TextView
+        style="@style/Typography.Regular16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="장바구니에 담겼던 제품이 모두 사라져요." />
+
+    <TextView
+        style="@style/Typography.Regular16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="아이펫의 담겨있던 회원님의 정보가 모두 사라져요." />
+
+    <TextView
+        style="@style/Typography.Regular16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="공동구매 혜택에서 제외되요." />
+
+    <TextView
+        style="@style/Typography.Regular16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="가지고 계셨던 적립금을 사용하실 수 없어요." />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_drawelCheck_yes"
+            style="@style/Typography.Regular15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="YES"
+            android:textColor="@color/white" />
+
+        <Space
+            android:layout_width="30dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/button_drawelCheck_no"
+            style="@style/Typography.Regular15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NO"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</LinearLayout>
