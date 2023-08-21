@@ -31,6 +31,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    viewBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -38,6 +42,7 @@ dependencies {
     implementation AndroidXDeps.CORE_KTX
     implementation AndroidXDeps.APPCOMPAT
     implementation AndroidXDeps.CONSTRAINT_LAYOUT
+    implementation AndroidXDeps.VIEWMODEL
 
     // Google
     implementation GoogleDeps.MATERIAL

@@ -5,13 +5,13 @@ object Versions {
     const val SPLASH_SCREEN_VERSION = "1.0.1"
     const val MATERIAL_VERSION = "1.9.0"
     const val FIREBASE_BOM_VERSION = "32.2.2"
-    const val FIREBASE_DATABASE_VERSION = "20.2.2"
     const val FIREBASE_STORAGE_VERSION = "20.2.1"
     const val LOTTIE_VERSION = "5.2.0"
     const val SKELETON_VERSION = "0.5.0"
     const val JUNIT_VERSION = "4.13.2"
     const val JUNIT_EXT_VERSION = "1.1.5"
     const val ESPRESSO_VERSION = "3.5.1"
+    const val VIEWMODEL_VERSION = "2.6.1"
 }
 
 object AndroidXDeps {
@@ -19,6 +19,7 @@ object AndroidXDeps {
     const val APPCOMPAT =  "androidx.appcompat:appcompat:${Versions.APPCOMPAT_VERSION}"
     const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:${Versions.CONSTRAINT_LAYOUT_VERSION}"
     const val SPLASH_SCREEN = "androidx.core:core-splashscreen:${Versions.SPLASH_SCREEN_VERSION}"
+    const val VIEWMODEL = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.VIEWMODEL_VERSION}"
 }
 
 object GoogleDeps {
@@ -28,7 +29,7 @@ object GoogleDeps {
 object FirebaseDeps {
     const val FIREBASE_BOM = "com.google.firebase:firebase-bom:${Versions.FIREBASE_BOM_VERSION}"
     const val FIREBASE_ANALYTICS_KTX = "com.google.firebase:firebase-analytics-ktx"
-    const val FIREBASE_DATABASE = "com.google.firebase:firebase-database:${Versions.FIREBASE_DATABASE_VERSION}"
+    const val FIREBASE_DATABASE = "com.google.firebase:firebase-firestore-ktx"
     const val FIREBASE_STORAGE = "com.google.firebase:firebase-storage:${Versions.FIREBASE_STORAGE_VERSION}"
 }
 
