@@ -17,7 +17,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import likelion.project.ipet_seller.R
 import likelion.project.ipet_seller.databinding.ActivityMainBinding
+import likelion.project.ipet_seller.ui.home.HomeFragment
 import likelion.project.ipet_seller.ui.login.LoginFragment
+import likelion.project.ipet_seller.ui.signup.SignupFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -45,6 +47,8 @@ class MainActivity : AppCompatActivity() {
     private fun getFragmentByName(name: String): Fragment? {
         return when (name) {
             LOGIN_FRAGMENT -> LoginFragment()
+            HOME_FRAGMENT -> HomeFragment()
+            SIGNUP_FRAGMENT -> SignupFragment()
             else -> Fragment()
         }
     }
@@ -87,5 +91,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         val LOGIN_FRAGMENT = "LoginFragment"
+        val HOME_FRAGMENT = "HomeFragment"
+        val SIGNUP_FRAGMENT = "SignupFragment"
     }
 }
