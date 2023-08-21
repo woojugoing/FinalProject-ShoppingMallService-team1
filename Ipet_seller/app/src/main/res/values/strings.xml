@@ -10,4 +10,13 @@
     <string name="login_passwd">비밀번호</string>
     <string name="login">로그인</string>
     <string name="login_signup">회원가입</string>
+    
+    <string name="signup_description">아이펫 판매자 센터는 사업자 번호 및 상호명 확인 후 승인 시 이용이 가능합니다.(승인까지 최대 3일 소요)</string>
+    <string name="signup_id">사용할 아이디 입력</string>
+    <string name="signup_passwd">1차 비밀번호 입력</string>
+    <string name="signup_passwd_confirm">2차 비밀번호 입력</string>
+    <string name="signup_seller_name">상호명 입력</string>
+    <string name="signup_seller_number">사업자 번호 입력(- 제외)</string>
+    <string name="signup_seller_phone">핸드폰 번호 입력(- 제외)</string>
+    <string name="signup">회원 가입하기</string>
 </resources>

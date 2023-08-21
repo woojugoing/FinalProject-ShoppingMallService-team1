@@ -7,4 +7,5 @@ class SellerRepository {
     private val sellerDataSource = SellerDataSource()
 
     suspend fun getSellerInfo(seller: Seller) = sellerDataSource.getSellerInfo(seller)
+    suspend fun signupSeller(seller: Seller) = sellerDataSource.signupSeller(seller)
 }
