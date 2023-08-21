@@ -51,11 +51,10 @@ class LoginFragment : Fragment() {
             viewModel.event.collect {
                 when (it) {
                     "로그인 성공" -> {
-                        Snackbar.make(fragmentLoginBinding.root, it, Snackbar.LENGTH_SHORT).show()
                         navigateToHome()
                     }
-                    "로그인 실패" ->  Snackbar.make(fragmentLoginBinding.root, it, Snackbar.LENGTH_SHORT).show()
                 }
+                Snackbar.make(fragmentLoginBinding.root, it, Snackbar.LENGTH_SHORT).show()
                 fragmentLoginBinding.progressBarLoginLoading.visibility = View.GONE
             }
         }
