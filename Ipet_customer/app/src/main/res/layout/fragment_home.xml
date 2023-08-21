@@ -29,6 +29,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        app:singleSelection="true"
+        app:checkedButton="@id/button_home_dog"
+        app:selectionRequired="true"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar_home"
         app:layout_constraintStart_toStartOf="@+id/toolbar_home"
         app:layout_constraintTop_toTopOf="@+id/toolbar_home">
@@ -38,14 +41,14 @@
             style="@style/Widget.App.Button.OutlinedButton.IconOnly"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:icon="@drawable/ic_gallery_24dp" />
+            app:icon="@drawable/img_dog_icon" />
 
         <Button
             android:id="@+id/button_home_cat"
             style="@style/Widget.App.Button.OutlinedButton.IconOnly"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:icon="@drawable/ic_gallery_24dp" />
+            app:icon="@drawable/img_cat_icon" />
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
