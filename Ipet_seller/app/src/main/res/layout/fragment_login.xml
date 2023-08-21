@@ -46,7 +46,11 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/Typography.Regular14"/>
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:maxLines="1"
+            android:nextFocusDown="@id/textInputLayout_login_passwd"
+            android:textAppearance="@style/Typography.Regular14" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -63,8 +67,10 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
             android:inputType="textPassword"
-            android:textAppearance="@style/Typography.Regular14"/>
+            android:maxLines="1"
+            android:textAppearance="@style/Typography.Regular14" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
@@ -72,24 +78,24 @@
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginTop="30dp"
-        app:cornerRadius="10dp"
         android:text="@string/login"
         android:textAppearance="@style/Typography.Regular18"
-        app:layout_constraintTop_toBottomOf="@id/textInputLayout_login_passwd"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="@id/guideLine_login_end_boundary"
         app:layout_constraintStart_toStartOf="@id/guideLine_login_start_boundary"
-        app:layout_constraintEnd_toEndOf="@id/guideLine_login_end_boundary"/>
+        app:layout_constraintTop_toBottomOf="@id/textInputLayout_login_passwd" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/materialButton_login_signup"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginTop="15dp"
-        app:cornerRadius="10dp"
         android:text="@string/login_signup"
         android:textAppearance="@style/Typography.Regular18"
-        app:layout_constraintTop_toBottomOf="@id/materialButton_login"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="@id/guideLine_login_end_boundary"
         app:layout_constraintStart_toStartOf="@id/guideLine_login_start_boundary"
-        app:layout_constraintEnd_toEndOf="@id/guideLine_login_end_boundary"/>
+        app:layout_constraintTop_toBottomOf="@id/materialButton_login" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideLine_login_top_boundary"
