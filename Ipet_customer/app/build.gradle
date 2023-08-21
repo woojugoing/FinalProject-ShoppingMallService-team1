@@ -52,6 +52,8 @@ dependencies {
     implementation FirebaseDeps.FIREBASE_ANALYTICS_KTX
     implementation FirebaseDeps.FIREBASE_DATABASE
     implementation FirebaseDeps.FIREBASE_STORAGE
+    implementation FirebaseDeps.FIREBASE_AUTH
+    implementation FirebaseDeps.FIREBASE_PLAY
 
     // Lottie
     implementation LottieDeps.LOTTIE
