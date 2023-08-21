@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView_best_rank"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1위"
+        android:textAppearance="@style/Typography.Regular14" />
+
+    <ImageView
+        android:id="@+id/imageView_best_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/img_dog_food3" />
+
+    <TextView
+        android:id="@+id/textView_best_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="강아지 사료"
+        android:textAppearance="@style/Typography.Regular14" />
+
+    <TextView
+        android:id="@+id/textView_best_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="10,000원"
+        android:textAppearance="@style/Typography.Regular14" />
+</LinearLayout>
