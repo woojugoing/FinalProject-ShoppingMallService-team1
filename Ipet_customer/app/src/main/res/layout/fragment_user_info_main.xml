@@ -70,6 +70,7 @@
                     android:id="@+id/textView_userInfo_deposit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
                     android:gravity="right"
                     android:text="적립금 : 6000원"
                     android:textAppearance="@style/Typography.Medium16" />
@@ -111,10 +112,10 @@
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="20dp"
                     android:fontFamily="@font/pretendard_bold"
                     android:text="판매/배송"
-                    android:textAppearance="@style/Typography.Bold14"
+                    android:textAppearance="@style/Typography.Bold16"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -153,6 +154,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
+                    android:background="?attr/selectableItemBackground"
                     android:fontFamily="@font/pretendard_regular"
                     android:text="더보기"
                     android:textAppearance="@style/Typography.Regular14"
@@ -210,9 +212,9 @@
                     android:id="@+id/textView11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="20dp"
                     android:text="My쇼핑"
-                    android:textAppearance="@style/Typography.Bold14"
+                    android:textAppearance="@style/Typography.Bold16"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -221,9 +223,9 @@
                     android:layout_height="wrap_content"
                     android:text="장바구니"
                     android:textAppearance="@style/Typography.Light12"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView_userInfo_shopBucket"
-                    app:layout_constraintStart_toStartOf="@+id/imageView_userInfo_shopBucket"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView_userInfo_shopBucket" />
+                    app:layout_constraintEnd_toEndOf="@+id/imageView_userInfo_shopBasket"
+                    app:layout_constraintStart_toStartOf="@+id/imageView_userInfo_shopBasket"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView_userInfo_shopBasket" />
 
                 <TextView
                     android:id="@+id/textView8"
@@ -269,6 +271,7 @@
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:src="@drawable/ic_rate_review_48dp"
+                    android:background="?attr/selectableItemBackground"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -276,11 +279,12 @@
                     app:layout_constraintVertical_bias="0.22000003" />
 
                 <ImageView
-                    android:id="@+id/imageView_userInfo_shopBucket"
+                    android:id="@+id/imageView_userInfo_shopBasket"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_marginEnd="80dp"
                     android:src="@drawable/ic_shopping_cart_48dp"
+                    android:background="?attr/selectableItemBackground"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView_userInfo_review"
                     app:layout_constraintEnd_toStartOf="@+id/imageView_userInfo_review"
                     app:layout_constraintTop_toTopOf="@+id/imageView_userInfo_review" />
@@ -291,6 +295,7 @@
                     android:layout_height="36dp"
                     android:layout_marginStart="80dp"
                     android:src="@drawable/ic_check_box_24dp"
+                    android:background="?attr/selectableItemBackground"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView_userInfo_review"
                     app:layout_constraintStart_toEndOf="@+id/imageView_userInfo_review"
                     app:layout_constraintTop_toTopOf="@+id/imageView_userInfo_review" />
@@ -300,6 +305,7 @@
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:src="@drawable/ic_favorite_48dp"
+                    android:background="?attr/selectableItemBackground"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/imageView_userInfo_review"
                     app:layout_constraintStart_toStartOf="@+id/imageView_userInfo_review"
@@ -311,6 +317,7 @@
                     android:layout_height="36dp"
                     android:layout_marginEnd="80dp"
                     android:src="@drawable/ic_sell_24dp"
+                    android:background="?attr/selectableItemBackground"
                     app:layout_constraintBottom_toTopOf="@+id/textView9"
                     app:layout_constraintEnd_toStartOf="@+id/imageView_userInfo_favorite"
                     app:layout_constraintTop_toTopOf="@+id/imageView_userInfo_favorite" />
@@ -322,87 +329,114 @@
                 android:layout_height="15dp"
                 android:layout_weight="1" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="match_parent"
                 android:background="@color/white"
-                android:padding="10dp">
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="배송지 변경"
-                    android:textAppearance="@style/Typography.Medium16"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:layout_editor_absoluteX="10dp" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_userInfo_changeAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="10dp">
 
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:src="@drawable/ic_plus_24dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:text="배송지 변경"
+                        android:textAppearance="@style/Typography.Bold16"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/ic_plus_24dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="15dp"
                 android:layout_weight="1" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="match_parent"
                 android:background="@color/white"
-                android:padding="10dp">
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="로그아웃"
-                    android:textAppearance="@style/Typography.Medium16"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:layout_editor_absoluteX="10dp" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_userInfo_logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="10dp">
 
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:src="@drawable/ic_plus_24dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:text="로그아웃"
+                        android:textAppearance="@style/Typography.Bold16"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/ic_plus_24dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="15dp"
                 android:layout_weight="1" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="match_parent"
                 android:background="@color/white"
-                android:padding="10dp">
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="회원 탈퇴"
-                    android:textAppearance="@style/Typography.Medium16"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:layout_editor_absoluteX="10dp" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_userInfo_withDrawal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="10dp">
 
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:src="@drawable/ic_plus_24dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:text="회원 탈퇴"
+                        android:textAppearance="@style/Typography.Bold16"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/ic_plus_24dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

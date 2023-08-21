@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import likelion.project.ipet_customer.R
@@ -39,6 +41,9 @@ class OrderStatusFragment : Fragment() {
                     else -> null
                 }
                 setNavigationIcon(R.drawable.ic_back_24dp)
+                setNavigationOnClickListener {
+                    mainActivity.removeFragment(MainActivity.ORDER_STATUS_FRAGMENT)
+                }
             }
             recyclerViewOrderStatus.run {
                 adapter = OrderStatusAdapter(fragmentState)
@@ -67,6 +72,23 @@ class OrderStatusFragment : Fragment() {
                 textViewOrderStatusStatus = itemOrderStatusBinding.textViewOrderStatusStatus
                 buttonOrderStatusReview = itemOrderStatusBinding.buttonOrderStatusReview
                 buttonOrderStatusCancel = itemOrderStatusBinding.buttonOrderStatusCancel
+
+                when(fragmentState) {
+                    "Detail" -> {
+                        buttonOrderStatusReview.setOnClickListener {
+                            mainActivity.replaceFragment(MainActivity.REVIEW_WRITE_FRAGMENT, true, null)
+                        }
+                        buttonOrderStatusCancel.setOnClickListener {
+                            fragmentState == "Cancel"
+                            fragmentOrderStatusBinding.recyclerViewOrderStatus.adapter?.notifyDataSetChanged()
+                        }
+                    }
+                    "Review" -> {
+                        itemOrderStatusBinding.root.setOnClickListener {
+                            mainActivity.replaceFragment(MainActivity.REVIEWALL_FRAGMENT, true, null)
+                        }
+                    }
+                }
             }
         }
 
