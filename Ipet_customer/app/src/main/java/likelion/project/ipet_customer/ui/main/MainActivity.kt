@@ -24,6 +24,8 @@ import likelion.project.ipet_customer.ui.heart.HeartFragment
 import likelion.project.ipet_customer.ui.order.OrderStatusFragment
 import likelion.project.ipet_customer.ui.login.LoginFragment
 import likelion.project.ipet_customer.ui.onboarding.OnboardFragment
+import likelion.project.ipet_customer.ui.payment.PaymentCompleteFragment
+import likelion.project.ipet_customer.ui.payment.PaymentFragment
 import likelion.project.ipet_customer.ui.permission.PermissionFragment
 import likelion.project.ipet_customer.ui.product.ProductInfoFragment
 import likelion.project.ipet_customer.ui.product.ProductListFragment
@@ -90,6 +92,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun getFragmentByName(name: String): Fragment? {
         return when (name) {
+            PAYMENT_COMPLETE_FRAGMENT -> PaymentCompleteFragment()
+            PAYMENT_FRAGMENT -> PaymentFragment()
             SHOPPING_BASKET_FRAGMENT -> ShoppingBasketFragment()
             REVIEWALL_FRAGMENT -> ReviewAllFragment()
             REVIEW_WRITE_FRAGMENT -> ReviewWriteFragment()
@@ -158,6 +162,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
+        val PAYMENT_COMPLETE_FRAGMENT = "PaymentCompleteFragment"
+        val PAYMENT_FRAGMENT = "PaymentFragment"
         val SHOPPING_BASKET_FRAGMENT = "ShoppingBasketFragment"
         val REVIEWALL_FRAGMENT = "ReviewAllFragment"
         val REVIEW_WRITE_FRAGMENT = "ReviewWriteFragment"
