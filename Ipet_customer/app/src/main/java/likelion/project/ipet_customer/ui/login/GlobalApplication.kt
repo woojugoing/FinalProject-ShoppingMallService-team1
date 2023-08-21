@@ -9,7 +9,7 @@ class GlobalApplication : Application() {
         super.onCreate()
 
         // 카카오 SDK 초기화
-        KakaoSdk.init(this, "5df3b9c98bc3e67c567b6fc7de06e997")
+        KakaoSdk.init(this, "dbf9edd6dd9fbdefd7665d4e9cec9019")
 
         // 네이버 SDK 초기화
         NaverIdLoginSDK.initialize(this, "wPnmtnY0lMjyWy4tuKDq", "qOYOWmu47l", "IPet")
