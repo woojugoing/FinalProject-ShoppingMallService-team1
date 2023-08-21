@@ -218,8 +218,12 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:id="@+id/recyclerView_home_joint"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:background="@color/background"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
         <TextView
             android:id="@+id/textView13"
@@ -229,8 +233,9 @@
             android:textAppearance="@style/Typography.Bold20" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:id="@+id/recyclerView_home_best"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp">
 
         </androidx.recyclerview.widget.RecyclerView>
 
