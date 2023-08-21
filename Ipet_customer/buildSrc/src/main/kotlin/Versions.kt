@@ -5,7 +5,6 @@ object Versions {
     const val SPLASH_SCREEN_VERSION = "1.0.1"
     const val MATERIAL_VERSION = "1.9.0"
     const val FIREBASE_BOM_VERSION = "32.2.2"
-    const val FIREBASE_DATABASE_VERSION = "20.2.2"
     const val FIREBASE_STORAGE_VERSION = "20.2.1"
     const val LOTTIE_VERSION = "5.2.0"
     const val SKELETON_VERSION = "0.5.0"
@@ -34,7 +33,7 @@ object GoogleDeps {
 object FirebaseDeps {
     const val FIREBASE_BOM = "com.google.firebase:firebase-bom:${Versions.FIREBASE_BOM_VERSION}"
     const val FIREBASE_ANALYTICS_KTX = "com.google.firebase:firebase-analytics-ktx"
-    const val FIREBASE_DATABASE = "com.google.firebase:firebase-database:${Versions.FIREBASE_DATABASE_VERSION}"
+    const val FIREBASE_DATABASE = "com.google.firebase:firebase-firestore-ktx"
     const val FIREBASE_STORAGE = "com.google.firebase:firebase-storage:${Versions.FIREBASE_STORAGE_VERSION}"
 }
 
