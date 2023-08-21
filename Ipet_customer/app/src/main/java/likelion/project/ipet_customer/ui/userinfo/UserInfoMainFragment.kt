@@ -13,6 +13,7 @@ class UserInfoMainFragment : Fragment() {
 
     lateinit var fragmentUserInfoMainBinding: FragmentUserInfoMainBinding
     lateinit var mainActivity: MainActivity
+    var fragmentState = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,6 +26,29 @@ class UserInfoMainFragment : Fragment() {
                 title = "내 정보"
                 setNavigationIcon(R.drawable.ic_back_24dp)
             }
+
+            imageViewUserInfoCancel.setOnClickListener {
+                fragmentState = "Cancel"
+                val newBundle = Bundle()
+                newBundle.putString("fragmentState", fragmentState)
+                mainActivity.replaceFragment(MainActivity.ORDER_STATUS_FRAGMENT, true, newBundle)
+            }
+
+            textViewUserInfoDetails.setOnClickListener {
+                fragmentState = "Detail"
+                val newBundle = Bundle()
+                newBundle.putString("fragmentState", fragmentState)
+                mainActivity.replaceFragment(MainActivity.ORDER_STATUS_FRAGMENT, true, newBundle)
+            }
+
+            imageViewUserInfoReview.setOnClickListener {
+                fragmentState = "Review"
+                val newBundle = Bundle()
+                newBundle.putString("fragmentState", fragmentState)
+                mainActivity.replaceFragment(MainActivity.ORDER_STATUS_FRAGMENT, true, newBundle)
+            }
+
+
         }
 
         return fragmentUserInfoMainBinding.root

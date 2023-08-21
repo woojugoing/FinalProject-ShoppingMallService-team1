@@ -20,7 +20,7 @@ import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.ActivityMainBinding
 import likelion.project.ipet_customer.ui.coupon.CouponFragment
 import likelion.project.ipet_customer.ui.heart.HeartFragment
-import likelion.project.ipet_customer.order.OrderStatusFragment
+import likelion.project.ipet_customer.ui.order.OrderStatusFragment
 import likelion.project.ipet_customer.ui.login.LoginFragment
 import likelion.project.ipet_customer.ui.onboarding.OnboardFragment
 import likelion.project.ipet_customer.ui.permission.PermissionFragment
@@ -53,8 +53,9 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, MainViewModelFactory(this))[MainViewModel::class.java]
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityMainBinding.root)
-        observe()
-        navigateToPermissionOrOnboardingOrLogin()
+        replaceFragment(USER_INFO_MAIN_FRAGMENT, false, null)
+//        observe()
+//        navigateToPermissionOrOnboardingOrLogin()
     }
 
     private fun observe() {

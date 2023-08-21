@@ -1,10 +1,11 @@
-package likelion.project.ipet_customer.order
+package likelion.project.ipet_customer.ui.order
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +19,7 @@ class OrderStatusFragment : Fragment() {
 
     lateinit var fragmentOrderStatusBinding: FragmentOrderStatusBinding
     lateinit var mainActivity: MainActivity
+    var fragmentState = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,13 +28,20 @@ class OrderStatusFragment : Fragment() {
         fragmentOrderStatusBinding = FragmentOrderStatusBinding.inflate(inflater)
         mainActivity = activity as MainActivity
 
+        fragmentState = arguments?.getString("fragmentState")!!
+
         fragmentOrderStatusBinding.run {
             toolbarOrderStatus.run {
-                title = "주문/배송"
+                title = when(fragmentState) {
+                    "Detail" -> "주문/배송"
+                    "Cancel" -> "취소/반품/교환"
+                    "Review" -> "내 리뷰"
+                    else -> null
+                }
                 setNavigationIcon(R.drawable.ic_back_24dp)
             }
             recyclerViewOrderStatus.run {
-                adapter = Adapter()
+                adapter = OrderStatusAdapter(fragmentState)
                 layoutManager = LinearLayoutManager(context)
             }
         }
@@ -40,13 +49,15 @@ class OrderStatusFragment : Fragment() {
         return fragmentOrderStatusBinding.root
     }
 
-    inner class Adapter: RecyclerView.Adapter<Adapter.Holder>() {
-        inner class Holder(itemOrderStatusBinding: ItemOrderStatusBinding): RecyclerView.ViewHolder(itemOrderStatusBinding.root) {
+    inner class OrderStatusAdapter(private val fragmentState: String) : RecyclerView.Adapter<OrderStatusAdapter.Holder>() {
+        inner class Holder(itemOrderStatusBinding: ItemOrderStatusBinding) : RecyclerView.ViewHolder(itemOrderStatusBinding.root) {
             val imageViewOrderStatusThumbNail: ImageView
             val textViewOrderStatusName: TextView
             val textViewOrderStatusCost: TextView
             val textViewOrderStatusBrand: TextView
             val textViewOrderStatusStatus: TextView
+            val buttonOrderStatusReview: Button?
+            val buttonOrderStatusCancel: Button?
 
             init {
                 imageViewOrderStatusThumbNail = itemOrderStatusBinding.imageViewOrderStatusThumbNail
@@ -54,6 +65,8 @@ class OrderStatusFragment : Fragment() {
                 textViewOrderStatusCost = itemOrderStatusBinding.textViewOrderStatusCost
                 textViewOrderStatusBrand = itemOrderStatusBinding.textViewOrderStatusBrand
                 textViewOrderStatusStatus = itemOrderStatusBinding.textViewOrderStatusStatus
+                buttonOrderStatusReview = itemOrderStatusBinding.buttonOrderStatusReview
+                buttonOrderStatusCancel = itemOrderStatusBinding.buttonOrderStatusCancel
             }
         }
 
@@ -77,7 +90,25 @@ class OrderStatusFragment : Fragment() {
             holder.textViewOrderStatusBrand.text = "브랜드$position"
             holder.textViewOrderStatusName.text = "$position 번째 사료"
             holder.textViewOrderStatusCost.text = "${position}0,000원"
-            holder.textViewOrderStatusStatus.text = "구매 완료"
+
+            when (fragmentState) {
+                "Detail" -> {
+                    holder.textViewOrderStatusStatus.text = "구매 완료"
+                    holder.buttonOrderStatusReview?.visibility = View.VISIBLE
+                    holder.buttonOrderStatusCancel?.visibility = View.VISIBLE
+                }
+                "Cancel" -> {
+                    holder.textViewOrderStatusStatus.text = "취소 완료"
+                    holder.buttonOrderStatusReview?.visibility = View.INVISIBLE
+                    holder.buttonOrderStatusCancel?.visibility = View.INVISIBLE
+                }
+                "Review" -> {
+                    holder.textViewOrderStatusStatus.text = "리뷰 대기"
+                    holder.buttonOrderStatusReview?.visibility = View.INVISIBLE
+                    holder.buttonOrderStatusCancel?.visibility = View.INVISIBLE
+                }
+                else -> null
+            }
         }
     }
 }
