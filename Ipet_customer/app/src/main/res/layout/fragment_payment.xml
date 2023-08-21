@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    tools:context=".ui.payment.PaymentFragment">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_payment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:id="@+id/linearLayout_payment_address_exist"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    style="@style/Typography.Medium24"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="대표 배송지" />
+
+                <TextView
+                    android:id="@+id/textView_payment_address_road_name"
+                    style="@style/Typography.Light12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="도로명 : 경기 성남시 분당구 판교역로 235(에이치스퀘어 엔동)" />
+
+                <TextView
+                    android:id="@+id/textView_payment_address_road_number"
+                    style="@style/Typography.Light12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="지번 : 경기 성남시 분당구 삼평동 681" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout_payment_address_exist_no"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:padding="10dp">
+
+                <TextView
+                    style="@style/Typography.Medium24"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="대표 배송지" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/imageView_payment_add_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/ic_add_circle_24px" />
+
+                    <TextView
+                        style="@style/Typography.Light12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="12dp"
+                        android:text="대표 배송지를 입력해주세요." />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    style="@style/Typography.Medium24"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="신규 배송지" />
+
+                <TextView
+                    android:id="@+id/textView_payment_new_address_road_name"
+                    style="@style/Typography.Light12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="도로명 : 경기 성남시 분당구 판교역로 235(에이치스퀘어 엔동)" />
+
+                <TextView
+                    android:id="@+id/textView_payment_new_address_road_number"
+                    style="@style/Typography.Light12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="지번 : 경기 성남시 분당구 삼평동 681" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    style="@style/Typography.Medium24"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="주문자 정보" />
+
+                <TextView
+                    android:id="@+id/textView_customer_name"
+                    style="@style/Typography.Light12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="이름 : 홍길동" />
+
+                <TextView
+                    android:id="@+id/textView_payment_customer_phone_number"
+                    style="@style/Typography.Light12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="핸드폰 번호 : 010-1234-5678" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    style="@style/Typography.Medium24"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="쿠폰" />
+
+                <Spinner
+                    android:id="@+id/spinner_payment_coupon"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/Typography.Medium24"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="결제 제품 정보" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_payment_product"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    style="@style/Typography.Medium24"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="결제 방식" />
+
+                <RadioGroup
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RadioButton
+                        android:id="@+id/radioButton_payment_credit_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/Typography.Light12"
+                        android:text="신용카드" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton_payment_naver_pay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/Typography.Light12"
+                        android:text="네이버 페이" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton_payment_phone_pay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/Typography.Light12"
+                        android:text="휴대폰 간편 결제" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <Button
+                    android:id="@+id/button_payment"
+                    style="@style/Typography.Bold20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="합계 18,000원  |  결제하기"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

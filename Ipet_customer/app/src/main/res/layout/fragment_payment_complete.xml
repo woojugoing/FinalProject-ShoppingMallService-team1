@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".ui.payment.PaymentCompleteFragment">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/ic_check_circle_rose200_24dp" />
+
+    <TextView
+        style="@style/Typography.Bold32"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="결제 완료!"
+        android:textAlignment="center" />
+
+    <Button
+        android:id="@+id/button_payment_complete_go_main"
+        style="@style/Typography.Medium24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="메인 화면 가기"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/button_payment_complete_go_order"
+        style="@style/Typography.Medium24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="주문 확인 하기"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/rose_100"/>
+</LinearLayout>
