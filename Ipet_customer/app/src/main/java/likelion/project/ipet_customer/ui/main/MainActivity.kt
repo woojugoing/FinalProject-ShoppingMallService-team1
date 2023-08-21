@@ -18,6 +18,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.ActivityMainBinding
+import likelion.project.ipet_customer.ui.coupon.CouponFragment
 import likelion.project.ipet_customer.ui.login.LoginFragment
 import likelion.project.ipet_customer.ui.onboarding.OnboardFragment
 import likelion.project.ipet_customer.ui.permission.PermissionFragment
@@ -93,6 +94,7 @@ class MainActivity : AppCompatActivity() {
             PRODUCT_LIST_FRAGMENT -> ProductListFragment()
             PRODUCT_INFO_FRAGMENT -> ProductInfoFragment()
             USER_INFO_MAIN_FRAGMENT -> UserInfoMainFragment()
+            COUPON_FRAGMENT -> CouponFragment()
             else -> Fragment()
         }
     }
@@ -157,6 +159,7 @@ class MainActivity : AppCompatActivity() {
         val PRODUCT_LIST_FRAGMENT = "ProductListFragment"
         val PRODUCT_INFO_FRAGMENT = "ProductInfoFragment"
         val USER_INFO_MAIN_FRAGMENT = "UserInfoMainFragment"
+        val COUPON_FRAGMENT = "CouponFragment"
         const val PERMISSION_REQUEST_ACCESS = 100
     }
 }

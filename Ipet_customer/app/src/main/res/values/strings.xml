@@ -30,4 +30,7 @@
     <string name="login_button_kakao">카카오 로그인</string>
     <string name="login_button_naver">네이버 로그인</string>
     <string name="login_button_google">구글 로그인</string>
+
+    <!-- 쿠폰-->
+    <string name="coupon_name">쿠폰</string>
 </resources>
