@@ -12,6 +12,7 @@ object Versions {
     const val JUNIT_VERSION = "4.13.2"
     const val JUNIT_EXT_VERSION = "1.1.5"
     const val ESPRESSO_VERSION = "3.5.1"
+    const val VIEWMODEL_VERSION = "2.6.1"
 }
 
 object AndroidXDeps {
@@ -19,6 +20,7 @@ object AndroidXDeps {
     const val APPCOMPAT =  "androidx.appcompat:appcompat:${Versions.APPCOMPAT_VERSION}"
     const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:${Versions.CONSTRAINT_LAYOUT_VERSION}"
     const val SPLASH_SCREEN = "androidx.core:core-splashscreen:${Versions.SPLASH_SCREEN_VERSION}"
+    const val VIEWMODEL = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.VIEWMODEL_VERSION}"
 }
 
 object GoogleDeps {
