@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
             if ((checkPermission() || shouldShowPermissionRationale()) && isFirstVisitor) {
                 replaceFragment(ONBOARDING_FRAGMENT, false, null)
             } else if (!isFirstVisitor) {
-                replaceFragment(HOME_FRAGMENT, false, null)
+                replaceFragment(LOGIN_FRAGMENT, false, null)
             } else {
                 replaceFragment(PERMISSION_FRAGMENT, false, null)
             }
