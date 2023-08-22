@@ -28,7 +28,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="@color/white"
         android:orientation="horizontal"
         android:padding="10dp">
@@ -50,155 +50,18 @@
             android:text="@string/reviewAll_rating" />
     </LinearLayout>
 
-    <LinearLayout
+    <View
+        android:id="@+id/view_reviewAll_line"
+        android:layout_width="40dp"
+        android:layout_height="2dp"
+        android:layout_marginStart="20dp"
+        android:background="@color/black" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_review_all"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="30dp"
-            android:layout_height="2dp"
-            android:layout_gravity="start"
-            android:layout_marginStart="20dp"
-            android:background="@color/black" />
-    </LinearLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:padding="20dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <RatingBar
-                        android:id="@+id/ratingBar_reviewAll_review"
-                        style="@style/Widget.AppCompat.RatingBar.Indicator"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:progressBackgroundTint="@color/rose_200"/>
-
-                    <TextView
-                        android:id="@+id/textView_reviewAll_userName"
-                        style="@style/Typography.Medium14"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="8dp"
-                        android:text="사용자 아이디" />
-
-                    <TextView
-                        android:id="@+id/textView_reviewAll_date"
-                        style="@style/Typography.Medium14"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_weight="1"
-                        android:text="작성 날짜"
-                        android:textAlignment="textEnd" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp">
-
-                    <ImageView
-                        android:id="@+id/imageView_reviewAll_review_image"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_account_circle_48dp" />
-
-                    <TextView
-                        android:id="@+id/textView_reviewAll_review_contents"
-                        style="@style/Typography.Medium14"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:text="상품이 너무 좋습니다!!" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:padding="20dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <RatingBar
-                        android:id="@+id/ratingBarReview1"
-                        style="@style/Widget.AppCompat.RatingBar.Indicator"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:id="@+id/textViewUserName1"
-                        style="@style/Typography.Medium14"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="8dp"
-                        android:text="사용자 아이디" />
-
-                    <TextView
-                        android:id="@+id/textViewDate1"
-                        style="@style/Typography.Medium14"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_weight="1"
-                        android:text="작성 날짜"
-                        android:textAlignment="textEnd" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp">
-
-                    <ImageView
-                        android:id="@+id/imageViewReview1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="60dp"
-                        android:src="@drawable/ic_account_circle_48dp" />
-
-                    <TextView
-                        android:id="@+id/textViewReview1"
-                        style="@style/Typography.Medium14"
-                        android:layout_width="match_parent"
-                        android:layout_height="600dp"
-                        android:layout_marginStart="20dp"
-                        android:text="상품이 너무 좋습니다!!이거 꼭 사세요" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
-    </ScrollView>
-
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        tools:listitem="@layout/item_review_all_review"/>
 
 </LinearLayout>
