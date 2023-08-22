@@ -19,6 +19,7 @@ import likelion.project.ipet_seller.R
 import likelion.project.ipet_seller.databinding.ActivityMainBinding
 import likelion.project.ipet_seller.ui.home.HomeFragment
 import likelion.project.ipet_seller.ui.login.LoginFragment
+import likelion.project.ipet_seller.ui.order.OrderStatusFragment
 import likelion.project.ipet_seller.ui.signup.SignupFragment
 
 class MainActivity : AppCompatActivity() {
@@ -49,6 +50,7 @@ class MainActivity : AppCompatActivity() {
             LOGIN_FRAGMENT -> LoginFragment()
             HOME_FRAGMENT -> HomeFragment()
             SIGNUP_FRAGMENT -> SignupFragment()
+            ORDER_STATUS_FRAGMENT -> OrderStatusFragment()
             else -> Fragment()
         }
     }
@@ -93,5 +95,6 @@ class MainActivity : AppCompatActivity() {
         val LOGIN_FRAGMENT = "LoginFragment"
         val HOME_FRAGMENT = "HomeFragment"
         val SIGNUP_FRAGMENT = "SignupFragment"
+        val ORDER_STATUS_FRAGMENT = "OrderStatusFragment"
     }
 }
