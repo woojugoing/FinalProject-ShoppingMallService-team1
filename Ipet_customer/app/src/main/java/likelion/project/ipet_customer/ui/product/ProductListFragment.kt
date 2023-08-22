@@ -33,11 +33,11 @@ class ProductListFragment : Fragment() {
             }
 
             fragmentList.run {
-                add(ProductFoodFragment())
-                add(ProductFoodFragment())
-                add(ProductFoodFragment())
-                add(ProductFoodFragment())
-                add(ProductFoodFragment())
+                add(ProductCategoryFragment())
+                add(ProductCategoryFragment())
+                add(ProductCategoryFragment())
+                add(ProductCategoryFragment())
+                add(ProductCategoryFragment())
             }
 
             pagerProductList.adapter = TabAdapterClass(mainActivity)

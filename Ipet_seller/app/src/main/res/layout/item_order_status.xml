@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingTop="7.5dp"
+    android:paddingRight="15dp"
+    android:paddingBottom="7.5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@color/white"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/imageView_orderStatus_thumbNail"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/img_dogfood" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/textView_orderStatus_orderTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="강아지 사료 외 1건"
+                    android:textAppearance="@style/Typography.Bold14" />
+
+                <TextView
+                    android:id="@+id/textView_orderStatus_orderDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="주문 일자 : 2022/02/22 22:22"
+                    android:textAppearance="@style/Typography.Regular12" />
+
+                <TextView
+                    android:id="@+id/textView_orderStatus_orderNum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="주문 번호 : 0000-1111-0001"
+                    android:textAppearance="@style/Typography.Regular12" />
+
+                <TextView
+                    android:id="@+id/textView_orderStatus_customer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="수취인 명 : 재능기부해조"
+                    android:textAppearance="@style/Typography.Regular12" />
+
+                <TextView
+                    android:id="@+id/textView_orderStatus_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="배송 준비 중"
+                    android:textAppearance="@style/Typography.Medium12"
+                    android:textColor="@color/brown_100" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/button_orderStatus_confirm"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:text="배송 처리"
+                android:textAppearance="@style/Typography.Bold12"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
