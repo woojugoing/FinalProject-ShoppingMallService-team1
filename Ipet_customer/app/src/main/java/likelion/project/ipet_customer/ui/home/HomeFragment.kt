@@ -85,6 +85,10 @@ class HomeFragment : Fragment() {
             recyclerViewHomeJoint.run {
                 adapter = JointAdapter()
             }
+
+            recyclerViewHomeBest.run {
+                adapter = BestAdapter()
+            }
         }
 
         return fragmentHomeBinding.root
@@ -177,6 +181,59 @@ class HomeFragment : Fragment() {
             jointMemberIc.setColorFilter(ContextCompat.getColor(mainActivity, R.color.brown_200))
 
             // 데이터 변경 코드는 밑에 추가하면 될 거 같아요!
+        }
+    }
+
+    inner class BestAdapter() : RecyclerView.Adapter<BestAdapter.BestViewHolder>(){
+        inner class BestViewHolder(binding: ItemProductCardBinding) : RecyclerView.ViewHolder(binding.root){
+            var linearLayout : LinearLayout
+            var itemBestTitle : TextView
+            var itemBestPrice : TextView
+            var itemBestImg : ImageView
+            var itemBestRank : TextView
+
+            init {
+                val textViewBestRank = TextView(requireContext())
+
+                linearLayout = binding.linearLayoutItemAddRank
+                itemBestTitle = binding.textViewCardTitle
+                itemBestPrice = binding.textViewCardCost
+                itemBestImg = binding.imageViewCardThumbnail
+                itemBestRank = textViewBestRank
+
+                textViewBestRank.text = "1위"
+                linearLayout.addView(itemBestRank,0)
+
+                // 상품 클릭 시 이벤트
+                binding.root.setOnClickListener {
+
+                }
+            }
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BestViewHolder {
+            val binding = ItemProductCardBinding.inflate(layoutInflater)
+            val bestViewHolder = BestViewHolder(binding)
+
+            binding.root.layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+
+            binding.linearLayoutItemAddRank.layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT
+
+            return bestViewHolder
+        }
+
+        override fun getItemCount(): Int = 10
+
+        override fun onBindViewHolder(holder: BestViewHolder, position: Int) {
+            // 스타일 변경 코드
+            holder.itemBestRank.typeface = ResourcesCompat.getFont(holder.itemView.context, R.font.pretendard_bold)
+            holder.itemBestRank.setTextColor(ContextCompat.getColor(mainActivity, R.color.black))
+            holder.itemBestRank.textSize = 12f
+
+            holder.itemBestRank.text = "${position+1}위"
         }
     }
 }
