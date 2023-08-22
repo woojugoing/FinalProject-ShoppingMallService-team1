@@ -166,7 +166,7 @@
                     android:id="@+id/textView_userInfo_deliveryConfirm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="13"
+                    android:text="0"
                     android:textAppearance="@style/Typography.Bold64"
                     app:layout_constraintEnd_toStartOf="@+id/textView_userInfo_deliveryWay"
                     app:layout_constraintHorizontal_bias="0.4"
@@ -177,7 +177,7 @@
                     android:id="@+id/textView_userInfo_deliveryWay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="12"
+                    android:text="0"
                     android:textAppearance="@style/Typography.Bold64"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -189,7 +189,7 @@
                     android:id="@+id/textView_userInfo_deliveryWay2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="12"
+                    android:text="0"
                     android:textAppearance="@style/Typography.Bold64"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.6"
@@ -446,7 +446,13 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
             </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_weight="1" />
 
         </LinearLayout>
     </ScrollView>
