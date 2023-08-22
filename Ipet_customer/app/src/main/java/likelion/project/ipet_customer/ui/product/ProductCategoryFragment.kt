@@ -9,28 +9,28 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import likelion.project.ipet_customer.databinding.FragmentProductFoodBinding
+import likelion.project.ipet_customer.databinding.FragmentProductCategoryBinding
 import likelion.project.ipet_customer.databinding.ItemProductCardBinding
 import likelion.project.ipet_customer.ui.main.MainActivity
 
-class ProductFoodFragment : Fragment() {
+class ProductCategoryFragment : Fragment() {
 
-    lateinit var fragmentProductFoodBinding: FragmentProductFoodBinding
+    lateinit var fragmentProductCategoryBinding: FragmentProductCategoryBinding
     lateinit var mainActivity: MainActivity
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        fragmentProductFoodBinding = FragmentProductFoodBinding.inflate(inflater)
+        fragmentProductCategoryBinding = FragmentProductCategoryBinding.inflate(inflater)
         mainActivity = activity as MainActivity
-        fragmentProductFoodBinding.run {
+        fragmentProductCategoryBinding.run {
             recyclerProductList.run {
                 adapter = Adapter()
                 layoutManager = GridLayoutManager(context, 2)
             }
         }
-        return fragmentProductFoodBinding.root
+        return fragmentProductCategoryBinding.root
     }
 
     inner class Adapter: RecyclerView.Adapter<Adapter.Holder>() {
