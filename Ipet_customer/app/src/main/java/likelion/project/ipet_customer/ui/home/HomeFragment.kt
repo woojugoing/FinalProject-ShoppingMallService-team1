@@ -1,21 +1,22 @@
 package likelion.project.ipet_customer.ui.home
 
+import android.graphics.Paint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.google.android.material.chip.ChipGroup
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.FragmentHomeBinding
-import likelion.project.ipet_customer.databinding.ItemJointProductBinding
+import likelion.project.ipet_customer.databinding.ItemProductCardBinding
 import likelion.project.ipet_customer.ui.main.MainActivity
 
 class HomeFragment : Fragment() {
@@ -93,21 +94,48 @@ class HomeFragment : Fragment() {
     }
 
     inner class JointAdapter() : RecyclerView.Adapter<JointAdapter.JointViewHolder>(){
-        inner class JointViewHolder(binding: ItemJointProductBinding) : RecyclerView.ViewHolder(binding.root){
+        inner class JointViewHolder(binding: ItemProductCardBinding) : RecyclerView.ViewHolder(binding.root){
+            var cardView : CardView
+            var linearLayoutAddMember : LinearLayout
+            var linearLayoutAddCostPrice : LinearLayout
+            var imageViewHeart : ImageView
             var itemJointTerm : TextView
             var itemJointImg : ImageView
             var itemJointTitle : TextView
             var itemJointMember : TextView
+            var itemJointMemberIc : ImageView
             var itemJointPrice : TextView
             var itemJointCostPrice : TextView
 
             init {
-                itemJointTerm = binding.textViewJointTerm
-                itemJointImg = binding.imageViewJointImg
-                itemJointTitle = binding.textViewJointTitle
-                itemJointMember = binding.textViewJointMember
-                itemJointPrice = binding.textViewJointPrice
-                itemJointCostPrice = binding.textViewJointCostPrice
+                val textViewJointTerm = TextView(requireContext())
+                val textViewJointMember = TextView(requireContext())
+                val textViewJointCostPrice = TextView(requireContext())
+                val imageViewMember = ImageView(requireContext())
+
+                linearLayoutAddMember = binding.linearLayoutItemAddMember
+                linearLayoutAddCostPrice = binding.linearLayoutItemAddCostPrice
+                imageViewHeart = binding.imageViewCardHeart
+                cardView = binding.cardViewItemProduct
+                itemJointImg = binding.imageViewCardThumbnail
+                itemJointTitle = binding.textViewCardTitle
+                itemJointPrice = binding.textViewCardCost
+                itemJointTerm = textViewJointTerm
+                itemJointMember = textViewJointMember
+                itemJointMemberIc = imageViewMember
+                itemJointCostPrice = textViewJointCostPrice
+
+                // 추가되는 View들의 test data(이거 없이 데이터베이스의 데이터를 바로 가져와서 해도 문제 없다면 지워도 됩니다)
+                textViewJointTerm.text = "08.10 ~ 09.23"
+                textViewJointMember.text = "9/100"
+                textViewJointCostPrice.text = "12,000원"
+                imageViewMember.setImageResource(R.drawable.ic_groups_24dp)
+
+                // View 추가 및 제거
+                linearLayoutAddMember.addView(itemJointMemberIc)
+                linearLayoutAddMember.addView(itemJointMember)
+                linearLayoutAddCostPrice.addView(itemJointCostPrice)
+                imageViewHeart.visibility = View.GONE
 
                 // 공동 구매 상품 클릭 시
                 binding.root.setOnClickListener {
@@ -117,7 +145,7 @@ class HomeFragment : Fragment() {
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JointViewHolder {
-            val binding = ItemJointProductBinding.inflate(layoutInflater)
+            val binding = ItemProductCardBinding.inflate(layoutInflater)
             val jointViewHolder = JointViewHolder(binding)
 
             binding.root.layoutParams = ViewGroup.LayoutParams(
@@ -132,6 +160,20 @@ class HomeFragment : Fragment() {
 
         override fun onBindViewHolder(holder: JointViewHolder, position: Int) {
 
+            // 스타일 변경 코드들
+            holder.itemJointCostPrice.typeface = ResourcesCompat.getFont(holder.itemView.context, R.font.pretendard_regular)
+
+            holder.itemJointCostPrice.textSize = 12f
+            holder.itemJointCostPrice.setTextColor(ContextCompat.getColor(mainActivity, R.color.gray))
+            holder.itemJointCostPrice.paintFlags = holder.itemJointCostPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+
+            val jointMember = holder.itemJointMember
+            jointMember.setTextAppearance(R.style.Typography_Regular12)
+
+            val jointMemberIc = holder.itemJointMemberIc
+            jointMemberIc.setColorFilter(ContextCompat.getColor(mainActivity, R.color.brown_200))
+
+            // 데이터 변경 코드는 밑에 추가하면 될 거 같아요!
         }
     }
 }
