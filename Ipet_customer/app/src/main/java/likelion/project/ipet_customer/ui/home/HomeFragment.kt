@@ -121,7 +121,7 @@ class HomeFragment : Fragment() {
             val jointViewHolder = JointViewHolder(binding)
 
             binding.root.layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
 
