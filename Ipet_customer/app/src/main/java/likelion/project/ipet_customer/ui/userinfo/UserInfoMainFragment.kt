@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.FragmentUserInfoMainBinding
@@ -92,7 +93,7 @@ class UserInfoMainFragment : Fragment() {
                 val builder = MaterialAlertDialogBuilder(mainActivity)
                 builder.setView(binding.root)
                 val dialog = builder.create()
-                binding.textView12.text = data
+                binding.textViewChangeAddressAddress.text = data
 
                 binding.buttonChangeAddressAdd.setOnClickListener {
                     mainActivity.replaceFragment(MainActivity.USER_INFO_ADDRESS_FRAGMENT, true, null)
@@ -100,15 +101,16 @@ class UserInfoMainFragment : Fragment() {
                 }
 
                 binding.buttonChangeAddressConfirm.setOnClickListener {
-                    data += binding.editTextText.text
+                    data += " ${binding.editTextChangeAddressDetail.text}"
                     val address = data
-                    textViewUserInfoAddress.append("\n${binding.editTextText.text}")
+                    Log.d("woojugoing", address)
+                    Toast.makeText(mainActivity, "상세 주소가 정상적으로 저장되었습니다.", Toast.LENGTH_SHORT).show()
                     dialog.dismiss()
                 }
 
                 if(data == "") {
-                    binding.textView12.visibility = View.GONE
-                    binding.editTextText.visibility = View.GONE
+                    binding.textViewChangeAddressAddress.visibility = View.GONE
+                    binding.editTextChangeAddressDetail.visibility = View.GONE
                     binding.buttonChangeAddressConfirm.visibility = View.GONE
                 }
                 dialog.show()
