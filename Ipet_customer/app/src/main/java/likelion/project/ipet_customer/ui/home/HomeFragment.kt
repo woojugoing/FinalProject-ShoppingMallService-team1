@@ -111,6 +111,25 @@ class HomeFragment : Fragment() {
                 }
             }
 
+            buttonHomeScategory1.setOnClickListener {
+                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, null)
+            }
+            buttonHomeScategory2.setOnClickListener {
+                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, null)
+            }
+            buttonHomeScategory3.setOnClickListener {
+                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, null)
+            }
+            buttonHomeScategory4.setOnClickListener {
+                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, null)
+            }
+            buttonHomeScategory5.setOnClickListener {
+                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, null)
+            }
+            buttonHomeScategory6.setOnClickListener {
+                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, null)
+            }
+
             // 공동 구매 상품 더보기 클릭 시
             textViewHomeMore.setOnClickListener {
                 val newBundle = Bundle()

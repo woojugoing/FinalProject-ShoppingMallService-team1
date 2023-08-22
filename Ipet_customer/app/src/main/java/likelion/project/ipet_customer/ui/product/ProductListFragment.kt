@@ -30,7 +30,10 @@ class ProductListFragment : Fragment() {
         fragmentProductListBinding = FragmentProductListBinding.inflate(inflater)
         mainActivity = activity as MainActivity
 
-        menuFlag = arguments?.getBoolean("menuFlag")!!
+        // null이 아닐 때만 값을 받도록
+        if(arguments?.getBoolean("menuFlag") != null){
+            menuFlag = arguments?.getBoolean("menuFlag")!!
+        }
 
         fragmentProductListBinding.run {
             toolbarProductList.run {
