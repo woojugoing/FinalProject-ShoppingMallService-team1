@@ -16,7 +16,10 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.NaverIdLoginSDK
+import com.navercorp.nid.oauth.NidOAuthLogin
 import com.navercorp.nid.oauth.OAuthLoginCallback
+import com.navercorp.nid.profile.NidProfileCallback
+import com.navercorp.nid.profile.data.NidProfileResponse
 import likelion.project.ipet_customer.databinding.FragmentLoginBinding
 import likelion.project.ipet_customer.ui.main.MainActivity
 
@@ -39,23 +42,23 @@ class LoginFragment : Fragment() {
         fragmentLoginBinding.run{
             buttonLoginKakao.run{
                 setOnClickListener {
-                    parsingLoginInfo(KAKAO_LOGIN)
+                    socialLogin(KAKAO_LOGIN)
                 }
             }
             buttonLoginNaver.run{
                 setOnClickListener {
-                    parsingLoginInfo(NAVER_LOGIN)
+                    socialLogin(NAVER_LOGIN)
                 }
             }
             buttonLoginGoogle.run{
                 setOnClickListener {
-                    parsingLoginInfo(GOOGLE_LOGIN)
+                    socialLogin(GOOGLE_LOGIN)
                 }
             }
         }
         return fragmentLoginBinding.root
     }
-    private fun parsingLoginInfo(loginCode: Int){
+    private fun socialLogin(loginCode: Int){
         when(loginCode){
             KAKAO_LOGIN -> {
                 // 카카오 로그인
@@ -78,7 +81,19 @@ class LoginFragment : Fragment() {
                 val oauthLoginCallback = object : OAuthLoginCallback {
                     override fun onSuccess() {
                         // 네이버 로그인 인증이 성공했을 때 수행할 코드 추가
-                        Log.i("login", "네이버 로그인 성공")
+                        val profileCallback = object : NidProfileCallback<NidProfileResponse> {
+                            override fun onSuccess(response: NidProfileResponse) {
+                                Log.i("login", "네이버 로그인 성공 ${response.profile.toString()}")
+                            }
+                            override fun onFailure(httpStatus: Int, message: String) {
+                                val errorCode = NaverIdLoginSDK.getLastErrorCode().code
+                                val errorDescription = NaverIdLoginSDK.getLastErrorDescription()
+                            }
+                            override fun onError(errorCode: Int, message: String) {
+                                onFailure(errorCode, message)
+                            }
+                        }
+                        NidOAuthLogin().callProfileApi(profileCallback)
                     }
                     override fun onFailure(httpStatus: Int, message: String) {
                         val errorCode = NaverIdLoginSDK.getLastErrorCode().code
