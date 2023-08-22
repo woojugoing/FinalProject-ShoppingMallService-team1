@@ -13,8 +13,9 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.ItemProductCardBinding
+import likelion.project.ipet_customer.ui.main.MainActivity
 
-class HomeJointAdapter(private val context: Context): RecyclerView.Adapter<HomeJointAdapter.JointViewHolder>(){
+class HomeJointAdapter(private val context: MainActivity): RecyclerView.Adapter<HomeJointAdapter.JointViewHolder>(){
 
     inner class JointViewHolder(private val binding: ItemProductCardBinding) : RecyclerView.ViewHolder(binding.root){
         var linearLayoutAddMember: LinearLayout = binding.linearLayoutItemAddMember
@@ -46,7 +47,7 @@ class HomeJointAdapter(private val context: Context): RecyclerView.Adapter<HomeJ
 
             // 공동 구매 상품 클릭 시
             binding.root.setOnClickListener {
-
+                context.replaceFragment(MainActivity.PRODUCT_INFO_FRAGMENT, true, null)
             }
         }
     }
