@@ -221,7 +221,6 @@
             android:id="@+id/recyclerView_home_joint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/background"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
@@ -235,7 +234,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView_home_best"
             android:layout_width="wrap_content"
-            android:layout_height="150dp">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
 
         </androidx.recyclerview.widget.RecyclerView>
 

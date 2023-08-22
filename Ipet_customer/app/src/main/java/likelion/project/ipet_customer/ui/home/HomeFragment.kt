@@ -13,7 +13,6 @@ import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.divider.MaterialDividerItemDecoration
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.FragmentHomeBinding
 import likelion.project.ipet_customer.databinding.ItemProductCardBinding
@@ -85,8 +84,6 @@ class HomeFragment : Fragment() {
 
             recyclerViewHomeJoint.run {
                 adapter = JointAdapter()
-
-                addItemDecoration(MaterialDividerItemDecoration(mainActivity, MaterialDividerItemDecoration.HORIZONTAL))
             }
         }
 
