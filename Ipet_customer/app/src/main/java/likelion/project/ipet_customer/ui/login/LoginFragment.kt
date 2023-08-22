@@ -108,8 +108,7 @@ class LoginFragment : Fragment() {
             }
             GOOGLE_LOGIN -> {
                 // 구글 로그인
-                val gso = GoogleSignInOptions
-                    .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
+                val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
                 val mGoogleSignInClient = GoogleSignIn.getClient(mainActivity, gso)
                 val signInIntent = mGoogleSignInClient.signInIntent
                 startActivityForResult(signInIntent, GOOGLE_LOGIN)
@@ -130,7 +129,7 @@ class LoginFragment : Fragment() {
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>){
         try{
             val account = completedTask.getResult(ApiException::class.java)
-            Log.i("login", "구글 로그인 성공 ${account.id}")
+            Log.i("login", "구글 로그인 성공 ${account.id} ${account.displayName} ${account.email}")
         } catch (e: ApiException){
             Log.w("login", "구글 로그인 실패")
         }
