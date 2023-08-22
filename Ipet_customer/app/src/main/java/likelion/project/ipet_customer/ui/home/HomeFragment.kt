@@ -111,6 +111,11 @@ class HomeFragment : Fragment() {
                 }
             }
 
+            // 공동 구매 상품 더보기 클릭 시
+            textViewHomeMore.setOnClickListener {
+                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, null)
+            }
+
             recyclerViewHomeJoint.run {
                 adapter = HomeJointAdapter(mainActivity)
             }
