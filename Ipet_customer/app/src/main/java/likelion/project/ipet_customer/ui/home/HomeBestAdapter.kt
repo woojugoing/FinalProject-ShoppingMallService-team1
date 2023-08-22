@@ -11,8 +11,9 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.ItemProductCardBinding
+import likelion.project.ipet_customer.ui.main.MainActivity
 
-class HomeBestAdapter(private val context: Context) : RecyclerView.Adapter<HomeBestAdapter.BestViewHolder>() {
+class HomeBestAdapter(private val context: MainActivity) : RecyclerView.Adapter<HomeBestAdapter.BestViewHolder>() {
 
     inner class BestViewHolder(private val binding: ItemProductCardBinding) : RecyclerView.ViewHolder(binding.root){
         var linearLayout : LinearLayout
@@ -35,7 +36,7 @@ class HomeBestAdapter(private val context: Context) : RecyclerView.Adapter<HomeB
 
             // 상품 클릭 시 이벤트
             binding.root.setOnClickListener {
-
+                context.replaceFragment(MainActivity.PRODUCT_INFO_FRAGMENT, true, null)
             }
         }
     }
