@@ -32,6 +32,7 @@ import likelion.project.ipet_customer.ui.product.ProductInfoFragment
 import likelion.project.ipet_customer.ui.product.ProductListFragment
 import likelion.project.ipet_customer.ui.review.ReviewAllFragment
 import likelion.project.ipet_customer.ui.review.ReviewWriteFragment
+import likelion.project.ipet_customer.ui.search.SearchMainFragment
 import likelion.project.ipet_customer.ui.shoppingbasket.ShoppingBasketFragment
 import likelion.project.ipet_customer.ui.userinfo.UserInfoAddressFragment
 import likelion.project.ipet_customer.ui.userinfo.UserInfoMainFragment
@@ -110,6 +111,7 @@ class MainActivity : AppCompatActivity() {
             HEART_FRAGMENT -> HeartFragment()
             ORDER_STATUS_FRAGMENT -> OrderStatusFragment()
             HOME_FRAGMENT -> HomeFragment()
+            SEARCH_MAIN_FRAGMENT -> SearchMainFragment()
             else -> Fragment()
         }
     }
@@ -182,6 +184,7 @@ class MainActivity : AppCompatActivity() {
         val HEART_FRAGMENT = "HeartFragment"
         val ORDER_STATUS_FRAGMENT = "OrderStatusFragment"
         val HOME_FRAGMENT = "HomeFragment"
+        val SEARCH_MAIN_FRAGMENT = "SearchMainFragment"
         const val PERMISSION_REQUEST_ACCESS = 100
     }
 }

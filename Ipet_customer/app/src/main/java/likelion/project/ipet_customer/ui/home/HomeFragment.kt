@@ -68,6 +68,19 @@ class HomeFragment : Fragment() {
                 }
             }
 
+            // toolbar
+            toolbarHome.run {
+                setOnMenuItemClickListener {
+                    when(it.itemId) {
+                        R.id.item_search -> {
+                            mainActivity.replaceFragment(MainActivity.SEARCH_MAIN_FRAGMENT, true, null)
+                        }
+                    }
+
+                    false
+                }
+            }
+
             // 대분류 카테고리 선택 시 UI 변경
             chipGroupHomeLcategory.run {
                 buttonHomeScategory6.visibility = View.INVISIBLE
