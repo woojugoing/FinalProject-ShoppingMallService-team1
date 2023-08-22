@@ -30,6 +30,7 @@ import likelion.project.ipet_customer.ui.product.ProductListFragment
 import likelion.project.ipet_customer.ui.review.ReviewAllFragment
 import likelion.project.ipet_customer.ui.review.ReviewWriteFragment
 import likelion.project.ipet_customer.ui.shoppingbasket.ShoppingBasketFragment
+import likelion.project.ipet_customer.ui.userinfo.UserInfoAddressFragment
 import likelion.project.ipet_customer.ui.userinfo.UserInfoMainFragment
 
 
@@ -99,6 +100,7 @@ class MainActivity : AppCompatActivity() {
             PRODUCT_LIST_FRAGMENT -> ProductListFragment()
             PRODUCT_INFO_FRAGMENT -> ProductInfoFragment()
             USER_INFO_MAIN_FRAGMENT -> UserInfoMainFragment()
+            USER_INFO_ADDRESS_FRAGMENT -> UserInfoAddressFragment()
             COUPON_FRAGMENT -> CouponFragment()
             HEART_FRAGMENT -> HeartFragment()
             ORDER_STATUS_FRAGMENT -> OrderStatusFragment()
@@ -167,6 +169,7 @@ class MainActivity : AppCompatActivity() {
         val PRODUCT_LIST_FRAGMENT = "ProductListFragment"
         val PRODUCT_INFO_FRAGMENT = "ProductInfoFragment"
         val USER_INFO_MAIN_FRAGMENT = "UserInfoMainFragment"
+        val USER_INFO_ADDRESS_FRAGMENT = "UserInfoAddressFragment"
         val COUPON_FRAGMENT = "CouponFragment"
         val HEART_FRAGMENT = "HeartFragment"
         val ORDER_STATUS_FRAGMENT = "OrderStatusFragment"

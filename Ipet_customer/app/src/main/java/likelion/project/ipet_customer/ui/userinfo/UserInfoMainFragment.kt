@@ -1,6 +1,8 @@
 package likelion.project.ipet_customer.ui.userinfo
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +10,7 @@ import android.view.ViewGroup
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.FragmentUserInfoMainBinding
+import likelion.project.ipet_customer.databinding.ItemUserinfoChangeaddressBinding
 import likelion.project.ipet_customer.databinding.ItemUserinfoDepositBinding
 import likelion.project.ipet_customer.databinding.ItemUserinfoDrawelcheckBinding
 import likelion.project.ipet_customer.ui.main.MainActivity
@@ -17,6 +20,7 @@ class UserInfoMainFragment : Fragment() {
     lateinit var fragmentUserInfoMainBinding: FragmentUserInfoMainBinding
     lateinit var mainActivity: MainActivity
     var fragmentState = ""
+    lateinit var data: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,7 +28,11 @@ class UserInfoMainFragment : Fragment() {
     ): View? {
         fragmentUserInfoMainBinding = FragmentUserInfoMainBinding.inflate(inflater)
         mainActivity = activity as MainActivity
+
         fragmentUserInfoMainBinding.run {
+            data = arguments?.getString("data") ?: ""
+            textViewUserInfoAddress.append(data)
+
             toolbarUserInfoMain.run {
                 title = "내 정보"
                 setNavigationIcon(R.drawable.ic_back_24dp)
@@ -76,23 +84,40 @@ class UserInfoMainFragment : Fragment() {
                 builder.setView(binding.root)
                 binding.textViewUserinfoDeposit.append("[2023/02/11]\t\t(2,000)\t\t고양이 사료\n")
                 binding.textViewUserinfoDeposit.append("[2023/03/13]\t\t(3,000)\t\t강아지 장난감\n")
-
                 builder.show()
             }
 
             layoutUserInfoChangeAddress.setOnClickListener {
+                val binding = ItemUserinfoChangeaddressBinding.inflate(LayoutInflater.from(context))
                 val builder = MaterialAlertDialogBuilder(mainActivity)
-                    .setView(R.layout.item_userinfo_changeaddress)
-                    .setPositiveButton("확인", null)
-                    .setNegativeButton("취소", null)
-                builder.show()
+                builder.setView(binding.root)
+                val dialog = builder.create()
+                binding.textView12.text = data
+
+                binding.buttonChangeAddressAdd.setOnClickListener {
+                    mainActivity.replaceFragment(MainActivity.USER_INFO_ADDRESS_FRAGMENT, true, null)
+                    dialog.dismiss()
+                }
+
+                binding.buttonChangeAddressConfirm.setOnClickListener {
+                    data += binding.editTextText.text
+                    val address = data
+                    textViewUserInfoAddress.append("\n${binding.editTextText.text}")
+                    dialog.dismiss()
+                }
+
+                if(data == "") {
+                    binding.textView12.visibility = View.GONE
+                    binding.editTextText.visibility = View.GONE
+                    binding.buttonChangeAddressConfirm.visibility = View.GONE
+                }
+                dialog.show()
             }
 
             layoutUserInfoWithDrawal.setOnClickListener {
                 val binding = ItemUserinfoDrawelcheckBinding.inflate(LayoutInflater.from(context))
                 val builder = MaterialAlertDialogBuilder(mainActivity)
                 builder.setView(binding.root)
-
                 val dialog = builder.create()
 
                 binding.buttonDrawelCheckYes.setOnClickListener {
@@ -106,9 +131,7 @@ class UserInfoMainFragment : Fragment() {
 
                 dialog.show()
             }
-
         }
-
         return fragmentUserInfoMainBinding.root
     }
 }
