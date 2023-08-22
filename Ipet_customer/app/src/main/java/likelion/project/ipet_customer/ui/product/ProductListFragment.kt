@@ -20,15 +20,26 @@ class ProductListFragment : Fragment() {
     val fragmentList = mutableListOf<Fragment>()
     val productListName = arrayOf("사료", "간식", "장난감", "용품", "집")
 
+    // bundle 값을 받을 변수
+    var menuFlag = true
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         fragmentProductListBinding = FragmentProductListBinding.inflate(inflater)
         mainActivity = activity as MainActivity
+
+        menuFlag = arguments?.getBoolean("menuFlag")!!
+
         fragmentProductListBinding.run {
             toolbarProductList.run {
-                title = "상품 목록"
+                if(menuFlag){
+                    title = "상품 목록"
+                } else{
+                    title = "공동 구매 상품 목록"
+                }
+
                 setNavigationIcon(R.drawable.ic_back_24dp)
             }
 
