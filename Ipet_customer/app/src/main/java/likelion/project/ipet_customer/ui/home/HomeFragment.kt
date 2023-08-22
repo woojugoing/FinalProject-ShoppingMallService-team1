@@ -95,6 +95,7 @@ class HomeFragment : Fragment() {
             var cardView : CardView
             var linearLayoutAddMember : LinearLayout
             var linearLayoutAddCostPrice : LinearLayout
+            var linearLayoutAddTerm : LinearLayout
             var imageViewHeart : ImageView
             var itemJointTerm : TextView
             var itemJointImg : ImageView
@@ -112,6 +113,7 @@ class HomeFragment : Fragment() {
 
                 linearLayoutAddMember = binding.linearLayoutItemAddMember
                 linearLayoutAddCostPrice = binding.linearLayoutItemAddCostPrice
+                linearLayoutAddTerm = binding.linearLayoutItemAddTerm
                 imageViewHeart = binding.imageViewCardHeart
                 cardView = binding.cardViewItemProduct
                 itemJointImg = binding.imageViewCardThumbnail
@@ -132,6 +134,7 @@ class HomeFragment : Fragment() {
                 linearLayoutAddMember.addView(itemJointMemberIc)
                 linearLayoutAddMember.addView(itemJointMember)
                 linearLayoutAddCostPrice.addView(itemJointCostPrice)
+                linearLayoutAddTerm.addView(itemJointTerm)
                 imageViewHeart.visibility = View.GONE
 
                 // 공동 구매 상품 클릭 시
@@ -149,6 +152,9 @@ class HomeFragment : Fragment() {
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
+
+            // linearLayout height 조정
+            binding.linearLayoutItemAddTerm.layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT
 
             return jointViewHolder
         }
