@@ -72,6 +72,7 @@ class LoginFragment : Fragment() {
                             // 사용자 규격 정보
                             val idTokenPayload = Base64.decode(idTokenList[1], Base64.DEFAULT).toString(Charsets.UTF_8)
                             Log.i("login", "카카오 로그인 성공 $idTokenPayload")
+                            mainActivity.replaceFragment(MainActivity.HOME_FRAGMENT, false, null)
                         }
                     }
                 }
@@ -84,6 +85,7 @@ class LoginFragment : Fragment() {
                         val profileCallback = object : NidProfileCallback<NidProfileResponse> {
                             override fun onSuccess(response: NidProfileResponse) {
                                 Log.i("login", "네이버 로그인 성공 ${response.profile.toString()}")
+                                mainActivity.replaceFragment(MainActivity.HOME_FRAGMENT, false, null)
                             }
                             override fun onFailure(httpStatus: Int, message: String) {
                                 val errorCode = NaverIdLoginSDK.getLastErrorCode().code
@@ -130,6 +132,7 @@ class LoginFragment : Fragment() {
         try{
             val account = completedTask.getResult(ApiException::class.java)
             Log.i("login", "구글 로그인 성공 ${account.id} ${account.displayName} ${account.email}")
+            mainActivity.replaceFragment(MainActivity.HOME_FRAGMENT, false, null)
         } catch (e: ApiException){
             Log.w("login", "구글 로그인 실패")
         }
