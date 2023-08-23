@@ -44,11 +44,13 @@ class ProductJointListFragment : Fragment() {
             val imageViewCardThumbnail: ImageView
             val textViewCardTitle: TextView
             val textViewCardCost: TextView
-
             init {
                 imageViewCardThumbnail = rowBinding.imageViewCardThumbnail
                 textViewCardTitle = rowBinding.textViewCardTitle
                 textViewCardCost = rowBinding.textViewCardCost
+                rowBinding.root.setOnClickListener {
+                    mainActivity.replaceFragment(MainActivity.PRODUCT_INFO_FRAGMENT, true, null)
+                }
             }
         }
 
