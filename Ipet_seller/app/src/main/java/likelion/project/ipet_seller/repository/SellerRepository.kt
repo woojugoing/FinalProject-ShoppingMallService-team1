@@ -23,9 +23,11 @@ class SellerRepository(context: Context) {
         return id to pw
     }
 
-    suspend fun removeSellerToLocal() {
-        dataStoreDataSource.removeDataSource(SELLER_ID_KEY)
-        dataStoreDataSource.removeDataSource(SELLER_PW_KEY)
+    suspend fun removeSellerToLocal(): Result<Unit> {
+        return kotlin.runCatching {
+            dataStoreDataSource.removeDataSource(SELLER_ID_KEY)
+            dataStoreDataSource.removeDataSource(SELLER_PW_KEY)
+        }
     }
 
     companion object {

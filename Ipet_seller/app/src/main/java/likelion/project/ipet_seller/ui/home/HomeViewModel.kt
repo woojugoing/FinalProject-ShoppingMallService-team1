@@ -1,9 +1,12 @@
 package likelion.project.ipet_seller.ui.home
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
@@ -20,6 +23,9 @@ class HomeViewModel(context: Context) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
     val uistate = _uiState.asStateFlow()
+
+    private val _event = MutableSharedFlow<String>(extraBufferCapacity = 1)
+    val event = _event.asSharedFlow()
 
     fun fetchSeller() {
         viewModelScope.launch {
@@ -55,6 +61,18 @@ class HomeViewModel(context: Context) : ViewModel() {
             }
         }
     }
+
+    fun onLogoutClickEvent() {
+        viewModelScope.launch {
+            sellerRepository.removeSellerToLocal()
+                .onSuccess {
+                    _event.tryEmit("로그아웃 하였습니다")
+                }.onFailure {
+                    Log.d("logout","test14")
+                    _event.tryEmit("로그아웃 실패하였습니다")
+                }
+        }
+    }
 }
 
 data class UiState(
@@ -63,5 +81,6 @@ data class UiState(
     val orderCount: Int = 0,
     val preparingCount: Int = 0,
     val deliveringCount: Int = 0,
-    val deliveredCount: Int = 0
+    val deliveredCount: Int = 0,
+    val isLogout: Boolean = false,
 )

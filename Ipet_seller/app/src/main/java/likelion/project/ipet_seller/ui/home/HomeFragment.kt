@@ -1,15 +1,14 @@
 package likelion.project.ipet_seller.ui.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.flow.collect
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
-import likelion.project.ipet_seller.R
 import likelion.project.ipet_seller.databinding.FragmentHomeBinding
 import likelion.project.ipet_seller.ui.main.MainActivity
 
@@ -25,10 +24,22 @@ class HomeFragment : Fragment() {
     ): View? {
         mainActivity = activity as MainActivity
         fragmentHomeBinding = FragmentHomeBinding.inflate(inflater)
-        viewModel = ViewModelProvider(this, HomeViewModelFactory(mainActivity))[HomeViewModel::class.java]
+        viewModel =
+            ViewModelProvider(this, HomeViewModelFactory(mainActivity))[HomeViewModel::class.java]
+        initEvent()
         initViewModel()
         observe()
         return fragmentHomeBinding.root
+    }
+
+    private fun initEvent() {
+        fragmentHomeBinding.run {
+            cardViewHome7.run {
+                setOnClickListener {
+                    viewModel.onLogoutClickEvent()
+                }
+            }
+        }
     }
 
     private fun initViewModel() {
@@ -48,6 +59,13 @@ class HomeFragment : Fragment() {
                     textViewHomeDeliveringCount.text = it.deliveringCount.toString()
                     textViewHomeDeliveredCount.text = it.deliveredCount.toString()
                 }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.event.collect {
+                mainActivity.replaceFragment(MainActivity.LOGIN_FRAGMENT, false, null)
+                Snackbar.make(fragmentHomeBinding.root, it, Snackbar.LENGTH_SHORT).show()
             }
         }
     }
