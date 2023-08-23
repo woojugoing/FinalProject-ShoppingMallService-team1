@@ -34,6 +34,7 @@ import likelion.project.ipet_customer.ui.product.ProductListFragment
 import likelion.project.ipet_customer.ui.review.ReviewAllFragment
 import likelion.project.ipet_customer.ui.review.ReviewWriteFragment
 import likelion.project.ipet_customer.ui.search.SearchMainFragment
+import likelion.project.ipet_customer.ui.search.SearchResultFragment
 import likelion.project.ipet_customer.ui.shoppingbasket.ShoppingBasketFragment
 import likelion.project.ipet_customer.ui.userinfo.UserInfoAddressFragment
 import likelion.project.ipet_customer.ui.userinfo.UserInfoMainFragment
