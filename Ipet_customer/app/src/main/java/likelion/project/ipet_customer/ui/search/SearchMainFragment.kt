@@ -43,7 +43,7 @@ class SearchMainFragment : Fragment() {
                     }
 
                     override fun onQueryTextChange(newText: String?): Boolean {
-                        TODO("Not yet implemented")
+                        return false
                     }
                 })
             }
@@ -67,6 +67,9 @@ class SearchMainFragment : Fragment() {
                 imageViewCardThumbnail = rowBinding.imageViewCardThumbnail
                 textViewCardTitle = rowBinding.textViewCardTitle
                 textViewCardCost = rowBinding.textViewCardCost
+                rowBinding.root.setOnClickListener {
+                    mainActivity.replaceFragment(MainActivity.PRODUCT_INFO_FRAGMENT, true, null)
+                }
             }
         }
 
