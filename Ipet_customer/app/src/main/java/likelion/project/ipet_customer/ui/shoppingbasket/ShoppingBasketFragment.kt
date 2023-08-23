@@ -32,6 +32,9 @@ class ShoppingBasketFragment : Fragment() {
             materialToolbarShoppingBasket.run {
                 title = "장바구니"
                 setNavigationIcon(R.drawable.ic_back_24dp)
+                setNavigationOnClickListener {
+                    mainActivity.removeFragment(MainActivity.SHOPPING_BASKET_FRAGMENT)
+                }
             }
 
             recyclerGoodsList.run {
