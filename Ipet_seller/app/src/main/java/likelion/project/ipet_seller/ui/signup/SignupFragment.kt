@@ -24,7 +24,7 @@ class SignupFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         mainActivity = activity as MainActivity
-        viewModel = ViewModelProvider(this)[SignupViewModel::class.java]
+        viewModel = ViewModelProvider(this, SignupViewModelFactory(mainActivity))[SignupViewModel::class.java]
         fragmentSignupBinding = FragmentSignupBinding.inflate(inflater)
         initEvent()
         observe()
