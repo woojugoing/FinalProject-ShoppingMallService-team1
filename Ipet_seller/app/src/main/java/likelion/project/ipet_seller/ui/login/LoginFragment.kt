@@ -27,7 +27,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         mainActivity = activity as MainActivity
-        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+        viewModel = ViewModelProvider(this, LoginViewModelFactory(mainActivity))[LoginViewModel::class.java]
         fragmentLoginBinding = FragmentLoginBinding.inflate(inflater)
         initEvent()
         observe()

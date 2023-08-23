@@ -1,5 +1,6 @@
 package likelion.project.ipet_seller.ui.login
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
@@ -16,8 +17,8 @@ import kotlinx.coroutines.launch
 import likelion.project.ipet_seller.model.Seller
 import likelion.project.ipet_seller.repository.SellerRepository
 
-class LoginViewModel : ViewModel() {
-    private val sellerRepository = SellerRepository()
+class LoginViewModel(context: Context) : ViewModel() {
+    private val sellerRepository = SellerRepository(context)
 
     private val _uiState = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()
@@ -30,6 +31,7 @@ class LoginViewModel : ViewModel() {
             sellerRepository.getSellerInfo(seller)
                 .collect {
                     it.onSuccess { sellerInfo ->
+                        sellerRepository.saveSellerIdToLocal(seller.sellerId, seller.sellerPw)
                         _uiState.update {
                             it.copy(
                                 seller = sellerInfo,

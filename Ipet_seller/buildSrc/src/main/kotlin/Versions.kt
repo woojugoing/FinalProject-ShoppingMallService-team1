@@ -8,6 +8,7 @@ object Versions {
     const val FIREBASE_STORAGE_VERSION = "20.2.1"
     const val LOTTIE_VERSION = "5.2.0"
     const val SKELETON_VERSION = "0.5.0"
+    const val DATASTORE_VERSION = "1.0.0"
     const val JUNIT_VERSION = "4.13.2"
     const val JUNIT_EXT_VERSION = "1.1.5"
     const val ESPRESSO_VERSION = "3.5.1"
@@ -39,6 +40,11 @@ object LottieDeps {
 
 object SkeletonDeps {
     const val SHIMMER = "com.facebook.shimmer:shimmer:${Versions.SKELETON_VERSION}"
+}
+
+object DataStore {
+    const val PREFERENCES = "androidx.datastore:datastore-preferences:${Versions.DATASTORE_VERSION}"
+    const val PREFERENCES_CORE =  "androidx.datastore:datastore-preferences-core:${Versions.DATASTORE_VERSION}"
 }
 
 object TestDeps {
