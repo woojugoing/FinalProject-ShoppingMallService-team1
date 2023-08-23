@@ -308,7 +308,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="10dp"
-            android:text="@string/login"
+            android:text="@string/logout"
             android:textAppearance="@style/Typography.Bold15" />
     </androidx.cardview.widget.CardView>
 
