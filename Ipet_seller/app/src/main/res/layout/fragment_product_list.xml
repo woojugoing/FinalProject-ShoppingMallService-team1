@@ -16,7 +16,6 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:navigationIcon="@drawable/ic_back_24dp"
-        app:menu="@menu/menu_productlist"
         app:title="판매 상품 리스트" />
 
     <androidx.recyclerview.widget.RecyclerView

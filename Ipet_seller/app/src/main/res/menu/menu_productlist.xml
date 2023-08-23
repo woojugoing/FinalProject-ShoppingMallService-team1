@@ -6,5 +6,6 @@
         android:id="@+id/item_add_product"
         android:icon="@android:drawable/ic_menu_add"
         android:title=""
+        android:iconTint="@color/brown_200"
         app:showAsAction="always"/>
 </menu>
