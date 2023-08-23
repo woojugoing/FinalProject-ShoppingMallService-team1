@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
+import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.transition.MaterialSharedAxis
+import com.google.firebase.database.collection.LLRBNode
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -30,6 +32,7 @@ import likelion.project.ipet_customer.ui.payment.PaymentCompleteFragment
 import likelion.project.ipet_customer.ui.payment.PaymentFragment
 import likelion.project.ipet_customer.ui.permission.PermissionFragment
 import likelion.project.ipet_customer.ui.product.ProductInfoFragment
+import likelion.project.ipet_customer.ui.product.ProductJointListFragment
 import likelion.project.ipet_customer.ui.product.ProductListFragment
 import likelion.project.ipet_customer.ui.review.ReviewAllFragment
 import likelion.project.ipet_customer.ui.review.ReviewWriteFragment
@@ -63,6 +66,21 @@ class MainActivity : AppCompatActivity() {
         setContentView(activityMainBinding.root)
         observe()
         navigateToPermissionOrOnboardingOrLogin()
+
+        activityMainBinding.run {
+            bottomNavigation.selectedItemId = R.id.item_bottom_joinT
+            bottomNavigation.setOnItemSelectedListener { item ->
+                when(item.itemId) {
+                    R.id.item_bottom_home -> {replaceFragment(HOME_FRAGMENT, false, null) }
+                    R.id.item_bottom_search -> {replaceFragment(SEARCH_MAIN_FRAGMENT, false, null) }
+                    R.id.item_bottom_joinT -> {replaceFragment(PRODUCT_JOINT_LIST_FRAGMENT, false, null) }
+                    R.id.item_bottom_basket -> {replaceFragment(SHOPPING_BASKET_FRAGMENT, false, null)}
+                    R.id.item_bottom_userInfo -> {replaceFragment(USER_INFO_MAIN_FRAGMENT, false, null)}
+                    else -> null
+                }
+                false
+            }
+        }
     }
 
     private fun observe() {
@@ -76,10 +94,13 @@ class MainActivity : AppCompatActivity() {
     private fun navigateToPermissionOrOnboardingOrLogin() {
         CoroutineScope(Dispatchers.Main).launch {
             if ((checkPermission() || shouldShowPermissionRationale()) && isFirstVisitor) {
+                activityMainBinding.bottomNavigation.visibility = View.GONE
                 replaceFragment(ONBOARDING_FRAGMENT, false, null)
             } else if (!isFirstVisitor) {
+                activityMainBinding.bottomNavigation.visibility = View.GONE
                 replaceFragment(LOGIN_FRAGMENT, false, null)
             } else {
+                activityMainBinding.bottomNavigation.visibility = View.GONE
                 replaceFragment(PERMISSION_FRAGMENT, false, null)
             }
             delay(500)
@@ -108,6 +129,7 @@ class MainActivity : AppCompatActivity() {
             LOGIN_FRAGMENT -> LoginFragment()
             PRODUCT_LIST_FRAGMENT -> ProductListFragment()
             PRODUCT_INFO_FRAGMENT -> ProductInfoFragment()
+            PRODUCT_JOINT_LIST_FRAGMENT -> ProductJointListFragment()
             USER_INFO_MAIN_FRAGMENT -> UserInfoMainFragment()
             USER_INFO_ADDRESS_FRAGMENT -> UserInfoAddressFragment()
             COUPON_FRAGMENT -> CouponFragment()
@@ -182,6 +204,7 @@ class MainActivity : AppCompatActivity() {
         val LOGIN_FRAGMENT = "LoginFragment"
         val PRODUCT_LIST_FRAGMENT = "ProductListFragment"
         val PRODUCT_INFO_FRAGMENT = "ProductInfoFragment"
+        val PRODUCT_JOINT_LIST_FRAGMENT = "ProductJointListFragment"
         val USER_INFO_MAIN_FRAGMENT = "UserInfoMainFragment"
         val USER_INFO_ADDRESS_FRAGMENT = "UserInfoAddressFragment"
         val COUPON_FRAGMENT = "CouponFragment"
