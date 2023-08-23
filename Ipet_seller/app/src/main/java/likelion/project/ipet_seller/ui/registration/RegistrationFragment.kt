@@ -12,7 +12,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.ImageButton
+import android.widget.Spinner
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -34,6 +37,10 @@ class RegistrationFragment : Fragment() {
 
     // 현재 선택된 ImageButton을 저장하는 변수
     private var selectedImageButton: ImageButton? = null
+
+    val animalType = arrayOf("반려동물 선택", "강아지", "고양이")
+    val mainCategory = arrayOf("대분류 선택", "사료", "간식", "장난감", "의류", "집")
+    val subCategory = arrayOf("소분류 선택", "주니어", "어덜트", "시니어", "다이어트", "건식 사료", "습식 사료")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -135,8 +142,20 @@ class RegistrationFragment : Fragment() {
                     launchAlbumPicker()
                 }
             }
-        }
 
+            setupSpinner(spinnerRegistrationAnimalType, animalType) { parent, view, position, id ->
+
+            }
+
+            setupSpinner(spinnerRegistrationMainCategory, mainCategory) { parent, view, position, id ->
+
+            }
+
+            setupSpinner(spinnerRegistrationSubCategory, subCategory) { parent, view, position, id ->
+
+            }
+
+        }
 
         return fragmentRegistrationBinding.root
     }
@@ -149,5 +168,33 @@ class RegistrationFragment : Fragment() {
         albumActivityLauncher.launch(newIntent)
     }
 
+    // 스피너 설정 메서드
+    private fun setupSpinner(
+        spinner: Spinner,
+        data: Array<String>,
+        onItemSelected: (parent: AdapterView<*>?, view: View?, position: Int, id: Long) -> Unit
+    ) {
+        val adapter = ArrayAdapter<String>(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            data
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                onItemSelected(parent, view, position, id)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+        }
+    }
 
 }
