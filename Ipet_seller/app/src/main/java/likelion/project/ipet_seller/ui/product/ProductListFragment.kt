@@ -42,6 +42,13 @@ class ProductListFragment : Fragment() {
                     DrawableCompat.setTintList(wrappedDrawable, color)
                     menuItem.icon = wrappedDrawable
                 }
+
+                // 우측 상단 상품 추가 버튼 클릭 시
+                /*setOnMenuItemClickListener {
+                    when(it.itemId){
+                        R.id.item_add_product -> mainActivity.replaceFragment(,true,null)
+                    }
+                }*/
             }
 
             recyclerViewProductList.run {
