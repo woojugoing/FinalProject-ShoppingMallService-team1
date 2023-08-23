@@ -12,6 +12,7 @@ import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.children
 import androidx.core.view.forEach
 import androidx.core.widget.ImageViewCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import likelion.project.ipet_seller.R
 import likelion.project.ipet_seller.databinding.FragmentProductListBinding
 import likelion.project.ipet_seller.ui.main.MainActivity
@@ -41,6 +42,11 @@ class ProductListFragment : Fragment() {
                     DrawableCompat.setTintList(wrappedDrawable, color)
                     menuItem.icon = wrappedDrawable
                 }
+            }
+
+            recyclerViewProductList.run {
+                adapter = ProductListAdapter(mainActivity)
+                layoutManager = LinearLayoutManager(context)
             }
         }
 
