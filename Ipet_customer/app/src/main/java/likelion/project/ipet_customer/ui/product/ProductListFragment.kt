@@ -44,6 +44,9 @@ class ProductListFragment : Fragment() {
                 }
 
                 setNavigationIcon(R.drawable.ic_back_24dp)
+                setNavigationOnClickListener {
+                    mainActivity.removeFragment(MainActivity.PRODUCT_LIST_FRAGMENT)
+                }
             }
 
             fragmentList.run {

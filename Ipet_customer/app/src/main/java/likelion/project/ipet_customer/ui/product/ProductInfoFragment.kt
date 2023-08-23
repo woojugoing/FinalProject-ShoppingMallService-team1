@@ -48,6 +48,9 @@ class ProductInfoFragment : Fragment() {
             toolbarProductInfo.run {
 
                 setNavigationIcon(R.drawable.ic_back_24dp)
+                setNavigationOnClickListener {
+                    mainActivity.removeFragment(MainActivity.PRODUCT_INFO_FRAGMENT)
+                }
             }
 
             // 원가 가격 표시
