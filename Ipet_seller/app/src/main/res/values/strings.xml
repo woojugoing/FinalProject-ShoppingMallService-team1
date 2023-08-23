@@ -19,4 +19,13 @@
     <string name="signup_seller_number">사업자 번호 입력(- 제외)</string>
     <string name="signup_seller_phone">핸드폰 번호 입력(- 제외)</string>
     <string name="signup">회원 가입하기</string>
+
+    <string name="order_status">주문/배송 관리</string>
+    <string name="order_preparing">배송준비중</string>
+    <string name="order_delivering">배송중</string>
+    <string name="order_delivered">배송완료</string>
+
+    <string name="selling_product_list">판매 상품 리스트</string>
+    <string name="register_product">판매 상품 등록</string>
+    <string name="revenue_management">판매 매출 관리</string>
 </resources>

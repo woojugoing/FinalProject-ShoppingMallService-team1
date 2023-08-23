@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:src="@drawable/ic_error_outline_24"
+        android:src="@drawable/ic_error_outline_24dp"
         app:layout_constraintStart_toStartOf="@id/guideLine_signup_start_boundary"
         app:layout_constraintTop_toBottomOf="@id/textView_signup_seller_center" />
 

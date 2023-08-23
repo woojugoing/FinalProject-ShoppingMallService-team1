@@ -1,14 +1,316 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
     tools:context=".ui.home.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_home_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="66dp"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/logo"
+                android:textAppearance="@style/Typography.yeongdo18"
+                android:textColor="@color/brown_200"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/seller_center"
+                android:textAppearance="@style/Typography.Bold12"
+                android:textColor="@color/brown_200"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_home_2"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardView_home_1">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/textView_home_sellerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:textAppearance="@style/Typography.Bold14"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView_home_newOrderCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:textAppearance="@style/Typography.Bold14"
+                app:layout_constraintBottom_toBottomOf="@id/textView_home_sellerName"
+                app:layout_constraintEnd_toStartOf="@id/imageView_home_orderCountArrow"
+                app:layout_constraintTop_toTopOf="@id/textView_home_sellerName" />
+
+            <ImageView
+                android:id="@+id/imageView_home_orderCountArrow"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="10dp"
+                android:paddingStart="10dp"
+                android:src="@drawable/ic_arrow_forward_ios_24dp"
+                app:layout_constraintBottom_toBottomOf="@id/textView_home_newOrderCount"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/textView_home_newOrderCount" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_home_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardView_home_2">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="50dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView_home_orderFlowTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="주문/배송 관리"
+                android:textAppearance="@style/Typography.Bold15"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_arrow_forward_ios_24dp"
+                app:layout_constraintBottom_toBottomOf="@id/textView_home_orderFlowTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView_home_orderFlowTitle" />
+
+            <TextView
+                android:id="@+id/textView_home_preparingCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+
+                android:textAppearance="@style/Typography.Bold24"
+                app:layout_constraintBottom_toBottomOf="@id/textView_home_deliveringCount"
+                app:layout_constraintEnd_toStartOf="@id/imageView_home_order_divisionArraow1"
+                app:layout_constraintTop_toTopOf="@id/textView_home_deliveringCount" />
+
+            <TextView
+                android:id="@+id/textView_home_preparing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/order_preparing"
+                android:textAppearance="@style/Typography.Regular14"
+                app:layout_constraintEnd_toEndOf="@id/textView_home_preparingCount"
+                app:layout_constraintStart_toStartOf="@id/textView_home_preparingCount"
+                app:layout_constraintTop_toBottomOf="@id/textView_home_preparingCount" />
+
+            <ImageView
+                android:id="@+id/imageView_home_order_divisionArraow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:src="@drawable/ic_arrow_forward_ios_24dp"
+                app:layout_constraintBottom_toBottomOf="@id/textView_home_deliveringCount"
+                app:layout_constraintEnd_toStartOf="@id/textView_home_deliveringCount"
+                app:layout_constraintTop_toTopOf="@id/textView_home_deliveringCount" />
+
+            <TextView
+                android:id="@+id/textView_home_deliveringCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+
+                android:textAppearance="@style/Typography.Bold24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView_home_orderFlowTitle" />
+
+            <TextView
+                android:id="@+id/textView_home_delivering"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/order_delivering"
+                android:textAppearance="@style/Typography.Regular14"
+                app:layout_constraintEnd_toEndOf="@id/textView_home_deliveringCount"
+                app:layout_constraintStart_toStartOf="@id/textView_home_deliveringCount"
+                app:layout_constraintTop_toBottomOf="@id/textView_home_deliveringCount" />
+
+            <ImageView
+                android:id="@+id/imageView_home_order_divisionArraow2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:src="@drawable/ic_arrow_forward_ios_24dp"
+                app:layout_constraintBottom_toBottomOf="@id/textView_home_deliveringCount"
+                app:layout_constraintStart_toEndOf="@id/textView_home_delivering"
+                app:layout_constraintTop_toTopOf="@id/textView_home_deliveringCount" />
+
+            <TextView
+                android:id="@+id/textView_home_deliveredCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:textAppearance="@style/Typography.Bold24"
+                app:layout_constraintBottom_toBottomOf="@id/textView_home_deliveringCount"
+                app:layout_constraintStart_toEndOf="@id/imageView_home_order_divisionArraow2"
+                app:layout_constraintTop_toTopOf="@id/textView_home_deliveringCount" />
+
+            <TextView
+                android:id="@+id/textView_home_delivered"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/order_delivered"
+                android:textAppearance="@style/Typography.Regular14"
+                app:layout_constraintEnd_toEndOf="@id/textView_home_deliveredCount"
+                app:layout_constraintStart_toStartOf="@id/textView_home_deliveredCount"
+                app:layout_constraintTop_toBottomOf="@id/textView_home_deliveredCount" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_home_4"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardView_home_3">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:text="@string/selling_product_list"
+            android:textAppearance="@style/Typography.Bold15"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_arrow_forward_ios_24dp"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="10dp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_home_5"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardView_home_4">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:text="@string/register_product"
+            android:textAppearance="@style/Typography.Bold15"
+             />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_arrow_forward_ios_24dp"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="10dp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_home_6"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardView_home_5">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:text="@string/revenue_management"
+            android:textAppearance="@style/Typography.Bold15" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_arrow_forward_ios_24dp"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="10dp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_home_7"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardView_home_6">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:text="@string/login"
+            android:textAppearance="@style/Typography.Bold15" />
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
