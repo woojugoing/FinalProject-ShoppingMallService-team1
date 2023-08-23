@@ -134,7 +134,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="30dp"
-
                 android:textAppearance="@style/Typography.Bold24"
                 app:layout_constraintBottom_toBottomOf="@id/textView_home_deliveringCount"
                 app:layout_constraintEnd_toStartOf="@id/imageView_home_order_divisionArraow1"
@@ -190,7 +189,7 @@
                 android:layout_marginStart="30dp"
                 android:src="@drawable/ic_arrow_forward_ios_24dp"
                 app:layout_constraintBottom_toBottomOf="@id/textView_home_deliveringCount"
-                app:layout_constraintStart_toEndOf="@id/textView_home_delivering"
+                app:layout_constraintStart_toEndOf="@id/textView_home_deliveringCount"
                 app:layout_constraintTop_toTopOf="@id/textView_home_deliveringCount" />
 
             <TextView
