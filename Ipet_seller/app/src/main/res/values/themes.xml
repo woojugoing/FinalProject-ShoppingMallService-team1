@@ -6,5 +6,11 @@
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
+    <!-- Splash Screen -->
+    <style name="AppTheme.Ipet_seller.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_foreground</item>
+        <item name="postSplashScreenTheme">@style/AppTheme.Ipet_seller</item>
+    </style>
+
     <style name="Theme.Ipet_seller" parent="AppTheme.Ipet_seller" />
 </resources>
