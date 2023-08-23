@@ -183,7 +183,8 @@
                     android:id="@+id/button_productInfo_showReview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="리뷰 보러 가기" />
+                    android:text="리뷰 보러 가기"
+                    android:textAppearance="@style/Typography.Bold24" />
 
                 <Space
                     android:layout_width="match_parent"
