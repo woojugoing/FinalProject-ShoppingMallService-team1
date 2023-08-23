@@ -1,5 +1,6 @@
 package likelion.project.ipet_seller.ui.signup
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
@@ -13,8 +14,8 @@ import kotlinx.coroutines.launch
 import likelion.project.ipet_seller.model.Seller
 import likelion.project.ipet_seller.repository.SellerRepository
 
-class SignupViewModel : ViewModel() {
-    private val sellerRepository = SellerRepository()
+class SignupViewModel(context: Context) : ViewModel() {
+    private val sellerRepository = SellerRepository(context)
 
     private val _uiState = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()
