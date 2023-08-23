@@ -23,7 +23,7 @@ class HomeFragment : Fragment() {
         mainActivity = activity as MainActivity
 
         fragmentHomeBinding.run {
-
+            mainActivity.activityMainBinding.bottomNavigation.visibility = View.VISIBLE
             // 시작 시 강아지 버튼 선택으로 지정하여 색상 변경
             buttonHomeDog.setBackgroundColor(ContextCompat.getColor(mainActivity, R.color.rose_200))
 
