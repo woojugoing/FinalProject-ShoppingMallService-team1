@@ -27,10 +27,9 @@ class LoginFragment : Fragment() {
 
     private lateinit var fragmentLoginBinding: FragmentLoginBinding
     private lateinit var mainActivity: MainActivity
+    private lateinit var viewModel: LoginViewModel
 
-    private val KAKAO_LOGIN = 0
-    private val NAVER_LOGIN = 1
-    private val GOOGLE_LOGIN = 2
+    private val LOGIN_GOOGLE = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,118 +37,35 @@ class LoginFragment : Fragment() {
     ): View? {
         fragmentLoginBinding = FragmentLoginBinding.inflate(inflater)
         mainActivity = activity as MainActivity
+        viewModel = LoginViewModel(mainActivity)
 
         fragmentLoginBinding.run{
             buttonLoginKakao.run{
                 setOnClickListener {
-                    socialLogin(KAKAO_LOGIN)
+                    viewModel.socialLoginKakao()
                 }
             }
             buttonLoginNaver.run{
                 setOnClickListener {
-                    socialLogin(NAVER_LOGIN)
+                    viewModel.socialLoginNaver()
                 }
             }
             buttonLoginGoogle.run{
                 setOnClickListener {
-                    socialLogin(GOOGLE_LOGIN)
+                    startActivityForResult(viewModel.socialLoginGoogle(), LOGIN_GOOGLE)
                 }
             }
         }
         return fragmentLoginBinding.root
-    }
-    private fun socialLogin(loginCode: Int){
-        when(loginCode){
-            KAKAO_LOGIN -> {
-                // 카카오 로그인
-                socialLoginKakao()
-            }
-            NAVER_LOGIN -> {
-                // 네이버 로그인
-                socialLoginNaver()
-            }
-            GOOGLE_LOGIN -> {
-                // 구글 로그인
-                socialLoginGoogle()
-            }
-        }
-    }
-
-    // 카카오 로그인 메서드
-    private fun socialLoginKakao(){
-        UserApiClient.instance.loginWithKakaoTalk(mainActivity) { token, error ->
-            if (error != null) {
-                Log.e("login", "카카오 로그인 실패", error)
-            }
-            else if (token != null) {
-                val idTokenList = token.idToken?.split(".")
-                if(idTokenList != null){
-                    // 사용자 규격 정보
-                    val idTokenPayload = Base64.decode(idTokenList[1], Base64.DEFAULT).toString(Charsets.UTF_8)
-                    Log.i("login", "카카오 로그인 성공 $idTokenPayload")
-                    mainActivity.replaceFragment(MainActivity.HOME_FRAGMENT, false, null)
-                }
-            }
-        }
-    }
-
-    // 네이버 로그인 메서드
-    private fun socialLoginNaver(){
-        val oauthLoginCallback = object : OAuthLoginCallback {
-            override fun onSuccess() {
-                // 네이버 로그인 인증이 성공했을 때 수행할 코드 추가
-                val profileCallback = object : NidProfileCallback<NidProfileResponse> {
-                    override fun onSuccess(response: NidProfileResponse) {
-                        Log.i("login", "네이버 로그인 성공 ${response.profile.toString()}")
-                        mainActivity.replaceFragment(MainActivity.HOME_FRAGMENT, false, null)
-                    }
-                    override fun onFailure(httpStatus: Int, message: String) {
-                        val errorCode = NaverIdLoginSDK.getLastErrorCode().code
-                        val errorDescription = NaverIdLoginSDK.getLastErrorDescription()
-                    }
-                    override fun onError(errorCode: Int, message: String) {
-                        onFailure(errorCode, message)
-                    }
-                }
-                NidOAuthLogin().callProfileApi(profileCallback)
-            }
-            override fun onFailure(httpStatus: Int, message: String) {
-                val errorCode = NaverIdLoginSDK.getLastErrorCode().code
-                val errorDescription = NaverIdLoginSDK.getLastErrorDescription()
-                Toast.makeText(context,"errorCode:$errorCode, errorDesc:$errorDescription",Toast.LENGTH_SHORT).show()
-            }
-            override fun onError(errorCode: Int, message: String) {
-                onFailure(errorCode, message)
-            }
-        }
-        NaverIdLoginSDK.authenticate(mainActivity, oauthLoginCallback)
-    }
-
-    // 구글 로그인 메서드
-    private fun socialLoginGoogle(){
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
-        val mGoogleSignInClient = GoogleSignIn.getClient(mainActivity, gso)
-        val signInIntent = mGoogleSignInClient.signInIntent
-        startActivityForResult(signInIntent, GOOGLE_LOGIN)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         when(requestCode){
-            GOOGLE_LOGIN -> {
-                handleSignInResult(GoogleSignIn.getSignedInAccountFromIntent(data))
+            LOGIN_GOOGLE -> {
+                viewModel.handleSignInResult(GoogleSignIn.getSignedInAccountFromIntent(data))
             }
-        }
-    }
-
-    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>){
-        try{
-            val account = completedTask.getResult(ApiException::class.java)
-            Log.i("login", "구글 로그인 성공 ${account.id} ${account.displayName} ${account.email}")
-            mainActivity.replaceFragment(MainActivity.HOME_FRAGMENT, false, null)
-        } catch (e: ApiException){
-            Log.w("login", "구글 로그인 실패")
         }
     }
 }
