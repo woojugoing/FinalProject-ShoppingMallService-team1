@@ -26,6 +26,7 @@ class PaymentFragment : Fragment() {
         "쿠폰을 선택해주세요","아이펫 신규 회원 가입 쿠폰", "전체 항목 10% 할인", "항목3", "항목4", "항목5"
     )
 
+    lateinit var address : String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,6 +36,14 @@ class PaymentFragment : Fragment() {
         mainActivity = activity as MainActivity
 
         fragmentPaymentBinding.run {
+
+            address = arguments?.getString("address") ?: "대표 배송지를 입력해주세요"
+            textViewPaymentAddressRoadNameNew.text = address
+
+            if (address !== "대표 배송지를 입력해주세요") {
+                imageViewPaymentAddAddress.visibility = View.GONE
+                editTextPaymentAddressDetails.visibility = View.VISIBLE
+            }
 
             toolbarPayment.run {
                 title = "주문서 작성"
@@ -80,6 +89,21 @@ class PaymentFragment : Fragment() {
                     setOnClickListener {
                         mainActivity.replaceFragment(MainActivity.PAYMENT_COMPLETE_FRAGMENT, false, null)
                     }
+                }
+
+                // 대표 배송지 추가하기를 클릭할 때
+                imageViewPaymentAddAddress.setOnClickListener {
+                    mainActivity.replaceFragment(MainActivity.PAYMENT_ADDRESS_FRAGMENT, false, null)
+
+                }
+
+                // 상세 주소를 입력을 완료할 때
+                editTextPaymentAddressDetails.setOnEditorActionListener { v, actionId, event ->
+
+                    textViewPaymentAddressRoadNameNew.append("\n${editTextPaymentAddressDetails.text}")
+                    editTextPaymentAddressDetails.visibility = View.GONE
+
+                    true
                 }
 
             }

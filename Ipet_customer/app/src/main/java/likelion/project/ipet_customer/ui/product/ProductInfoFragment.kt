@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ScrollView
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -78,6 +79,18 @@ class ProductInfoFragment : Fragment() {
                 }
             }
 
+            textviewProductinfoReviewnumber.run {
+                setOnClickListener {
+                    scrollviewProductinfo.fullScroll(ScrollView.FOCUS_DOWN)
+                }
+            }
+
+            // 리뷰 보러 가기 버튼
+            buttonProductInfoShowReview.run {
+                setOnClickListener {
+                    mainActivity.replaceFragment(MainActivity.REVIEWALL_FRAGMENT, true, null)
+                }
+            }
 
             // 구매하기 버튼
             buttonProductinfoBuy.run {

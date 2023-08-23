@@ -84,6 +84,7 @@
                         android:src="@drawable/ic_add_circle_24px" />
 
                     <TextView
+                        android:id="@+id/textView_payment_address_road_name_new"
                         style="@style/Typography.Light12"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -91,6 +92,16 @@
                         android:layout_marginTop="12dp"
                         android:text="대표 배송지를 입력해주세요." />
                 </LinearLayout>
+
+                <EditText
+                    android:id="@+id/editText_payment_address_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="상세 주소를 입력해주세요"
+                    android:inputType="text"
+                    android:visibility="gone"/>
+
             </LinearLayout>
 
             <LinearLayout

@@ -99,7 +99,7 @@ class SignupFragment : Fragment() {
     }
 
     private fun isValidateId(sellerId: String): Boolean {
-        val idPattern = "^[a-z0-9]{3,15}$"
+        val idPattern = "^(?=.*[a-z])(?=.*[0-9])[a-z0-9]{3,15}\$"
         return sellerId.matches(idPattern.toRegex())
     }
 
