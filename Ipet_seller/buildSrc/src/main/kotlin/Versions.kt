@@ -47,6 +47,10 @@ object DataStore {
     const val PREFERENCES_CORE =  "androidx.datastore:datastore-preferences-core:${Versions.DATASTORE_VERSION}"
 }
 
+object ChartDeps {
+    const val GRAPH = "com.github.PhilJay:MPAndroidChart:v3.1.0"
+}
+
 object TestDeps {
     const val JUNIT = "junit:junit:${Versions.JUNIT_VERSION}"
     const val JUNIT_EXT = "androidx.test.ext:junit:${Versions.JUNIT_EXT_VERSION}"
