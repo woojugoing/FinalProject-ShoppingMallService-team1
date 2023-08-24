@@ -38,25 +38,28 @@ class ReviewAllFragment : Fragment() {
             materialToolbarReviewAll.run {
                 setNavigationIcon(R.drawable.ic_back_24dp)
 
-                textViewReviewAllNewest.setOnClickListener {
-                    val layoutParams = viewReviewAllLine.layoutParams as LinearLayout.LayoutParams
-                    layoutParams.leftMargin = textViewReviewAllNewest.left
-                    viewReviewAllLine.layoutParams = layoutParams
+                setNavigationOnClickListener {
+                    mainActivity.removeFragment(MainActivity.REVIEWALL_FRAGMENT)
                 }
+            }
 
-                textViewReviewAllRating.setOnClickListener {
-                    val layoutParams = viewReviewAllLine.layoutParams as LinearLayout.LayoutParams
-                    layoutParams.leftMargin = textViewReviewAllRating.left
-                    viewReviewAllLine.layoutParams = layoutParams
-                }
+            textViewReviewAllNewest.setOnClickListener {
+                val layoutParams = viewReviewAllLine.layoutParams as LinearLayout.LayoutParams
+                layoutParams.leftMargin = textViewReviewAllNewest.left
+                viewReviewAllLine.layoutParams = layoutParams
+            }
 
-                recyclerReviewAll.run {
-                    adapter = ReviewAllAdapter()
-                    layoutManager = LinearLayoutManager(context)
+            textViewReviewAllRating.setOnClickListener {
+                val layoutParams = viewReviewAllLine.layoutParams as LinearLayout.LayoutParams
+                layoutParams.leftMargin = textViewReviewAllRating.left
+                viewReviewAllLine.layoutParams = layoutParams
+            }
 
-                    addItemDecoration(DividerItemDecoration(mainActivity, LinearLayoutManager.VERTICAL))
-                }
+            recyclerReviewAll.run {
+                adapter = ReviewAllAdapter()
+                layoutManager = LinearLayoutManager(context)
 
+                addItemDecoration(DividerItemDecoration(mainActivity, LinearLayoutManager.VERTICAL))
             }
 
         }
