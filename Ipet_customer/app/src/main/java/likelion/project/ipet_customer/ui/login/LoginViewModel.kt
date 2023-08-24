@@ -52,7 +52,6 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
                 val profileCallback = object : NidProfileCallback<NidProfileResponse> {
                     override fun onSuccess(response: NidProfileResponse) {
                         Log.i("login", "네이버 로그인 성공 ${response.profile?.name.toString()}, ${response.profile?.id.toString()}")
-
                     }
                     override fun onFailure(httpStatus: Int, message: String) {
                         val errorCode = NaverIdLoginSDK.getLastErrorCode().code
@@ -87,7 +86,7 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
     fun handleSignInResult(completedTask: Task<GoogleSignInAccount>){
         try{
             val account = completedTask.getResult(ApiException::class.java)
-            Log.i("login", "구글 로그인 성공 ${account.id} ${account.displayName} ${account.email}")
+            Log.i("login", "구글 로그인 성공 ${account.displayName}, ${account.id}")
         } catch (e: ApiException){
             Log.w("login", "구글 로그인 실패")
         }
