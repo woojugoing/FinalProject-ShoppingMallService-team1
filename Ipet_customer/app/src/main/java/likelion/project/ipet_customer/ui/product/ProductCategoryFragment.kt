@@ -1,6 +1,7 @@
 package likelion.project.ipet_customer.ui.product
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,8 @@ class ProductCategoryFragment : Fragment() {
 
     lateinit var fragmentProductCategoryBinding: FragmentProductCategoryBinding
     lateinit var mainActivity: MainActivity
+    var lCategoryState: String? = null
+    var sCategoryState: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,6 +27,11 @@ class ProductCategoryFragment : Fragment() {
     ): View? {
         fragmentProductCategoryBinding = FragmentProductCategoryBinding.inflate(inflater)
         mainActivity = activity as MainActivity
+
+//        sCategoryState = arguments?.getInt("sCategoryState")!!
+//        lCategoryState = arguments?.getString("lCategoryState")!!
+//        Log.d("sCs", "$sCategoryState , $lCategoryState")
+
         fragmentProductCategoryBinding.run {
             recyclerProductList.run {
                 adapter = Adapter()

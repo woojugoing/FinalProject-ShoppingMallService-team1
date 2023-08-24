@@ -1,6 +1,7 @@
 package likelion.project.ipet_customer.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,8 @@ class HomeFragment : Fragment() {
 
     lateinit var fragmentHomeBinding: FragmentHomeBinding
     lateinit var mainActivity: MainActivity
+    private var lCategoryState: String = "사료"
+    private var sCategoryState: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -89,45 +92,75 @@ class HomeFragment : Fragment() {
                     // test
                     when (this.checkedChipId) {
                         R.id.chip_home_food -> {
-                            buttonHomeScategory6.visibility = View.INVISIBLE
+                            lCategoryState = "사료"
                         }
 
                         R.id.chip_home_snack -> {
-                            buttonHomeScategory5.visibility = View.INVISIBLE
+                            lCategoryState = "간식"
                         }
 
                         R.id.chip_home_toy -> {
-                            buttonHomeScategory4.visibility = View.INVISIBLE
+                            lCategoryState = "장난감"
                         }
 
                         R.id.chip_home_clothes -> {
-                            buttonHomeScategory3.visibility = View.INVISIBLE
+                            lCategoryState = "의류"
                         }
 
                         R.id.chip_home_house -> {
-                            buttonHomeScategory2.visibility = View.INVISIBLE
+                            lCategoryState = "집"
                         }
                     }
                 }
             }
 
             buttonHomeScategory1.setOnClickListener {
-                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, null)
+                sCategoryState = 1
+                val newBundle = Bundle()
+                newBundle.putString("lCategoryState", lCategoryState)
+                newBundle.putInt("sCategoryState", sCategoryState)
+                Log.d("sCs", "$sCategoryState , $lCategoryState")
+                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, newBundle)
             }
             buttonHomeScategory2.setOnClickListener {
-                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, null)
+                sCategoryState = 2
+                val newBundle = Bundle()
+                newBundle.putString("lCategoryState", lCategoryState)
+                newBundle.putInt("sCategoryState", sCategoryState)
+                Log.d("sCs", "$sCategoryState , $lCategoryState")
+                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, newBundle)
             }
             buttonHomeScategory3.setOnClickListener {
-                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, null)
+                sCategoryState = 3
+                val newBundle = Bundle()
+                newBundle.putString("lCategoryState", lCategoryState)
+                newBundle.putInt("sCategoryState", sCategoryState)
+                Log.d("sCs", "$sCategoryState , $lCategoryState")
+                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, newBundle)
             }
             buttonHomeScategory4.setOnClickListener {
-                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, null)
+                sCategoryState = 4
+                val newBundle = Bundle()
+                newBundle.putString("lCategoryState", lCategoryState)
+                newBundle.putInt("sCategoryState", sCategoryState)
+                Log.d("sCs", "$sCategoryState , $lCategoryState")
+                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, newBundle)
             }
             buttonHomeScategory5.setOnClickListener {
-                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, null)
+                sCategoryState = 5
+                val newBundle = Bundle()
+                newBundle.putString("lCategoryState", lCategoryState)
+                newBundle.putInt("sCategoryState", sCategoryState)
+                Log.d("sCs", "$sCategoryState , $lCategoryState")
+                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, newBundle)
             }
             buttonHomeScategory6.setOnClickListener {
-                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, null)
+                sCategoryState = 6
+                val newBundle = Bundle()
+                newBundle.putString("lCategoryState", lCategoryState)
+                newBundle.putInt("sCategoryState", sCategoryState)
+                Log.d("sCs", "$sCategoryState , $lCategoryState")
+                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, newBundle)
             }
 
             // 공동 구매 상품 더보기 클릭 시

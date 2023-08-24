@@ -1,6 +1,7 @@
 package likelion.project.ipet_customer.ui.product
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,8 @@ class ProductListFragment : Fragment() {
     lateinit var fragmentProductListBinding: FragmentProductListBinding
     lateinit var mainActivity: MainActivity
     val fragmentList = mutableListOf<Fragment>()
+    var lCategoryState: String? = null
+    var sCategoryState: Int = 0
     val productListName = arrayOf("사료", "간식", "장난감", "용품", "집")
 
     // bundle 값을 받을 변수
@@ -29,6 +32,11 @@ class ProductListFragment : Fragment() {
     ): View? {
         fragmentProductListBinding = FragmentProductListBinding.inflate(inflater)
         mainActivity = activity as MainActivity
+
+        sCategoryState = arguments?.getInt("sCategoryState")!!
+        lCategoryState = arguments?.getString("lCategoryState")!!
+
+        Log.d("sCs", "$sCategoryState , $lCategoryState")
 
         // null이 아닐 때만 값을 받도록
         if(arguments?.getBoolean("menuFlag") != null){
@@ -61,7 +69,7 @@ class ProductListFragment : Fragment() {
 
             val tabLayoutMediator = TabLayoutMediator(
                 tabsProductList, pagerProductList){ tab: TabLayout.Tab, i: Int ->
-            tab.text = productListName[i]
+                tab.text = productListName[i]
             }
 
             tabLayoutMediator.attach()
