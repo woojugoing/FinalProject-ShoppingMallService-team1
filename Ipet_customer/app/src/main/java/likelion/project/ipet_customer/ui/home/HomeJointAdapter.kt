@@ -14,6 +14,8 @@ import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.ItemProductCardBinding
 import likelion.project.ipet_customer.model.Joint
 import likelion.project.ipet_customer.ui.main.MainActivity
+import java.text.NumberFormat
+import java.util.Locale
 
 class HomeJointAdapter(private val context: MainActivity, val jointsList: MutableList<Joint>): RecyclerView.Adapter<HomeJointAdapter.JointViewHolder>(){
 
@@ -90,6 +92,17 @@ class HomeJointAdapter(private val context: MainActivity, val jointsList: Mutabl
         holder.itemJointTitle.text = joint.jointTitle
         holder.itemJointMember.text = "${joint.jointMember}/${joint.jointTotalMember}"
         holder.itemJointTerm.text = joint.jointTerm
-        holder.itemJointPrice.text = "${joint.jointPrice}원"
+        holder.itemJointPrice.text = "${formatNumberToCurrency(joint.jointPrice)}원"
+    }
+
+    // 가격 표현 형식 변환
+    fun formatNumberToCurrency(number: String): String {
+        try {
+            val parsedNumber = number.toLong()
+            val numberFormat = NumberFormat.getNumberInstance(Locale.getDefault())
+            return numberFormat.format(parsedNumber)
+        } catch (e: NumberFormatException) {
+            return number
+        }
     }
 }
