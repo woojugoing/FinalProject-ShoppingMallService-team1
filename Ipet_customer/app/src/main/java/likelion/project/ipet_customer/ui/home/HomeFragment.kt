@@ -58,6 +58,8 @@ class HomeFragment : Fragment() {
                                         R.color.white
                                     )
                                 )
+
+
                             }
 
                             // 고양이 버튼 클릭 시
@@ -148,11 +150,6 @@ class HomeFragment : Fragment() {
                 newBundle.putBoolean("menuFlag", false)
 
                 mainActivity.replaceFragment(MainActivity.PRODUCT_JOINT_LIST_FRAGMENT, true, newBundle)
-            }
-
-            recyclerViewHomeJoint.run {
-                val jointsList = viewModel.jointsLiveData.value?.toMutableList() ?: mutableListOf()
-                adapter = HomeJointAdapter(mainActivity, jointsList)
             }
 
             recyclerViewHomeBest.run {
