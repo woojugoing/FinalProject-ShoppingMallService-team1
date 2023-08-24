@@ -1,23 +1,26 @@
 package likelion.project.ipet_customer.repository
 
+import android.util.Log
+import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.QuerySnapshot
 import likelion.project.ipet_customer.db.remote.CustomerDataSource
 import likelion.project.ipet_customer.model.Customer
+import likelion.project.ipet_customer.ui.login.LoginViewModel
 
 class LoginRepository {
     private val customerDataSource = CustomerDataSource()
 
-    // 초기 유저의 정보를 Firestore에 저장
-    fun signUp(customer: Customer){
-        customerDataSource.signUp(customer.customerId, customer.customerName)
-    }
-
-    // 기존 유저의 정보를 Firestore에서 추출
-    fun signIn(customer: Customer){
-        customerDataSource.signIn(customer.customerId)
-    }
-
-    // 사용자 정보 중복 검사
-    fun searchCustomer(customer: Customer) : Boolean{
-        return customerDataSource.searchCustomer(customer.customerId)
+    fun login(customer: Customer){
+        customerDataSource.getUserData(customer.customerId).addOnSuccessListener {
+            if(it.isEmpty){
+                // 기존 아이디 없음
+                customerDataSource.putUserData(customer.customerId, customer.customerName)
+                LoginViewModel.customerInfo = customer
+            }else{
+                // 기존 아이디 존재
+                LoginViewModel.customerInfo = Customer(it.documents[0]["customerId"].toString()
+                    ,it.documents[0]["customerName"].toString())
+            }
+        }
     }
 }

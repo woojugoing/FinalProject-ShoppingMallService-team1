@@ -53,7 +53,7 @@ class LoginFragment : Fragment() {
             buttonLoginGoogle.run{
                 setOnClickListener {
                     startActivityForResult(viewModel.socialLoginGoogle(), LOGIN_GOOGLE)
-                }
+                }오
             }
         }
         return fragmentLoginBinding.root
