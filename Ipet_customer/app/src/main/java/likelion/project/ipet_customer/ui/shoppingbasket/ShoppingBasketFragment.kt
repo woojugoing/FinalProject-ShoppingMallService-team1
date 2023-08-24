@@ -57,6 +57,27 @@ class ShoppingBasketFragment : Fragment() {
                 }
             }
 
+            // 담아둔 상품이 없을 때, 쇼핑하러 가기 버튼
+            buttonShoppingBasketGo.run {
+                setOnClickListener {
+                    mainActivity.replaceFragment(MainActivity.HOME_FRAGMENT, false, null)
+                }
+            }
+
+            // 공동 구매 상품을 안담았을 때, 공동구매 하러가기 버튼
+            buttonShoppingBasketGroupJoin.run {
+                setOnClickListener {
+                    mainActivity.replaceFragment(MainActivity.PRODUCT_JOINT_LIST_FRAGMENT, false, null)
+                }
+            }
+
+            // 결제하기 버튼
+            buttonShoppingBasketPayment.run {
+                setOnClickListener {
+                    mainActivity.replaceFragment(MainActivity.PAYMENT_FRAGMENT, true, null)
+                }
+            }
+
         }
 
         return fragmentShoppingBasketBinding.root

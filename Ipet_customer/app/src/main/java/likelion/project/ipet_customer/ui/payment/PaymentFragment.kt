@@ -48,6 +48,9 @@ class PaymentFragment : Fragment() {
             toolbarPayment.run {
                 title = "주문서 작성"
                 setNavigationIcon(R.drawable.ic_back_24dp)
+                setNavigationOnClickListener {
+                    mainActivity.removeFragment(MainActivity.PAYMENT_FRAGMENT)
+                }
             }
 
             recyclerPaymentProduct.run {
@@ -85,27 +88,26 @@ class PaymentFragment : Fragment() {
 
                 }
 
-                buttonPayment.run {
-                    setOnClickListener {
-                        mainActivity.replaceFragment(MainActivity.PAYMENT_COMPLETE_FRAGMENT, false, null)
-                    }
-                }
+            }
 
-                // 대표 배송지 추가하기를 클릭할 때
-                imageViewPaymentAddAddress.setOnClickListener {
-                    mainActivity.replaceFragment(MainActivity.PAYMENT_ADDRESS_FRAGMENT, false, null)
+            // 대표 배송지 추가하기를 클릭할 때
+            imageViewPaymentAddAddress.setOnClickListener {
+                mainActivity.replaceFragment(MainActivity.PAYMENT_ADDRESS_FRAGMENT, false, null)
 
-                }
+            }
 
-                // 상세 주소를 입력을 완료할 때
-                editTextPaymentAddressDetails.setOnEditorActionListener { v, actionId, event ->
+            // 상세 주소를 입력을 완료할 때
+            editTextPaymentAddressDetails.setOnEditorActionListener { v, actionId, event ->
 
-                    textViewPaymentAddressRoadNameNew.append("\n${editTextPaymentAddressDetails.text}")
-                    editTextPaymentAddressDetails.visibility = View.GONE
+                textViewPaymentAddressRoadNameNew.append("\n${editTextPaymentAddressDetails.text}")
+                editTextPaymentAddressDetails.visibility = View.GONE
 
-                    true
-                }
+                true
+            }
 
+            // 결제하기 버튼 클릭
+            buttonPayment.setOnClickListener {
+                mainActivity.replaceFragment(MainActivity.PAYMENT_COMPLETE_FRAGMENT, false, null)
             }
 
         }
