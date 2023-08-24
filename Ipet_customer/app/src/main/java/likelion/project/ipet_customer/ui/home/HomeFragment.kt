@@ -147,7 +147,7 @@ class HomeFragment : Fragment() {
                 val newBundle = Bundle()
                 newBundle.putBoolean("menuFlag", false)
 
-                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, newBundle)
+                mainActivity.replaceFragment(MainActivity.PRODUCT_JOINT_LIST_FRAGMENT, true, newBundle)
             }
 
             recyclerViewHomeJoint.run {
