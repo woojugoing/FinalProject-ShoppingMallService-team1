@@ -51,7 +51,7 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
                 // 네이버 로그인 인증이 성공했을 때 수행할 코드 추가
                 val profileCallback = object : NidProfileCallback<NidProfileResponse> {
                     override fun onSuccess(response: NidProfileResponse) {
-                        Log.i("login", "네이버 로그인 성공 ${response.profile.toString()}")
+                        Log.i("login", "네이버 로그인 성공 ${response.profile?.name.toString()}, ${response.profile?.id.toString()}")
 
                     }
                     override fun onFailure(httpStatus: Int, message: String) {
