@@ -18,6 +18,7 @@ import com.navercorp.nid.profile.data.NidProfileResponse
 import likelion.project.ipet_customer.model.Customer
 import likelion.project.ipet_customer.repository.LoginRepository
 import likelion.project.ipet_customer.ui.main.MainActivity
+import org.json.JSONObject
 
 class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
 
@@ -36,7 +37,8 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
                 if(idTokenList != null){
                     // 사용자 규격 정보
                     val idTokenPayload = Base64.decode(idTokenList[1], Base64.DEFAULT).toString(Charsets.UTF_8)
-                    Log.i("login", "카카오 로그인 성공 ${idTokenPayload}")
+                    val payloadJSONObject = JSONObject(idTokenPayload)
+                    Log.i("login", "카카오 로그인 성공 ${payloadJSONObject["nickname"]}, ${payloadJSONObject["sub"]}")
                 }
             }
         }
@@ -98,5 +100,9 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
 
     companion object{
         var customerInfo = Customer()
+
+        val LOGIN_KAKAO = 0
+        val LOGIN_NAVER = 1
+        val LOGIN_GOOGLE = 2
     }
 }

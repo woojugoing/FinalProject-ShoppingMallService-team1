@@ -29,8 +29,6 @@ class LoginFragment : Fragment() {
     private lateinit var mainActivity: MainActivity
     private lateinit var viewModel: LoginViewModel
 
-    private val LOGIN_GOOGLE = 0
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,8 +50,8 @@ class LoginFragment : Fragment() {
             }
             buttonLoginGoogle.run{
                 setOnClickListener {
-                    startActivityForResult(viewModel.socialLoginGoogle(), LOGIN_GOOGLE)
-                }오
+                    startActivityForResult(viewModel.socialLoginGoogle(), LoginViewModel.LOGIN_GOOGLE)
+                }
             }
         }
         return fragmentLoginBinding.root
@@ -63,7 +61,7 @@ class LoginFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         when(requestCode){
-            LOGIN_GOOGLE -> {
+            LoginViewModel.LOGIN_GOOGLE -> {
                 viewModel.handleSignInResult(GoogleSignIn.getSignedInAccountFromIntent(data))
             }
         }
