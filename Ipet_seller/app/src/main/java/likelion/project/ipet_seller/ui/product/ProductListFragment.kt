@@ -82,6 +82,7 @@ class ProductListFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.uiState.collect {
                 if (it.initProductList) {
+                    productAdapter.subList(it.productList)
                     delay(200)
                     hideShimmerAndShowProducts()
                 }
