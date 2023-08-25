@@ -31,7 +31,12 @@ class HomeFragment : Fragment() {
                 fragmentHomeBinding.recyclerViewHomeJoint.adapter = HomeJointAdapter(mainActivity, joints)
             }
 
+            productLiveData.observe(viewLifecycleOwner){ products ->
+                fragmentHomeBinding.recyclerViewHomeBest.adapter = HomeBestAdapter(mainActivity, products)
+            }
+
             loadFilteredJoints()
+            loadFilteredOrder()
         }
 
         fragmentHomeBinding.run {
@@ -156,10 +161,6 @@ class HomeFragment : Fragment() {
                 newBundle.putBoolean("menuFlag", false)
 
                 mainActivity.replaceFragment(MainActivity.PRODUCT_JOINT_LIST_FRAGMENT, true, newBundle)
-            }
-
-            recyclerViewHomeBest.run {
-                adapter = HomeBestAdapter(mainActivity)
             }
         }
 
