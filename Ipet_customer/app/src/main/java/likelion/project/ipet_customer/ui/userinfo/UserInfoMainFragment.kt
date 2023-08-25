@@ -64,7 +64,10 @@ class UserInfoMainFragment : Fragment() {
             }
 
             imageViewUserInfoShopBasket.setOnClickListener {
-                mainActivity.replaceFragment(MainActivity.SHOPPING_BASKET_FRAGMENT, true, null)
+                fragmentState = "Shopping"
+                val newBundle = Bundle()
+                newBundle.putString("fragmentState", fragmentState)
+                mainActivity.replaceFragment(MainActivity.SHOPPING_BASKET_FRAGMENT, true, newBundle)
             }
 
             imageViewUserInfoCoupon.setOnClickListener {
