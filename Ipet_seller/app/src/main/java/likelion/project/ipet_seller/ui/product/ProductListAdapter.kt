@@ -1,17 +1,25 @@
 package likelion.project.ipet_seller.ui.product
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.os.persistableBundleOf
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import likelion.project.ipet_seller.databinding.ItemProductlistBinding
+import likelion.project.ipet_seller.model.Product
 import likelion.project.ipet_seller.ui.main.MainActivity
 
 class ProductListAdapter(private val mainActivity: MainActivity) : RecyclerView.Adapter<ProductListAdapter.ProductListViewHolder>() {
+
+    private var productList = emptyList<Product>()
+
+    fun subList(productList: List<Product>) {
+        this.productList = productList
+    }
 
     inner class ProductListViewHolder(private val binding: ItemProductlistBinding) : RecyclerView.ViewHolder(binding.root){
         var itemProductListTitle : TextView
@@ -26,6 +34,7 @@ class ProductListAdapter(private val mainActivity: MainActivity) : RecyclerView.
             itemProductListCategory = binding.textViewItemCategory
             itemProductListThumbnail = binding.imageViewItemThumbnail
             itemProductListDelete = binding.buttonItemDelete
+
 
             // 상품 삭제 버튼 클릭 시 이벤트
             itemProductListDelete.setOnClickListener {
@@ -46,9 +55,17 @@ class ProductListAdapter(private val mainActivity: MainActivity) : RecyclerView.
         return productListViewHolder
     }
 
-    override fun getItemCount(): Int = 10
+    override fun getItemCount(): Int = productList.size
 
     override fun onBindViewHolder(holder: ProductListViewHolder, position: Int) {
-
+        holder.run {
+            Log.d("product3", "${productList}")
+            val product = productList[position]
+            itemProductListTitle.text = product.productTitle
+            itemProductListStock.text = product.productStock.toString()
+            Glide.with(holder.itemView)
+                .load(product.productImg)
+                .into(holder.itemProductListThumbnail)
+        }
     }
 }

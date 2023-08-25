@@ -22,8 +22,6 @@ class ProductListFragment : Fragment() {
     lateinit var fragmentProductListBinding: FragmentProductListBinding
     lateinit var mainActivity: MainActivity
     lateinit var viewModel: ProductListViewModel
-
-    private var productList = emptyList<Product>()
     lateinit var productAdapter: ProductListAdapter
 
     override fun onCreateView(
