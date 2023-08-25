@@ -1,6 +1,7 @@
 package likelion.project.ipet_customer.ui.home
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -23,6 +24,7 @@ class HomeBestAdapter(private val context: MainActivity,val products: MutableLis
         var itemBestPrice : TextView
         var itemBestImg : ImageView
         var itemBestRank : TextView
+        var itemBestHeart : ImageView
 
         init {
             val textViewBestRank = TextView(binding.root.context)
@@ -31,10 +33,12 @@ class HomeBestAdapter(private val context: MainActivity,val products: MutableLis
             itemBestTitle = binding.textViewCardTitle
             itemBestPrice = binding.textViewCardCost
             itemBestImg = binding.imageViewCardThumbnail
+            itemBestHeart = binding.imageViewCardHeart
             itemBestRank = textViewBestRank
 
             textViewBestRank.text = "1위"
             linearLayout.addView(itemBestRank,0)
+            itemBestHeart.visibility = View.GONE
 
             // 상품 클릭 시 이벤트
             binding.root.setOnClickListener {
