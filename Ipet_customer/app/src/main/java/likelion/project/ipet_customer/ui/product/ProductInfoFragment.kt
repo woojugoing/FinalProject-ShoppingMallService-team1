@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ScrollView
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.whenResumed
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -24,6 +25,9 @@ class ProductInfoFragment : Fragment() {
 
     lateinit var fragmentProductInfoBinding: FragmentProductInfoBinding
     lateinit var mainActivity: MainActivity
+    lateinit var productInfoViewModel: ProductInfoViewModel
+
+    var readProductIdx = 0L
 
     // 임시 데이터
     val list: ArrayList<Int> = ArrayList<Int>().let {
@@ -40,6 +44,15 @@ class ProductInfoFragment : Fragment() {
     ): View? {
         fragmentProductInfoBinding = FragmentProductInfoBinding.inflate(inflater)
         mainActivity = activity as MainActivity
+
+        productInfoViewModel = ViewModelProvider(this)[ProductInfoViewModel::class.java]
+        productInfoViewModel.run {
+            productLiveData.observe(viewLifecycleOwner){
+                fragmentProductInfoBinding.textviewProductinfoTitle.text = it.productTitle
+                fragmentProductInfoBinding.textviewProductinfoText.text = it.productText
+                fragmentProductInfoBinding.textviewProductinfoPrice.text = "${mainActivity.formatNumberToCurrency(it.productPrice)}원"
+            }
+        }
 
         fragmentProductInfoBinding.run {
 
@@ -120,6 +133,9 @@ class ProductInfoFragment : Fragment() {
                 }
             }
         }
+
+        readProductIdx = arguments?.getLong("readProductIdx")!!
+        productInfoViewModel.loadOneProduct(readProductIdx)
 
         return fragmentProductInfoBinding.root
     }

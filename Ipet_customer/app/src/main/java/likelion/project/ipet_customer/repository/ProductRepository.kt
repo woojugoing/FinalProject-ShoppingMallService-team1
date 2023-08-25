@@ -1,5 +1,6 @@
 package likelion.project.ipet_customer.repository
 
+import android.util.Log
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
@@ -11,5 +12,17 @@ class ProductRepository {
     suspend fun getAllProduct() : MutableList<Product>{
         val querySnapshot = db.collection("Product").get().await()
         return querySnapshot.toObjects(Product::class.java)
+    }
+
+    suspend fun getOneProduct(productIdx: Long): Product {
+        val query = db.collection("Product").whereEqualTo("productIdx", productIdx)
+        val querySnapshot = query.get().await()
+
+        for (documentSnapshot in querySnapshot) {
+            val product = documentSnapshot.toObject(Product::class.java)
+            return product
+        }
+
+        throw NoSuchElementException("Product with productIdx $productIdx not found")
     }
 }
