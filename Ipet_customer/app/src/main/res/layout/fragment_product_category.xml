@@ -17,6 +17,7 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/button_category_1"
                 style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
@@ -26,6 +27,7 @@
                 android:textAlignment="center" />
 
             <Button
+                android:id="@+id/button_category_2"
                 style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
@@ -35,6 +37,7 @@
                 android:textAlignment="center" />
 
             <Button
+                android:id="@+id/button_category_3"
                 style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
@@ -44,6 +47,7 @@
                 android:textAlignment="center" />
 
             <Button
+                android:id="@+id/button_category_4"
                 style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
@@ -53,6 +57,7 @@
                 android:textAlignment="center" />
 
             <Button
+                android:id="@+id/button_category_5"
                 style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
@@ -62,6 +67,7 @@
                 android:textAlignment="center" />
 
             <Button
+                android:id="@+id/button_category_6"
                 style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
