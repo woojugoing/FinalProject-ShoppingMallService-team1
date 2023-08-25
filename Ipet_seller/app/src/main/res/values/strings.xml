@@ -30,4 +30,7 @@
     <string name="revenue_management">판매 매출 관리</string>
 
     <string name="logout">로그아웃</string>
+
+    <string name="daily_order_count">일별 주문 수 현황</string>
+    <string name="daily_order_amount">일별 주문 금액 현황</string>
 </resources>
