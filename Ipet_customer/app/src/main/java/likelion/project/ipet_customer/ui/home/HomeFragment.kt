@@ -31,7 +31,7 @@ class HomeFragment : Fragment() {
                 fragmentHomeBinding.recyclerViewHomeJoint.adapter = HomeJointAdapter(mainActivity, joints)
             }
 
-            loadAllJoints()
+            loadFilteredJoints()
         }
 
         fragmentHomeBinding.run {
@@ -46,6 +46,9 @@ class HomeFragment : Fragment() {
                         when (checkedId) {
                             // 강아지 버튼 클릭 시
                             R.id.button_home_dog -> {
+
+                                viewModel.updateFilter("강아지")
+
                                 buttonHomeDog.setBackgroundColor(
                                     ContextCompat.getColor(
                                         mainActivity,
@@ -64,6 +67,9 @@ class HomeFragment : Fragment() {
 
                             // 고양이 버튼 클릭 시
                             R.id.button_home_cat -> {
+
+                                viewModel.updateFilter("고양이")
+
                                 buttonHomeCat.setBackgroundColor(
                                     ContextCompat.getColor(
                                         mainActivity,
