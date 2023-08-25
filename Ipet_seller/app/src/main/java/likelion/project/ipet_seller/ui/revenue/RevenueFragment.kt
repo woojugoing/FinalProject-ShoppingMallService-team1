@@ -14,6 +14,7 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.DefaultValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
+import kotlinx.coroutines.delay
 import likelion.project.ipet_seller.R
 import likelion.project.ipet_seller.databinding.FragmentRevenueBinding
 import likelion.project.ipet_seller.model.Revenue
@@ -57,29 +58,42 @@ class RevenueFragment : Fragment() {
         viewModel.fetchProducts()
         lifecycleScope.launchWhenResumed {
             viewModel.uiState.collect {
-                val revenueList = it.orderList.map { order ->
-                    val totalPrice =
-                        it.productList.filter { product -> product.productIdx == order.productIdx }
-                            .sumOf { it.productPrice }
-                    Revenue(order.orderDate, totalPrice)
+                if (it.initOrderList && it.initProduectList) {
+                    val revenueList = it.orderList.map { order ->
+                        val totalPrice =
+                            it.productList.filter { product -> product.productIdx == order.productIdx }
+                                .sumOf { it.productPrice }
+                        Revenue(order.orderDate, totalPrice)
+                    }
+                    val valueList = revenueList.groupBy { it.date }
+                    val dateList = valueList.keys.map { it.toString() }
+                    val orderList = valueList.values.map { it.size.toLong() }
+                    val amountList = valueList.values.map { it.sumOf { it.price } }
+                    setLineChart(
+                        fragmentRevenueBinding.lineChartRevenueOrderCount,
+                        "주문 수",
+                        dateList,
+                        orderList
+                    )
+                    setLineChart(
+                        fragmentRevenueBinding.lineChartRevenueOrderAmount,
+                        "매출",
+                        dateList,
+                        amountList
+                    )
+                    delay(1000)
+                    hideShimmerAndShowChart()
                 }
-                val valueList = revenueList.groupBy { it.date }
-                val dateList = valueList.keys.map { it.toString() }
-                val orderList = valueList.values.map { it.size.toLong() }
-                val amountList = valueList.values.map { it.sumOf { it.price } }
-                setLineChart(
-                    fragmentRevenueBinding.lineChartRevenueOrderCount,
-                    "주문 수",
-                    dateList,
-                    orderList
-                )
-                setLineChart(
-                    fragmentRevenueBinding.lineChartRevenueOrderAmount,
-                    "매출",
-                    dateList,
-                    amountList
-                )
             }
+        }
+    }
+
+    private fun hideShimmerAndShowChart() {
+        fragmentRevenueBinding.apply {
+            shimmerFrameLayoutRevenueOrderCount.visibility = View.GONE
+            shimmerFrameLayoutRevenueOrderAmount.visibility = View.GONE
+            constraintLayoutRevenueOrderCount.visibility = View.VISIBLE
+            constraintLayoutRevenueOrderAmount.visibility = View.VISIBLE
         }
     }
 

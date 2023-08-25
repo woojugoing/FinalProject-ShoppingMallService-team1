@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
@@ -32,6 +33,7 @@ class RevenueViewModel(context: Context) : ViewModel() {
                     it.onSuccess { orders ->
                         _uiState.update {
                             it.copy(
+                                initOrderList = true,
                                 orderList = orders.sortedBy { it.orderDate },
                             )
                         }
@@ -47,6 +49,7 @@ class RevenueViewModel(context: Context) : ViewModel() {
                 it.onSuccess { products ->
                     _uiState.update {
                         it.copy(
+                            initProduectList = true,
                             productList = products
                         )
                     }
@@ -58,6 +61,8 @@ class RevenueViewModel(context: Context) : ViewModel() {
 }
 
 data class UiState(
+    val initOrderList: Boolean = false,
+    val initProduectList: Boolean = false,
     val productList: List<Product> = emptyList(),
     val orderList: List<Order> = emptyList(),
     val revenueList: List<Revenue> = emptyList()
