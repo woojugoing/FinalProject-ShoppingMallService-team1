@@ -41,6 +41,8 @@ import likelion.project.ipet_customer.ui.search.SearchResultFragment
 import likelion.project.ipet_customer.ui.shoppingbasket.ShoppingBasketFragment
 import likelion.project.ipet_customer.ui.userinfo.UserInfoAddressFragment
 import likelion.project.ipet_customer.ui.userinfo.UserInfoMainFragment
+import java.text.NumberFormat
+import java.util.Locale
 
 
 class MainActivity : AppCompatActivity() {
@@ -80,6 +82,16 @@ class MainActivity : AppCompatActivity() {
                 }
                 false
             }
+        }
+    }
+
+    // 가격 표현 형식 변환
+    fun formatNumberToCurrency(number: Long): String {
+        try {
+            val numberFormat = NumberFormat.getNumberInstance(Locale.getDefault())
+            return numberFormat.format(number)
+        } catch (e: NumberFormatException) {
+            return number.toString()
         }
     }
 
