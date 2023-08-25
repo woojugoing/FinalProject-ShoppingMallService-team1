@@ -76,6 +76,7 @@ class UserInfoMainFragment : Fragment() {
             }
 
             layoutUserInfoLogout.setOnClickListener {
+                mainActivity.activityMainBinding.bottomNavigation.visibility = View.GONE
                 mainActivity.replaceFragment(MainActivity.LOGIN_FRAGMENT, false, null)
             }
 

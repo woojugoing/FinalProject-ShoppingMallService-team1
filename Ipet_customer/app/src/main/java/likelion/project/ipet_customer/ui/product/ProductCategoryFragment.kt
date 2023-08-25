@@ -56,7 +56,6 @@ class ProductCategoryFragment : Fragment() {
 
             db.collection("Product")
                 .whereEqualTo("productLCategory", lCategoryState)
-                .whereEqualTo("productSCategory", sCategoryName)
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {
