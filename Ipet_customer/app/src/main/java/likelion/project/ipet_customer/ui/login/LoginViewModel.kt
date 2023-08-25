@@ -31,8 +31,20 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
     private var loginFragment = LoginFragment()
     private var loginRepository = LoginRepository()
 
+    // 로그인
+    fun login(view: View, socialCode: Int){
+        when(socialCode){
+            LOGIN_KAKAO -> {
+                loginKakao(view)
+            }
+            LOGIN_NAVER -> {
+                loginNaver()
+            }
+        }
+    }
+
     // 카카오 로그인 메서드
-    fun socialLoginKakao(view: View) {
+    fun loginKakao(view: View) {
         // 카카오계정으로 로그인 공통 callback 구성
         // 카카오톡으로 로그인 할 수 없어 카카오계정으로 로그인할 경우 사용됨
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
@@ -51,7 +63,7 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
                     val customerId = payloadJSONObject["sub"].toString()
                     val customer = Customer(customerId, customerNickname)
                     // 로그인
-                    login(customer)
+                    loginWithDatabase(customer)
                 }
             }
         }
@@ -84,7 +96,7 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
                         val customerId = payloadJSONObject["sub"].toString()
                         val customer = Customer(customerId, customerNickname)
                         // 로그인
-                        login(customer)
+                        loginWithDatabase(customer)
                     }
                 }
             }
@@ -95,7 +107,7 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
     }
 
     // 네이버 로그인 메서드
-    fun socialLoginNaver() {
+    fun loginNaver() {
         val oauthLoginCallback = object : OAuthLoginCallback {
             override fun onSuccess() {
                 // 네이버 로그인 인증 성공
@@ -107,7 +119,7 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
                         val customerId = response.profile?.id.toString()
                         val customer = Customer(customerId, customerNickname)
                         // 로그인
-                        login(customer)
+                        loginWithDatabase(customer)
                     }
 
                     override fun onFailure(httpStatus: Int, message: String) {
@@ -139,7 +151,7 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
     }
 
     // 구글 로그인 메서드
-    fun socialLoginGoogle(): Intent {
+    fun loginGoogle() : Intent{
         val gso =
             GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail()
                 .build()
@@ -147,7 +159,7 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
         return mGoogleSignInClient.signInIntent
     }
 
-    fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+    fun handleGoogleLoginResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             // 사용자 규격 정보
             val account = completedTask.getResult(ApiException::class.java)
@@ -156,7 +168,7 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
             if (customerId != null && customerNickname != null) {
                 val customer = Customer(customerId, customerNickname)
                 // 로그인
-                login(customer)
+                loginWithDatabase(customer)
             }
         } catch (e: ApiException) {
             Log.w("login", "구글 로그인 실패")
@@ -164,14 +176,15 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
     }
 
     // 사용자 중복 검사 후 데이터 삽입 및 추출
-    fun login(customer: Customer) {
+    fun loginWithDatabase(customer: Customer) {
         loginRepository.login(customer)
         mainActivity.replaceFragment(MainActivity.HOME_FRAGMENT, false, null)
     }
 
     companion object {
-        var customerInfo = Customer()
-
+        // 기기 로그인 사용자 정보
+        var customer = Customer()
+        // 로그인 상태 구분
         val LOGIN_KAKAO = 0
         val LOGIN_NAVER = 1
         val LOGIN_GOOGLE = 2
