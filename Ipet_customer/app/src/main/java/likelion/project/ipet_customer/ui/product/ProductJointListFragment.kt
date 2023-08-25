@@ -49,7 +49,7 @@ class ProductJointListFragment : Fragment() {
                         val animalType = document["jointAnimalType"] as String
                         val img = document["jointImg"] as String
                         val member = document["jointMember"] as Long
-                        val price = document["jointPrice"] as String
+                        val price = document["jointPrice"] as Long
                         val seller = document["jointSeller"] as String
                         val term = document["jointTerm"] as String
                         val text = document["jointText"] as String
