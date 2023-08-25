@@ -31,9 +31,16 @@ class ShoppingBasketFragment : Fragment() {
         fragmentShoppingBasketBinding.run {
             materialToolbarShoppingBasket.run {
                 title = "장바구니"
-                setNavigationIcon(R.drawable.ic_back_24dp)
-                setNavigationOnClickListener {
-                    mainActivity.removeFragment(MainActivity.SHOPPING_BASKET_FRAGMENT)
+
+                var fragmentState = arguments?.getString("fragmentState")
+                // 내정보에서 장바구니를 클릭했을 때에만, 장바구니 화면에서 뒤로가기 버튼이 보이게함
+                if (fragmentState == "Shopping") {
+                    setNavigationIcon(R.drawable.ic_back_24dp)
+                    setNavigationOnClickListener {
+                        mainActivity.removeFragment(MainActivity.SHOPPING_BASKET_FRAGMENT)
+                    }
+                } else {
+                    navigationIcon = null
                 }
             }
 
