@@ -1,6 +1,5 @@
 package likelion.project.ipet_customer.ui.home
 
-import android.content.Context
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +12,10 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.ItemProductCardBinding
+import likelion.project.ipet_customer.model.Joint
 import likelion.project.ipet_customer.ui.main.MainActivity
 
-class HomeJointAdapter(private val context: MainActivity): RecyclerView.Adapter<HomeJointAdapter.JointViewHolder>(){
+class HomeJointAdapter(private val context: MainActivity, val jointsList: MutableList<Joint>): RecyclerView.Adapter<HomeJointAdapter.JointViewHolder>(){
 
     inner class JointViewHolder(private val binding: ItemProductCardBinding) : RecyclerView.ViewHolder(binding.root){
         var linearLayoutAddMember: LinearLayout = binding.linearLayoutItemAddMember
@@ -67,9 +67,11 @@ class HomeJointAdapter(private val context: MainActivity): RecyclerView.Adapter<
         return jointViewHolder
     }
 
-    override fun getItemCount(): Int = 5
+    override fun getItemCount(): Int = jointsList.size
 
     override fun onBindViewHolder(holder: JointViewHolder, position: Int) {
+
+        val joint = jointsList[position] // 해당 포지션의 Joint 객체 가져오기
 
         // 스타일 변경 코드들
         holder.itemJointCostPrice.typeface = ResourcesCompat.getFont(holder.itemView.context, R.font.pretendard_regular)
@@ -84,6 +86,10 @@ class HomeJointAdapter(private val context: MainActivity): RecyclerView.Adapter<
         val jointMemberIc = holder.itemJointMemberIc
         jointMemberIc.setColorFilter(ContextCompat.getColor(context, R.color.brown_200))
 
-        // 데이터 변경 코드는 밑에 추가하면 될 거 같아요!
+        // img 추가 필요
+        holder.itemJointTitle.text = joint.jointTitle
+        holder.itemJointMember.text = "${joint.jointMember}/${joint.jointTotalMember}"
+        holder.itemJointTerm.text = joint.jointTerm
+        holder.itemJointPrice.text = "${joint.jointPrice}원"
     }
 }
