@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
+import android.view.MenuItem
 import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -13,6 +14,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.transition.MaterialSharedAxis
 import com.google.firebase.database.collection.LLRBNode
 import kotlinx.coroutines.CoroutineScope
@@ -68,18 +70,22 @@ class MainActivity : AppCompatActivity() {
         navigateToPermissionOrOnboardingOrLogin()
 
         activityMainBinding.run {
-            bottomNavigation.selectedItemId = R.id.item_bottom_joinT
-            bottomNavigation.setOnItemSelectedListener { item ->
-                when(item.itemId) {
-                    R.id.item_bottom_home -> {replaceFragment(HOME_FRAGMENT, false, null) }
-                    R.id.item_bottom_search -> {replaceFragment(SEARCH_MAIN_FRAGMENT, false, null) }
-                    R.id.item_bottom_joinT -> {replaceFragment(PRODUCT_JOINT_LIST_FRAGMENT, false, null) }
-                    R.id.item_bottom_basket -> {replaceFragment(SHOPPING_BASKET_FRAGMENT, false, null)}
-                    R.id.item_bottom_userInfo -> {replaceFragment(USER_INFO_MAIN_FRAGMENT, false, null)}
-                    else -> null
+            bottomNavigation.setOnItemSelectedListener(
+                object : NavigationBarView.OnItemSelectedListener {
+                    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+                        val fragment = when (item.itemId) {
+                            R.id.item_bottom_home -> HOME_FRAGMENT
+                            R.id.item_bottom_search -> SEARCH_MAIN_FRAGMENT
+                            R.id.item_bottom_joinT -> PRODUCT_JOINT_LIST_FRAGMENT
+                            R.id.item_bottom_basket -> SHOPPING_BASKET_FRAGMENT
+                            R.id.item_bottom_userInfo -> USER_INFO_MAIN_FRAGMENT
+                            else -> HOME_FRAGMENT
+                        }
+                        replaceFragment(fragment, false, null)
+                        return true
+                    }
                 }
-                false
-            }
+            )
         }
     }
 
