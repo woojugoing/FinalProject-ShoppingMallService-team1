@@ -55,8 +55,15 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
             override fun onSuccess() {
                 // 네이버 로그인 인증 성공
                 val profileCallback = object : NidProfileCallback<NidProfileResponse> {
+                    // 네이버 프로필 요청 성공
                     override fun onSuccess(response: NidProfileResponse) {
-                        Log.i("login", "네이버 로그인 성공 ${response.profile?.name.toString()}, ${response.profile?.id.toString()}")
+                        // 사용자 규격 정보
+                        val customerNickname = response.profile?.name.toString()
+                        val customerId = response.profile?.id.toString()
+                        val customer = Customer(customerId, customerNickname)
+
+                        // 로그인
+                        login(customer)
                     }
                     override fun onFailure(httpStatus: Int, message: String) {
                         val errorCode = NaverIdLoginSDK.getLastErrorCode().code
@@ -66,6 +73,8 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
                         onFailure(errorCode, message)
                     }
                 }
+
+                // 프로필 정보 요청
                 NidOAuthLogin().callProfileApi(profileCallback)
             }
             override fun onFailure(httpStatus: Int, message: String) {
@@ -76,6 +85,8 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
                 onFailure(errorCode, message)
             }
         }
+
+        // 로그인 요청
         NaverIdLoginSDK.authenticate(mainActivity, oauthLoginCallback)
     }
 
