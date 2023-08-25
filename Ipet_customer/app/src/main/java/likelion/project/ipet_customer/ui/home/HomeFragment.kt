@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.FragmentHomeBinding
 import likelion.project.ipet_customer.ui.main.MainActivity
@@ -17,6 +18,7 @@ class HomeFragment : Fragment() {
     lateinit var mainActivity: MainActivity
     private var lCategoryState: String = "사료"
     private var sCategoryState: Int = 0
+    lateinit var viewModel: HomeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,6 +26,16 @@ class HomeFragment : Fragment() {
     ): View? {
         fragmentHomeBinding = FragmentHomeBinding.inflate(inflater)
         mainActivity = activity as MainActivity
+
+        viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+
+        viewModel.run {
+            jointsLiveData.observe(viewLifecycleOwner) { joints ->
+                fragmentHomeBinding.recyclerViewHomeJoint.adapter = HomeJointAdapter(mainActivity, joints)
+            }
+
+            loadAllJoints()
+        }
 
         fragmentHomeBinding.run {
             mainActivity.activityMainBinding.bottomNavigation.visibility = View.VISIBLE
@@ -172,7 +184,8 @@ class HomeFragment : Fragment() {
             }
 
             recyclerViewHomeJoint.run {
-                adapter = HomeJointAdapter(mainActivity)
+                val jointsList = viewModel.jointsLiveData.value?.toMutableList() ?: mutableListOf()
+                adapter = HomeJointAdapter(mainActivity, jointsList)
             }
 
             recyclerViewHomeBest.run {

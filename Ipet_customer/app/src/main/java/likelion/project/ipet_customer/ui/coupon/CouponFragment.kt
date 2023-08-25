@@ -28,8 +28,20 @@ class CouponFragment : Fragment() {
     ): View? {
         mainActivity = activity as MainActivity
         fragmentCouponBinding = FragmentCouponBinding.inflate(inflater)
+        initToolbar()
         initRecyclerView()
         return fragmentCouponBinding.root
+    }
+
+    fun initToolbar() {
+        fragmentCouponBinding.run {
+            materialToolbarCoupon.run {
+                setNavigationIcon(R.drawable.ic_back_24dp)
+                setNavigationOnClickListener {
+                    mainActivity.removeFragment(MainActivity.COUPON_FRAGMENT)
+                }
+            }
+        }
     }
 
     fun initRecyclerView() {

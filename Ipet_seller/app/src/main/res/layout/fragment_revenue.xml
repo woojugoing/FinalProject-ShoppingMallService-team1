@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".ui.revenue.RevenueFragment">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/materialToolbar_revenue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="판매 매출 관리" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLine_revenue_start_boundary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLine_revenue_end_boundary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="20dp" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_revenue_orderCount"
+        android:layout_width="0dp"
+        android:layout_height="280dp"
+        android:layout_marginTop="10dp"
+        app:cardElevation="10dp"
+        app:layout_constraintEnd_toEndOf="@id/guideLine_revenue_end_boundary"
+        app:layout_constraintStart_toStartOf="@id/guideLine_revenue_start_boundary"
+        app:layout_constraintTop_toBottomOf="@id/materialToolbar_revenue">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView_revenue_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/daily_order_count"
+                android:textAppearance="@style/Typography.Bold13"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <HorizontalScrollView
+                android:id="@+id/horizontalScrollView_revenue_orderCount"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fillViewport="true"
+                android:paddingBottom="5dp"
+                android:scrollbars="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/textView_revenue_count"
+                app:layout_constraintTop_toBottomOf="@id/textView_revenue_count">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/lineChart_revenue_orderCount"
+                        android:layout_width="1000dp"
+                        android:layout_height="match_parent"
+                        android:padding="10dp"/>
+                </LinearLayout>
+            </HorizontalScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_revenue_orderAmount"
+        android:layout_width="0dp"
+        android:layout_height="280dp"
+        android:layout_marginTop="10dp"
+        app:cardElevation="10dp"
+        app:layout_constraintEnd_toEndOf="@id/guideLine_revenue_end_boundary"
+        app:layout_constraintStart_toStartOf="@id/guideLine_revenue_start_boundary"
+        app:layout_constraintTop_toBottomOf="@id/cardView_revenue_orderCount">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView_revenue_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/daily_order_amount"
+                android:textAppearance="@style/Typography.Bold13"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <HorizontalScrollView
+                android:id="@+id/horizontalScrollView_revenue_orderAmount"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fillViewport="true"
+                android:paddingBottom="5dp"
+                android:scrollbars="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/textView_revenue_amount"
+                app:layout_constraintTop_toBottomOf="@id/textView_revenue_amount">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/lineChart_revenue_orderAmount"
+                        android:layout_width="1000dp"
+                        android:layout_height="match_parent"
+                        android:padding="10dp"/>
+                </LinearLayout>
+            </HorizontalScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

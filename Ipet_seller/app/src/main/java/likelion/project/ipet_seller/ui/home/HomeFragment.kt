@@ -34,10 +34,59 @@ class HomeFragment : Fragment() {
 
     private fun initEvent() {
         fragmentHomeBinding.run {
-            cardViewHome7.run {
-                setOnClickListener {
-                    viewModel.onLogoutClickEvent()
-                }
+            onNewOrderClickEvent()
+            onOrderStatusClickEvent()
+            onProductListClickEvent()
+            onRegisterProductClickEvent()
+            onRevenueClickEvent()
+            onLogoutClickEvent()
+        }
+    }
+
+    private fun FragmentHomeBinding.onNewOrderClickEvent() {
+        imageViewHomeOrderCountArrow.run {
+            setOnClickListener {
+                mainActivity.replaceFragment(MainActivity.ORDER_STATUS_FRAGMENT, true, null)
+            }
+        }
+    }
+
+    private fun FragmentHomeBinding.onOrderStatusClickEvent() {
+        imageViewHomeOrderStatus.run {
+            setOnClickListener {
+                mainActivity.replaceFragment(MainActivity.ORDER_STATUS_FRAGMENT, true, null)
+            }
+        }
+    }
+
+    private fun FragmentHomeBinding.onLogoutClickEvent() {
+        cardViewHomeLogout.run {
+            setOnClickListener {
+                viewModel.onLogoutClickEvent()
+            }
+        }
+    }
+
+    private fun FragmentHomeBinding.onRevenueClickEvent() {
+        cardViewHomeRevenue.run {
+            setOnClickListener {
+                mainActivity.replaceFragment(MainActivity.REVENUE_FRAGMENT, true, null)
+            }
+        }
+    }
+
+    private fun FragmentHomeBinding.onRegisterProductClickEvent() {
+        cardViewHomeRegisterProduct.run {
+            setOnClickListener {
+                mainActivity.replaceFragment(MainActivity.REGISTRATION_FRAGMENT, true, null)
+            }
+        }
+    }
+
+    private fun FragmentHomeBinding.onProductListClickEvent() {
+        cardViewHomeProductList.run {
+            setOnClickListener {
+                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, null)
             }
         }
     }
