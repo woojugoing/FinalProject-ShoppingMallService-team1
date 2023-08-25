@@ -14,6 +14,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.android.material.snackbar.Snackbar
 import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.NidOAuthLogin
@@ -40,7 +41,7 @@ class LoginFragment : Fragment() {
         fragmentLoginBinding.run{
             buttonLoginKakao.run{
                 setOnClickListener {
-                    viewModel.socialLoginKakao()
+                    viewModel.socialLoginKakao(it)
                 }
             }
             buttonLoginNaver.run{
@@ -55,6 +56,25 @@ class LoginFragment : Fragment() {
             }
         }
         return fragmentLoginBinding.root
+    }
+
+    fun showSnackBar(view: View, status: Int){
+        when(status){
+            LoginViewModel.LOGIN_KAKAO_UNINSTALL -> {
+                Snackbar.make(view,"카카오톡이 설치되지 않았습니디", Snackbar.LENGTH_LONG)
+                    .setAction("확인"){
+
+                    }
+                    .show()
+            }
+            LoginViewModel.LOGIN_KAKAO_UNLOGIN -> {
+                Snackbar.make(view,"카카오톡에 먼저 로그인 해주세요", Snackbar.LENGTH_LONG)
+                    .setAction("확인"){
+
+                    }
+                    .show()
+            }
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
