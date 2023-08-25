@@ -6,12 +6,14 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import likelion.project.ipet_customer.model.Joint
 import likelion.project.ipet_customer.model.Product
-import likelion.project.ipet_customer.repository.BestProductRepository
+import likelion.project.ipet_customer.repository.ProductRepository
 import likelion.project.ipet_customer.repository.JointRepository
+import likelion.project.ipet_customer.repository.OrderRepository
 
 class HomeViewModel : ViewModel() {
     private val jointRepository = JointRepository()
-    private val bestProductRepository = BestProductRepository()
+    private val productRepository = ProductRepository()
+    private val orderRepository = OrderRepository()
 
     val jointsLiveData = MutableLiveData<MutableList<Joint>>()
     val productLiveData = MutableLiveData<MutableList<Product>>()
@@ -57,8 +59,8 @@ class HomeViewModel : ViewModel() {
 
     fun loadFilteredOrder(){
         viewModelScope.launch {
-            val orders = bestProductRepository.getAllOrder()
-            val products = bestProductRepository.getAllProduct()
+            val orders = orderRepository.getAllOrder()
+            val products = productRepository.getAllProduct()
             val groupedByProductIdx = orders.groupBy { it.productIdx }
 
             val sortedGroupedOrders = groupedByProductIdx
