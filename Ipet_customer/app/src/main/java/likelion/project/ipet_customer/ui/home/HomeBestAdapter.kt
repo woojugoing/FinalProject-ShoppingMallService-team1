@@ -57,7 +57,7 @@ class HomeBestAdapter(private val context: MainActivity,val products: MutableLis
         return bestViewHolder
     }
 
-    override fun getItemCount(): Int = products.size
+    override fun getItemCount(): Int = minOf(products.size, 10)
 
     override fun onBindViewHolder(holder: BestViewHolder, position: Int) {
 
