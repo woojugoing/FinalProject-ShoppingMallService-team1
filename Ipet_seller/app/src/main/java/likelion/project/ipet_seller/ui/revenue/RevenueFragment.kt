@@ -66,7 +66,7 @@ class RevenueFragment : Fragment() {
                 val valueList = revenueList.groupBy { it.date }
                 val dateList = valueList.keys.map { it.toString() }
                 val orderList = valueList.values.map { it.size.toLong() }
-                val amountList = valueList.values.map { it.sumOf { it.totalPrice } }
+                val amountList = valueList.values.map { it.sumOf { it.price } }
                 setLineChart(
                     fragmentRevenueBinding.lineChartRevenueOrderCount,
                     "주문 수",
