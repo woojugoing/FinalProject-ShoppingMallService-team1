@@ -32,7 +32,11 @@ class ProductListFragment : Fragment() {
         fragmentProductListBinding.run {
             toolbarProductList.run {
                 inflateMenu(R.menu.menu_productlist)
-
+                navigationIcon.run {
+                    setOnClickListener {
+                        mainActivity.removeFragment(MainActivity.PRODUCT_LIST_FRAGMENT)
+                    }
+                }
                 val color = ContextCompat.getColorStateList(mainActivity, R.color.brown_200)
                 val menuItem = menu.findItem(R.id.item_add_product)
 
@@ -44,19 +48,27 @@ class ProductListFragment : Fragment() {
                 }
 
                 // 우측 상단 상품 추가 버튼 클릭 시
-                /*setOnMenuItemClickListener {
-                    when(it.itemId){
-                        R.id.item_add_product -> mainActivity.replaceFragment(,true,null)
+                setOnMenuItemClickListener {
+                    when (it.itemId) {
+                        R.id.item_add_product -> {
+                            mainActivity.replaceFragment(
+                                MainActivity.REGISTRATION_FRAGMENT,
+                                true,
+                                null
+                            )
+                        }
+
                     }
-                }*/
+                    false
+                }
+
+                recyclerViewProductList.run {
+                    adapter = ProductListAdapter(mainActivity)
+                    layoutManager = LinearLayoutManager(context)
+                }
             }
 
-            recyclerViewProductList.run {
-                adapter = ProductListAdapter(mainActivity)
-                layoutManager = LinearLayoutManager(context)
-            }
+            return fragmentProductListBinding.root
         }
-
-        return fragmentProductListBinding.root
     }
 }
