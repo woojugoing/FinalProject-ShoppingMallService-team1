@@ -49,6 +49,7 @@ class PaymentFragment : Fragment() {
                 title = "주문서 작성"
                 setNavigationIcon(R.drawable.ic_back_24dp)
                 setNavigationOnClickListener {
+                    mainActivity.activityMainBinding.bottomNavigation.visibility = View.VISIBLE
                     mainActivity.removeFragment(MainActivity.PAYMENT_FRAGMENT)
                 }
             }

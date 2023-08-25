@@ -74,6 +74,7 @@ class ShoppingBasketFragment : Fragment() {
             // 결제하기 버튼
             buttonShoppingBasketPayment.run {
                 setOnClickListener {
+                    mainActivity.activityMainBinding.bottomNavigation.visibility = View.GONE
                     mainActivity.replaceFragment(MainActivity.PAYMENT_FRAGMENT, true, null)
                 }
             }

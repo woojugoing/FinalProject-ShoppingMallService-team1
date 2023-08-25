@@ -37,6 +37,9 @@ class ProductJointListFragment : Fragment() {
             toolbarProductJointList.run {
                 title = "공동 구매 상품 리스트"
                 setNavigationIcon(R.drawable.ic_back_24dp)
+                setNavigationOnClickListener {
+                    mainActivity.removeFragment(MainActivity.PRODUCT_JOINT_LIST_FRAGMENT)
+                }
             }
             db.collection("Joint")
                 .get()
