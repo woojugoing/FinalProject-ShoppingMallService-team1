@@ -5,7 +5,7 @@ data class Joint (
     val jointIdx : Long = 0,
     val jointImg : String = "",
     val jointMember : Long = 0,
-    val jointPrice: String = "",
+    val jointPrice: Long = 0,
     val jointSeller : String = "",
     val jointTerm : String = "",
     val jointText : String = "",

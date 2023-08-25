@@ -18,7 +18,7 @@ import likelion.project.ipet_customer.ui.main.MainActivity
 import java.text.NumberFormat
 import java.util.Locale
 
-class HomeJointAdapter(private val context: MainActivity, val jointsList: MutableList<Joint>): RecyclerView.Adapter<HomeJointAdapter.JointViewHolder>(){
+class HomeJointAdapter(private val mainActivity: MainActivity, val jointsList: MutableList<Joint>): RecyclerView.Adapter<HomeJointAdapter.JointViewHolder>(){
 
     inner class JointViewHolder(private val binding: ItemProductCardBinding) : RecyclerView.ViewHolder(binding.root){
         var linearLayoutAddMember: LinearLayout = binding.linearLayoutItemAddMember
@@ -54,7 +54,7 @@ class HomeJointAdapter(private val context: MainActivity, val jointsList: Mutabl
                 val readJointIdx = jointsList[adapterPosition].jointIdx
                 bundle.putLong("readJointIdx", readJointIdx)
 
-                context.replaceFragment(MainActivity.PRODUCT_INFO_FRAGMENT, true, bundle)
+                mainActivity.replaceFragment(MainActivity.PRODUCT_INFO_FRAGMENT, true, bundle)
             }
         }
     }
@@ -84,20 +84,20 @@ class HomeJointAdapter(private val context: MainActivity, val jointsList: Mutabl
         holder.itemJointCostPrice.typeface = ResourcesCompat.getFont(holder.itemView.context, R.font.pretendard_regular)
 
         holder.itemJointCostPrice.textSize = 12f
-        holder.itemJointCostPrice.setTextColor(ContextCompat.getColor(context, R.color.gray))
+        holder.itemJointCostPrice.setTextColor(ContextCompat.getColor(mainActivity, R.color.gray))
         holder.itemJointCostPrice.paintFlags = holder.itemJointCostPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
         val jointMember = holder.itemJointMember
         jointMember.setTextAppearance(R.style.Typography_Regular12)
 
         val jointMemberIc = holder.itemJointMemberIc
-        jointMemberIc.setColorFilter(ContextCompat.getColor(context, R.color.brown_200))
+        jointMemberIc.setColorFilter(ContextCompat.getColor(mainActivity, R.color.brown_200))
 
         // img 추가 필요
         holder.itemJointTitle.text = joint.jointTitle
         holder.itemJointMember.text = "${joint.jointMember}/${joint.jointTotalMember}"
         holder.itemJointTerm.text = joint.jointTerm
-        holder.itemJointPrice.text = "${formatNumberToCurrency(joint.jointPrice)}원"
+        holder.itemJointPrice.text = "${formatNumberToCurrency(mainActivity.formatNumberToCurrency(joint.jointPrice))}원"
     }
 
     // 가격 표현 형식 변환
