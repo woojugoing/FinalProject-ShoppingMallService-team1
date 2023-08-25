@@ -101,8 +101,17 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
 
     fun handleSignInResult(completedTask: Task<GoogleSignInAccount>){
         try{
+            // 사용자 규격 정보
             val account = completedTask.getResult(ApiException::class.java)
-            Log.i("login", "구글 로그인 성공 ${account.displayName}, ${account.id}")
+            val customerNickname = account.displayName
+            val customerId = account.id
+            if(customerId != null && customerNickname != null){
+                val customer = Customer(customerId, customerNickname)
+
+                // 로그인
+                login(customer)
+            }
+
         } catch (e: ApiException){
             Log.w("login", "구글 로그인 실패")
         }
