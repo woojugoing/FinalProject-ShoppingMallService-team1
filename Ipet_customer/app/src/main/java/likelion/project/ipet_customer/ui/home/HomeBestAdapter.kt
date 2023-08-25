@@ -71,13 +71,14 @@ class HomeBestAdapter(private val mainActivity: MainActivity,val products: Mutab
     override fun onBindViewHolder(holder: BestViewHolder, position: Int) {
 
         val product = products[position]
+        
+        holder.itemBestRank.run{
+            typeface = ResourcesCompat.getFont(holder.itemView.context, R.font.pretendard_bold)
+            setTextColor(ContextCompat.getColor(mainActivity, R.color.black))
+            textSize = 12f
+            text = "${position+1}위"
+        }
 
-        // 스타일 변경 코드
-        holder.itemBestRank.typeface = ResourcesCompat.getFont(holder.itemView.context, R.font.pretendard_bold)
-        holder.itemBestRank.setTextColor(ContextCompat.getColor(mainActivity, R.color.black))
-        holder.itemBestRank.textSize = 12f
-
-        holder.itemBestRank.text = "${position+1}위"
         holder.itemBestTitle.text = product.productTitle
         holder.itemBestPrice.text = "${mainActivity.formatNumberToCurrency(product.productPrice)}원"
     }

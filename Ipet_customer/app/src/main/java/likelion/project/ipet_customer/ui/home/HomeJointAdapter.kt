@@ -80,23 +80,28 @@ class HomeJointAdapter(private val mainActivity: MainActivity, val jointsList: M
 
         val joint = jointsList[position] // 해당 포지션의 Joint 객체 가져오기
 
-        // 스타일 변경 코드들
-        holder.itemJointCostPrice.typeface = ResourcesCompat.getFont(holder.itemView.context, R.font.pretendard_regular)
+        holder.itemJointCostPrice.run {
+            typeface = ResourcesCompat.getFont(holder.itemView.context, R.font.pretendard_regular)
+            textSize = 12f
+            setTextColor(ContextCompat.getColor(mainActivity, R.color.gray))
+            paintFlags = holder.itemJointCostPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+        }
 
-        holder.itemJointCostPrice.textSize = 12f
-        holder.itemJointCostPrice.setTextColor(ContextCompat.getColor(mainActivity, R.color.gray))
-        holder.itemJointCostPrice.paintFlags = holder.itemJointCostPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+        holder.itemJointTerm.run {
+            typeface = ResourcesCompat.getFont(holder.itemView.context, R.font.pretendard_regular)
+            textSize = 12f
+            text = joint.jointTerm
+        }
 
-        val jointMember = holder.itemJointMember
-        jointMember.setTextAppearance(R.style.Typography_Regular12)
+        holder.itemJointMember.run{
+            setTextAppearance(R.style.Typography_Regular12)
+            text = "${joint.jointMember}/${joint.jointTotalMember}"
+        }
 
-        val jointMemberIc = holder.itemJointMemberIc
-        jointMemberIc.setColorFilter(ContextCompat.getColor(mainActivity, R.color.brown_200))
+        holder.itemJointMemberIc.setColorFilter(ContextCompat.getColor(mainActivity, R.color.brown_200))
 
         // img 추가 필요
         holder.itemJointTitle.text = joint.jointTitle
-        holder.itemJointMember.text = "${joint.jointMember}/${joint.jointTotalMember}"
-        holder.itemJointTerm.text = joint.jointTerm
         holder.itemJointPrice.text = "${mainActivity.formatNumberToCurrency(joint.jointPrice)}원"
     }
 }
