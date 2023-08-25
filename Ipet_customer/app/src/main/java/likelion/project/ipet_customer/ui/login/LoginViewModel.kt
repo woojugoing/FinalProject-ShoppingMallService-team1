@@ -1,14 +1,17 @@
 package likelion.project.ipet_customer.ui.login
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.util.Base64
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.android.material.snackbar.Snackbar
 import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.NidOAuthLogin
@@ -23,29 +26,36 @@ import org.json.JSONObject
 class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
 
     private var mainActivity = mainActivity
+    private var loginFragment = LoginFragment()
     private var loginRepository = LoginRepository()
 
     // 카카오 로그인 메서드
-    fun socialLoginKakao(){
-        UserApiClient.instance.loginWithKakaoTalk(mainActivity) { token, error ->
-            if (error != null) {
-                Log.e("login", "카카오 로그인 실패", error)
-            }
-            else if (token != null) {
-                // 사용자 정보 추출
-                val idTokenList = token.idToken?.split(".")
-                if(idTokenList != null){
-                    // 사용자 규격 정보
-                    val idTokenPayload = Base64.decode(idTokenList[1], Base64.DEFAULT).toString(Charsets.UTF_8)
-                    val payloadJSONObject = JSONObject(idTokenPayload)
-                    val customerNickname = payloadJSONObject["nickname"].toString()
-                    val customerId = payloadJSONObject["sub"].toString()
-                    val customer = Customer(customerId, customerNickname)
+    fun socialLoginKakao(view: View){
+        // 카카오 실행 가능 여부 검사
+        if(UserApiClient.instance.isKakaoTalkLoginAvailable(mainActivity)){
+            // 카카오 로그인
+            UserApiClient.instance.loginWithKakaoTalk(mainActivity) { token, error ->
+                if (error != null) {
+                    Log.e("login", "카카오 로그인 실패", error)
+                }
+                else if (token != null) {
+                    // 사용자 정보 추출
+                    val idTokenList = token.idToken?.split(".")
+                    if(idTokenList != null){
+                        // 사용자 규격 정보
+                        val idTokenPayload = Base64.decode(idTokenList[1], Base64.DEFAULT).toString(Charsets.UTF_8)
+                        val payloadJSONObject = JSONObject(idTokenPayload)
+                        val customerNickname = payloadJSONObject["nickname"].toString()
+                        val customerId = payloadJSONObject["sub"].toString()
+                        val customer = Customer(customerId, customerNickname)
 
-                    // 로그인
-                    login(customer)
+                        // 로그인
+                        login(customer)
+                    }
                 }
             }
+        } else{
+            loginFragment.showSnackBar(view, LOGIN_KAKAO_UNINSTALL)
         }
     }
 
@@ -129,5 +139,6 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
         val LOGIN_KAKAO = 0
         val LOGIN_NAVER = 1
         val LOGIN_GOOGLE = 2
+        val LOGIN_KAKAO_UNINSTALL = 3
     }
 }
