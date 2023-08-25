@@ -16,6 +16,8 @@ class HomeFragment : Fragment() {
     lateinit var fragmentHomeBinding: FragmentHomeBinding
     lateinit var mainActivity: MainActivity
     lateinit var viewModel: HomeViewModel
+    var lCategoryState: String = "사료"
+    var sCategoryState: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -108,52 +110,43 @@ class HomeFragment : Fragment() {
 
             // 대분류 카테고리 선택 시 UI 변경
             chipGroupHomeLcategory.run {
-                buttonHomeScategory6.visibility = View.INVISIBLE
-
                 setOnCheckedStateChangeListener { group, checkedIds ->
                     // test
                     when (this.checkedChipId) {
                         R.id.chip_home_food -> {
-                            buttonHomeScategory6.visibility = View.INVISIBLE
+                            lCategoryState = "사료"
+                            setSmallCategory("주니어", "어덜트", "시니어", "다이어트", "건식", "습식")
                         }
 
                         R.id.chip_home_snack -> {
-                            buttonHomeScategory5.visibility = View.INVISIBLE
+                            lCategoryState = "간식"
+                            setSmallCategory("껌", "스낵", "육포", "캔", "비스켓", "기타")
                         }
 
                         R.id.chip_home_toy -> {
-                            buttonHomeScategory4.visibility = View.INVISIBLE
+                            lCategoryState = "장난감"
+                            setSmallCategory("공", "인형", "큐브", "훈련용품", "스크래쳐", "기타")
                         }
 
                         R.id.chip_home_clothes -> {
-                            buttonHomeScategory3.visibility = View.INVISIBLE
+                            lCategoryState = "의류"
+                            setSmallCategory("레인코트", "신발", "외투", "원피스", "셔츠", "기타")
                         }
 
                         R.id.chip_home_house -> {
-                            buttonHomeScategory2.visibility = View.INVISIBLE
+                            lCategoryState = "집"
+                            setSmallCategory("계단", "매트", "울타리", "안전문", "하우스", "기타")
                         }
                     }
                 }
             }
 
-            buttonHomeScategory1.setOnClickListener {
-                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, null)
-            }
-            buttonHomeScategory2.setOnClickListener {
-                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, null)
-            }
-            buttonHomeScategory3.setOnClickListener {
-                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, null)
-            }
-            buttonHomeScategory4.setOnClickListener {
-                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, null)
-            }
-            buttonHomeScategory5.setOnClickListener {
-                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, null)
-            }
-            buttonHomeScategory6.setOnClickListener {
-                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, null)
-            }
+            buttonHomeScategory1.setOnClickListener {replaceToList(1)}
+            buttonHomeScategory2.setOnClickListener {replaceToList(2)}
+            buttonHomeScategory3.setOnClickListener {replaceToList(3)}
+            buttonHomeScategory4.setOnClickListener {replaceToList(4)}
+            buttonHomeScategory5.setOnClickListener {replaceToList(5)}
+            buttonHomeScategory6.setOnClickListener {replaceToList(6)}
 
             // 공동 구매 상품 더보기 클릭 시
             textViewHomeMore.setOnClickListener {
@@ -165,5 +158,22 @@ class HomeFragment : Fragment() {
         }
 
         return fragmentHomeBinding.root
+    }
+
+    fun replaceToList(state: Int){
+        sCategoryState = state
+        val newBundle = Bundle()
+        newBundle.putString("lCategoryState", lCategoryState)
+        newBundle.putInt("sCategoryState", sCategoryState)
+        mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, newBundle)
+    }
+
+    fun setSmallCategory(cat1: String, cat2: String, cat3: String, cat4: String, cat5: String, cat6: String) {
+        fragmentHomeBinding.buttonHomeScategory1.text = cat1
+        fragmentHomeBinding.buttonHomeScategory2.text = cat2
+        fragmentHomeBinding.buttonHomeScategory3.text = cat3
+        fragmentHomeBinding.buttonHomeScategory4.text = cat4
+        fragmentHomeBinding.buttonHomeScategory5.text = cat5
+        fragmentHomeBinding.buttonHomeScategory6.text = cat6
     }
 }

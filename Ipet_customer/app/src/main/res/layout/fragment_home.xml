@@ -138,7 +138,7 @@
 
                 <Button
                     android:id="@+id/button_home_scategory1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
@@ -147,7 +147,7 @@
 
                 <Button
                     android:id="@+id/button_home_scategory2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
@@ -156,7 +156,7 @@
 
                 <Button
                     android:id="@+id/button_home_scategory3"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
@@ -171,7 +171,7 @@
 
                 <Button
                     android:id="@+id/button_home_scategory4"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
@@ -180,20 +180,20 @@
 
                 <Button
                     android:id="@+id/button_home_scategory5"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="건식 사료"
+                    android:text="건식"
                     android:textAppearance="@style/Typography.Bold14" />
 
                 <Button
                     android:id="@+id/button_home_scategory6"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="습식 사료"
+                    android:text="습식"
                     android:textAppearance="@style/Typography.Bold14" />
             </LinearLayout>
 
