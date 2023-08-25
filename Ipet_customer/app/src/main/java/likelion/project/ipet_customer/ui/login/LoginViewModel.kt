@@ -32,13 +32,18 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
                 Log.e("login", "카카오 로그인 실패", error)
             }
             else if (token != null) {
-                // 토큰에서 사용자 정보 추출
+                // 사용자 정보 추출
                 val idTokenList = token.idToken?.split(".")
                 if(idTokenList != null){
                     // 사용자 규격 정보
                     val idTokenPayload = Base64.decode(idTokenList[1], Base64.DEFAULT).toString(Charsets.UTF_8)
                     val payloadJSONObject = JSONObject(idTokenPayload)
-                    Log.i("login", "카카오 로그인 성공 ${payloadJSONObject["nickname"]}, ${payloadJSONObject["sub"]}")
+                    val customerNickname = payloadJSONObject["nickname"].toString()
+                    val customerId = payloadJSONObject["sub"].toString()
+                    val customer = Customer(customerId, customerNickname)
+
+                    // 로그인
+                    login(customer)
                 }
             }
         }
@@ -48,7 +53,7 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
     fun socialLoginNaver(){
         val oauthLoginCallback = object : OAuthLoginCallback {
             override fun onSuccess() {
-                // 네이버 로그인 인증이 성공했을 때 수행할 코드 추가
+                // 네이버 로그인 인증 성공
                 val profileCallback = object : NidProfileCallback<NidProfileResponse> {
                     override fun onSuccess(response: NidProfileResponse) {
                         Log.i("login", "네이버 로그인 성공 ${response.profile?.name.toString()}, ${response.profile?.id.toString()}")
@@ -93,7 +98,8 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
     }
 
     // 사용자 중복 검사 후 데이터 삽입 및 추출
-    fun login(customerInfo: String, platform: Int){
+    fun login(customer: Customer){
+        loginRepository.login(customer)
         mainActivity.replaceFragment(MainActivity.HOME_FRAGMENT, false, null)
     }
 
