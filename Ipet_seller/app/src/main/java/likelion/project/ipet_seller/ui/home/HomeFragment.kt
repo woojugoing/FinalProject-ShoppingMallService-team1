@@ -34,6 +34,11 @@ class HomeFragment : Fragment() {
 
     private fun initEvent() {
         fragmentHomeBinding.run {
+            cardViewHome6.run {
+                setOnClickListener {
+                    mainActivity.replaceFragment(MainActivity.REVENUE_FRAGMENT, true, null)
+                }
+            }
             cardViewHome7.run {
                 setOnClickListener {
                     viewModel.onLogoutClickEvent()
