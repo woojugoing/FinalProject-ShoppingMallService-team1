@@ -2,6 +2,7 @@ package likelion.project.ipet_customer.ui.review
 
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,9 +15,12 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.FragmentReviewAllBinding
 import likelion.project.ipet_customer.databinding.ItemReviewAllReviewBinding
+import likelion.project.ipet_customer.model.Review
 import likelion.project.ipet_customer.ui.main.MainActivity
 
 
@@ -25,6 +29,8 @@ class ReviewAllFragment : Fragment() {
     lateinit var fragmentReviewAllBinding: FragmentReviewAllBinding
     lateinit var mainActivity: MainActivity
 
+    val reviewDataList = mutableListOf<Review>()
+    val db = Firebase.firestore
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,6 +48,28 @@ class ReviewAllFragment : Fragment() {
                     mainActivity.removeFragment(MainActivity.REVIEWALL_FRAGMENT)
                 }
             }
+
+            db.collection("Review")
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        val firebaseKey = document["firebaseKey"] as String
+                        val score = document["reviewScore"] as String
+                        val id = document["reviewId"] as String
+                        val test = document["reviewText"] as String
+                        val date = document["reviewDate"] as String
+                        val img = document["reviewImg"] as String
+
+                        val item = Review(firebaseKey, score, id, test, date, img)
+                        reviewDataList.add(item)
+                        Log.d("reviewDataList", "reviewDataList : ${reviewDataList}")
+                        fragmentReviewAllBinding.recyclerReviewAll.adapter?.notifyDataSetChanged()
+                    }
+
+                }
+                .addOnFailureListener { exception ->
+                    Log.d("reviewDataList", "Error getting documents: ", exception)
+                }
 
             textViewReviewAllNewest.setOnClickListener {
                 val layoutParams = viewReviewAllLine.layoutParams as LinearLayout.LayoutParams
@@ -100,7 +128,7 @@ class ReviewAllFragment : Fragment() {
         }
 
         override fun getItemCount(): Int {
-            return 10
+            return reviewDataList.size
         }
 
         override fun onBindViewHolder(holder: ReviewAllHolder, position: Int) {
@@ -109,7 +137,19 @@ class ReviewAllFragment : Fragment() {
             val starColor = ContextCompat.getColor(holder.itemView.context, R.color.rose_200)
             holder.ratingBarReviewAllReview.progressTintList = ColorStateList.valueOf(starColor)
 
-            holder.ratingBarReviewAllReview.rating = 2.5F
+            holder.ratingBarReviewAllReview.rating = reviewDataList[position].reviewScore.toFloat()
+            holder.textViewReviewAllUserName.text = reviewDataList[position].reviewId
+            holder.textViewReviewAllDate.text = reviewDataList[position].reviewDate
+            holder.textViewReviewAllReviewContents.text = reviewDataList[position].reviewText
+
+            // 리뷰 이미지 확인
+            if (reviewDataList[position].reviewImg.isEmpty()) {
+                holder.imageViewReviewAllReviewImage.visibility = View.GONE
+            } else {
+                holder.imageViewReviewAllReviewImage.visibility = View.VISIBLE
+
+            }
+
         }
 
     }
