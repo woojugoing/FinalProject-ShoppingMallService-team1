@@ -1,6 +1,5 @@
 package likelion.project.ipet_customer.ui.home
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -11,9 +10,12 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.ItemProductCardBinding
+import likelion.project.ipet_customer.model.Product
 import likelion.project.ipet_customer.ui.main.MainActivity
+import java.text.NumberFormat
+import java.util.Locale
 
-class HomeBestAdapter(private val context: MainActivity) : RecyclerView.Adapter<HomeBestAdapter.BestViewHolder>() {
+class HomeBestAdapter(private val context: MainActivity,val products: MutableList<Product>) : RecyclerView.Adapter<HomeBestAdapter.BestViewHolder>() {
 
     inner class BestViewHolder(private val binding: ItemProductCardBinding) : RecyclerView.ViewHolder(binding.root){
         var linearLayout : LinearLayout
@@ -55,14 +57,29 @@ class HomeBestAdapter(private val context: MainActivity) : RecyclerView.Adapter<
         return bestViewHolder
     }
 
-    override fun getItemCount(): Int = 10
+    override fun getItemCount(): Int = minOf(products.size, 10)
 
     override fun onBindViewHolder(holder: BestViewHolder, position: Int) {
+
+        val product = products[position]
+
         // 스타일 변경 코드
         holder.itemBestRank.typeface = ResourcesCompat.getFont(holder.itemView.context, R.font.pretendard_bold)
         holder.itemBestRank.setTextColor(ContextCompat.getColor(context, R.color.black))
         holder.itemBestRank.textSize = 12f
 
         holder.itemBestRank.text = "${position+1}위"
+        holder.itemBestTitle.text = product.productTitle
+        holder.itemBestPrice.text = "${formatNumberToCurrency(product.productPrice)}원"
+    }
+
+    // 가격 표현 형식 변환
+    fun formatNumberToCurrency(number: Long): String {
+        try {
+            val numberFormat = NumberFormat.getNumberInstance(Locale.getDefault())
+            return numberFormat.format(number)
+        } catch (e: NumberFormatException) {
+            return number.toString()
+        }
     }
 }

@@ -31,7 +31,12 @@ class HomeFragment : Fragment() {
                 fragmentHomeBinding.recyclerViewHomeJoint.adapter = HomeJointAdapter(mainActivity, joints)
             }
 
-            loadAllJoints()
+            productLiveData.observe(viewLifecycleOwner){ products ->
+                fragmentHomeBinding.recyclerViewHomeBest.adapter = HomeBestAdapter(mainActivity, products)
+            }
+
+            loadFilteredJoints()
+            loadFilteredOrder()
         }
 
         fragmentHomeBinding.run {
@@ -46,6 +51,9 @@ class HomeFragment : Fragment() {
                         when (checkedId) {
                             // 강아지 버튼 클릭 시
                             R.id.button_home_dog -> {
+
+                                viewModel.updateFilter("강아지")
+
                                 buttonHomeDog.setBackgroundColor(
                                     ContextCompat.getColor(
                                         mainActivity,
@@ -58,10 +66,15 @@ class HomeFragment : Fragment() {
                                         R.color.white
                                     )
                                 )
+
+
                             }
 
                             // 고양이 버튼 클릭 시
                             R.id.button_home_cat -> {
+
+                                viewModel.updateFilter("고양이")
+
                                 buttonHomeCat.setBackgroundColor(
                                     ContextCompat.getColor(
                                         mainActivity,
@@ -147,16 +160,7 @@ class HomeFragment : Fragment() {
                 val newBundle = Bundle()
                 newBundle.putBoolean("menuFlag", false)
 
-                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, newBundle)
-            }
-
-            recyclerViewHomeJoint.run {
-                val jointsList = viewModel.jointsLiveData.value?.toMutableList() ?: mutableListOf()
-                adapter = HomeJointAdapter(mainActivity, jointsList)
-            }
-
-            recyclerViewHomeBest.run {
-                adapter = HomeBestAdapter(mainActivity)
+                mainActivity.replaceFragment(MainActivity.PRODUCT_JOINT_LIST_FRAGMENT, true, newBundle)
             }
         }
 
