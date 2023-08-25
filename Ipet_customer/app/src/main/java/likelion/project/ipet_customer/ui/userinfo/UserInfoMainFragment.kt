@@ -38,7 +38,7 @@ class UserInfoMainFragment : Fragment() {
                 title = "내 정보"
                 setNavigationIcon(R.drawable.ic_back_24dp)
                 setNavigationOnClickListener {
-                    mainActivity.removeFragment(MainActivity.USER_INFO_MAIN_FRAGMENT)
+                    mainActivity.replaceFragment(MainActivity.PRODUCT_INFO_FRAGMENT, false, null)
                 }
             }
 
