@@ -1,5 +1,6 @@
 package likelion.project.ipet_customer.ui.home
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,7 +43,11 @@ class HomeBestAdapter(private val context: MainActivity,val products: MutableLis
 
             // 상품 클릭 시 이벤트
             binding.root.setOnClickListener {
-                context.replaceFragment(MainActivity.PRODUCT_INFO_FRAGMENT, true, null)
+                var bundle = Bundle()
+                val readProductIdx = products[adapterPosition].productIdx
+                bundle.putLong("readProductIdx", readProductIdx)
+
+                context.replaceFragment(MainActivity.PRODUCT_INFO_FRAGMENT, true, bundle)
             }
         }
     }
