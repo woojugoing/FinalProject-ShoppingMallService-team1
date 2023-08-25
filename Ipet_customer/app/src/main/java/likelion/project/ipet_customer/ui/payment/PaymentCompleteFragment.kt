@@ -37,6 +37,10 @@ class PaymentCompleteFragment : Fragment() {
 
         fragmentPaymentCompleteBinding.run {
 
+            lottieAnimationViewPaymentComplete.run {
+                playAnimation()
+            }
+
             // 홈 화면으로 이동
             buttonPaymentCompleteGoMain.run {
                 setOnClickListener {
