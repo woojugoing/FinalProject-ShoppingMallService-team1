@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.FragmentHomeBinding
 import likelion.project.ipet_customer.ui.main.MainActivity
@@ -18,7 +17,6 @@ class HomeFragment : Fragment() {
     lateinit var mainActivity: MainActivity
     private var lCategoryState: String = "사료"
     private var sCategoryState: Int = 0
-    lateinit var viewModel: HomeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,16 +24,6 @@ class HomeFragment : Fragment() {
     ): View? {
         fragmentHomeBinding = FragmentHomeBinding.inflate(inflater)
         mainActivity = activity as MainActivity
-
-        viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
-
-        viewModel.run {
-            jointsLiveData.observe(viewLifecycleOwner) { joints ->
-                fragmentHomeBinding.recyclerViewHomeJoint.adapter = HomeJointAdapter(mainActivity, joints)
-            }
-
-            loadAllJoints()
-        }
 
         fragmentHomeBinding.run {
             mainActivity.activityMainBinding.bottomNavigation.visibility = View.VISIBLE
@@ -98,82 +86,43 @@ class HomeFragment : Fragment() {
 
             // 대분류 카테고리 선택 시 UI 변경
             chipGroupHomeLcategory.run {
-                buttonHomeScategory6.visibility = View.INVISIBLE
-
                 setOnCheckedStateChangeListener { group, checkedIds ->
                     // test
                     when (this.checkedChipId) {
                         R.id.chip_home_food -> {
                             lCategoryState = "사료"
+                            setSmallCategory("주니어", "어덜트", "시니어", "다이어트", "건식", "습식")
                         }
 
                         R.id.chip_home_snack -> {
                             lCategoryState = "간식"
+                            setSmallCategory("껌", "스낵", "육포", "캔", "비스켓", "기타")
                         }
 
                         R.id.chip_home_toy -> {
                             lCategoryState = "장난감"
+                            setSmallCategory("공", "인형", "큐브", "훈련용품", "스크래쳐", "기타")
                         }
 
                         R.id.chip_home_clothes -> {
                             lCategoryState = "의류"
+                            setSmallCategory("레인코트", "신발", "외투", "원피스", "셔츠", "기타")
                         }
 
                         R.id.chip_home_house -> {
                             lCategoryState = "집"
+                            setSmallCategory("계단", "매트", "울타리", "안전문", "하우스", "기타")
                         }
                     }
                 }
             }
 
-            buttonHomeScategory1.setOnClickListener {
-                sCategoryState = 1
-                val newBundle = Bundle()
-                newBundle.putString("lCategoryState", lCategoryState)
-                newBundle.putInt("sCategoryState", sCategoryState)
-                Log.d("sCs", "$sCategoryState , $lCategoryState")
-                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, newBundle)
-            }
-            buttonHomeScategory2.setOnClickListener {
-                sCategoryState = 2
-                val newBundle = Bundle()
-                newBundle.putString("lCategoryState", lCategoryState)
-                newBundle.putInt("sCategoryState", sCategoryState)
-                Log.d("sCs", "$sCategoryState , $lCategoryState")
-                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, newBundle)
-            }
-            buttonHomeScategory3.setOnClickListener {
-                sCategoryState = 3
-                val newBundle = Bundle()
-                newBundle.putString("lCategoryState", lCategoryState)
-                newBundle.putInt("sCategoryState", sCategoryState)
-                Log.d("sCs", "$sCategoryState , $lCategoryState")
-                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, newBundle)
-            }
-            buttonHomeScategory4.setOnClickListener {
-                sCategoryState = 4
-                val newBundle = Bundle()
-                newBundle.putString("lCategoryState", lCategoryState)
-                newBundle.putInt("sCategoryState", sCategoryState)
-                Log.d("sCs", "$sCategoryState , $lCategoryState")
-                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, newBundle)
-            }
-            buttonHomeScategory5.setOnClickListener {
-                sCategoryState = 5
-                val newBundle = Bundle()
-                newBundle.putString("lCategoryState", lCategoryState)
-                newBundle.putInt("sCategoryState", sCategoryState)
-                Log.d("sCs", "$sCategoryState , $lCategoryState")
-                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, newBundle)
-            }
-            buttonHomeScategory6.setOnClickListener {
-                sCategoryState = 6
-                val newBundle = Bundle()
-                newBundle.putString("lCategoryState", lCategoryState)
-                newBundle.putInt("sCategoryState", sCategoryState)
-                Log.d("sCs", "$sCategoryState , $lCategoryState")
-                mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, newBundle)
-            }
+            buttonHomeScategory1.setOnClickListener {replaceToList(1)}
+            buttonHomeScategory2.setOnClickListener {replaceToList(2)}
+            buttonHomeScategory3.setOnClickListener {replaceToList(3)}
+            buttonHomeScategory4.setOnClickListener {replaceToList(4)}
+            buttonHomeScategory5.setOnClickListener {replaceToList(5)}
+            buttonHomeScategory6.setOnClickListener {replaceToList(6)}
 
             // 공동 구매 상품 더보기 클릭 시
             textViewHomeMore.setOnClickListener {
@@ -184,8 +133,7 @@ class HomeFragment : Fragment() {
             }
 
             recyclerViewHomeJoint.run {
-                val jointsList = viewModel.jointsLiveData.value?.toMutableList() ?: mutableListOf()
-                adapter = HomeJointAdapter(mainActivity, jointsList)
+                adapter = HomeJointAdapter(mainActivity)
             }
 
             recyclerViewHomeBest.run {
@@ -194,5 +142,22 @@ class HomeFragment : Fragment() {
         }
 
         return fragmentHomeBinding.root
+    }
+
+    fun replaceToList(state: Int){
+        sCategoryState = state
+        val newBundle = Bundle()
+        newBundle.putString("lCategoryState", lCategoryState)
+        newBundle.putInt("sCategoryState", sCategoryState)
+        mainActivity.replaceFragment(MainActivity.PRODUCT_LIST_FRAGMENT, true, newBundle)
+    }
+
+    fun setSmallCategory(cat1: String, cat2: String, cat3: String, cat4: String, cat5: String, cat6: String) {
+        fragmentHomeBinding.buttonHomeScategory1.text = cat1
+        fragmentHomeBinding.buttonHomeScategory2.text = cat2
+        fragmentHomeBinding.buttonHomeScategory3.text = cat3
+        fragmentHomeBinding.buttonHomeScategory4.text = cat4
+        fragmentHomeBinding.buttonHomeScategory5.text = cat5
+        fragmentHomeBinding.buttonHomeScategory6.text = cat6
     }
 }
