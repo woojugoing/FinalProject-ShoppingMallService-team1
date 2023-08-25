@@ -2,25 +2,12 @@ package likelion.project.ipet_customer.ui.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Base64
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
-import com.kakao.sdk.user.UserApiClient
-import com.navercorp.nid.NaverIdLoginSDK
-import com.navercorp.nid.oauth.NidOAuthLogin
-import com.navercorp.nid.oauth.OAuthLoginCallback
-import com.navercorp.nid.profile.NidProfileCallback
-import com.navercorp.nid.profile.data.NidProfileResponse
 import likelion.project.ipet_customer.databinding.FragmentLoginBinding
 import likelion.project.ipet_customer.ui.main.MainActivity
 
@@ -41,17 +28,17 @@ class LoginFragment : Fragment() {
         fragmentLoginBinding.run{
             buttonLoginKakao.run{
                 setOnClickListener {
-                    viewModel.socialLoginKakao(it)
+                    viewModel.login(it, LoginViewModel.LOGIN_KAKAO)
                 }
             }
             buttonLoginNaver.run{
                 setOnClickListener {
-                    viewModel.socialLoginNaver()
+                    viewModel.login(it, LoginViewModel.LOGIN_NAVER)
                 }
             }
             buttonLoginGoogle.run{
                 setOnClickListener {
-                    startActivityForResult(viewModel.socialLoginGoogle(), LoginViewModel.LOGIN_GOOGLE)
+                    startActivityForResult(viewModel.loginGoogle(), LoginViewModel.LOGIN_GOOGLE)
                 }
             }
         }
@@ -82,7 +69,7 @@ class LoginFragment : Fragment() {
 
         when(requestCode){
             LoginViewModel.LOGIN_GOOGLE -> {
-                viewModel.handleSignInResult(GoogleSignIn.getSignedInAccountFromIntent(data))
+                viewModel.handleGoogleLoginResult(GoogleSignIn.getSignedInAccountFromIntent(data))
             }
         }
     }
