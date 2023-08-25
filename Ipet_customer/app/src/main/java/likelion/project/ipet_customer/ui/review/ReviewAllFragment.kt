@@ -63,24 +63,36 @@ class ReviewAllFragment : Fragment() {
                         val item = Review(firebaseKey, score, id, test, date, img)
                         reviewDataList.add(item)
                         Log.d("reviewDataList", "reviewDataList : ${reviewDataList}")
-                        fragmentReviewAllBinding.recyclerReviewAll.adapter?.notifyDataSetChanged()
                     }
+
+                    // 리뷰 전체보기 화면의 처음 리사이클러뷰를 최신순으로 지정
+                    // reviewDate를 기준으로 reviewDataList를 내림차순으로 정렬한다 (최신순이 제일 위로오개함)
+                    reviewDataList.sortByDescending { it.reviewDate }
+                    fragmentReviewAllBinding.recyclerReviewAll.adapter?.notifyDataSetChanged()
 
                 }
                 .addOnFailureListener { exception ->
                     Log.d("reviewDataList", "Error getting documents: ", exception)
                 }
 
+            // 최신순으로 보기
             textViewReviewAllNewest.setOnClickListener {
                 val layoutParams = viewReviewAllLine.layoutParams as LinearLayout.LayoutParams
                 layoutParams.leftMargin = textViewReviewAllNewest.left
                 viewReviewAllLine.layoutParams = layoutParams
+
+                reviewDataList.sortByDescending { it.reviewDate }
+                fragmentReviewAllBinding.recyclerReviewAll.adapter?.notifyDataSetChanged()
             }
 
+            // 평점순으로 보기
             textViewReviewAllRating.setOnClickListener {
                 val layoutParams = viewReviewAllLine.layoutParams as LinearLayout.LayoutParams
                 layoutParams.leftMargin = textViewReviewAllRating.left
                 viewReviewAllLine.layoutParams = layoutParams
+
+                reviewDataList.sortByDescending { it.reviewScore.toFloat() }
+                fragmentReviewAllBinding.recyclerReviewAll.adapter?.notifyDataSetChanged()
             }
 
             recyclerReviewAll.run {
