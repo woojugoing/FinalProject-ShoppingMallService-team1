@@ -71,7 +71,7 @@ class ProductCategoryFragment : Fragment() {
                         val lCategory = document["productLCategory"] as String
                         val sCategory = document["productSCategory"] as String
 
-                        val item = Product(idx, title, price, img, animalType, lCategory, sCategory, text, stock, seller)
+                        val item = Product(animalType, idx, img, lCategory,price, sCategory, seller, stock, text, title)
                         productList.add(item)
                         fragmentProductCategoryBinding.recyclerProductList.adapter?.notifyDataSetChanged()
                     }
