@@ -1,28 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/item_bottom_home"
+        app:showAsAction="ifRoom"
         android:enabled="true"
         android:icon="@drawable/ic_home_24dp"
-        android:title="" />
+        android:title="홈" />
     <item
         android:id="@+id/item_bottom_search"
+        app:showAsAction="ifRoom"
         android:enabled="true"
         android:icon="@drawable/ic_search_24dp"
-        android:title="" />
+        android:title="검색" />
     <item
         android:id="@+id/item_bottom_joinT"
+        app:showAsAction="ifRoom"
         android:enabled="true"
         android:icon="@drawable/ic_sale_outline_24dp"
-        android:title="" />
+        android:title="공동구매" />
     <item
         android:id="@+id/item_bottom_basket"
+        app:showAsAction="ifRoom"
         android:enabled="true"
         android:icon="@drawable/ic_shopping_cart_48dp"
-        android:title="" />
+        android:title="장바구니" />
     <item
         android:id="@+id/item_bottom_userInfo"
+        app:showAsAction="ifRoom"
         android:enabled="true"
         android:icon="@drawable/ic_account_circle_48dp"
-        android:title="" />
+        android:title="내정보" />
 </menu>
