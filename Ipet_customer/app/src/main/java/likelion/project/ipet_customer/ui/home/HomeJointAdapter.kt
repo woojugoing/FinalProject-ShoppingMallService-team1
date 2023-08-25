@@ -1,6 +1,7 @@
 package likelion.project.ipet_customer.ui.home
 
 import android.graphics.Paint
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,7 +50,11 @@ class HomeJointAdapter(private val context: MainActivity, val jointsList: Mutabl
 
             // 공동 구매 상품 클릭 시
             binding.root.setOnClickListener {
-                context.replaceFragment(MainActivity.PRODUCT_INFO_FRAGMENT, true, null)
+                var bundle = Bundle()
+                val readJointIdx = jointsList[adapterPosition].jointIdx
+                bundle.putLong("readJointIdx", readJointIdx)
+
+                context.replaceFragment(MainActivity.PRODUCT_INFO_FRAGMENT, true, bundle)
             }
         }
     }
