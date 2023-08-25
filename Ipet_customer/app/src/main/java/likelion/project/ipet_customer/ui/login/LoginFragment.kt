@@ -67,6 +67,13 @@ class LoginFragment : Fragment() {
                     }
                     .show()
             }
+            LoginViewModel.LOGIN_KAKAO_UNLOGIN -> {
+                Snackbar.make(view,"카카오톡에 먼저 로그인 해주세요", Snackbar.LENGTH_LONG)
+                    .setAction("확인"){
+
+                    }
+                    .show()
+            }
         }
     }
 
