@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import likelion.project.ipet_seller.R
 import likelion.project.ipet_seller.databinding.FragmentOrderStatusBinding
@@ -78,6 +79,8 @@ class OrderStatusFragment : Fragment() {
             viewModel.uiState.collect {
                 if (it.initOrderList) {
                     orderAdapter.subList(it.orderList, it.productList)
+                    delay(200)
+                    hideShimmerAndShowOrders()
                 }
             }
         }
@@ -86,6 +89,13 @@ class OrderStatusFragment : Fragment() {
             viewModel.event.collect {
                 Snackbar.make(fragmentOrderStatusBinding.root, it, Snackbar.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun hideShimmerAndShowOrders() {
+        fragmentOrderStatusBinding.run {
+            recyclerViewOrderStatus.visibility = View.VISIBLE
+            shimmerFrameLayoutOrderStatusOrderCount.visibility = View.GONE
         }
     }
 
