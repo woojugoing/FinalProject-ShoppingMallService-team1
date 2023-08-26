@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import likelion.project.ipet_seller.model.Order
@@ -51,14 +50,28 @@ class HomeViewModel(context: Context) : ViewModel() {
                     _uiState.update {
                         it.copy(
                             orderList = orders,
-                            orderCount = orders.count { it.orderState == -1 },
-                            preparingCount = orders.count { it.orderState == 0 },
-                            deliveringCount = orders.count { it.orderState == 1 },
-                            deliveredCount = orders.count { it.orderState == 2 }
                         )
                     }
                 }
             }
+        }
+    }
+
+    fun fetchOrdersWithMatchingOrderNumber() {
+        viewModelScope.launch {
+            orderRepository.getOrdersWithMatchingOrderNumber(sellerRepository.readSellerIdToLocal().first)
+                .collect {
+                    it.onSuccess { orderMap ->
+                        _uiState.update {
+                            it.copy(
+                                beforeProcessingCount = orderMap.values.count { it[0].orderState == -1 },
+                                preparingCount = orderMap.values.count { it[0].orderState == 0 },
+                                deliveringCount = orderMap.values.count { it[0].orderState == 1 },
+                                deliveredCount = orderMap.values.count { it[0].orderState == 2 }
+                            )
+                        }
+                    }
+                }
         }
     }
 
@@ -79,6 +92,7 @@ data class UiState(
     val seller: Seller? = null,
     val orderList: List<Order>? = null,
     val orderCount: Int = 0,
+    val beforeProcessingCount: Int = 0,
     val preparingCount: Int = 0,
     val deliveringCount: Int = 0,
     val deliveredCount: Int = 0,
