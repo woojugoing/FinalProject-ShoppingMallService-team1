@@ -1,5 +1,6 @@
 package likelion.project.ipet_seller.db.remote
 
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.Flow
@@ -33,6 +34,7 @@ class OrderDataSource {
             kotlin.runCatching {
                 val orders = db.collection(ORDER_COLLECTION)
                     .whereEqualTo("sellerId", sellerId)
+                    .orderBy("orderDate", Query.Direction.DESCENDING)
                     .get()
                     .await()
                     .toObjects(Order::class.java)
@@ -45,17 +47,17 @@ class OrderDataSource {
         }
     }
 
-    suspend fun updateOrderStatus(order: Order, orderStatus: OrderStatus): Flow<Result<Boolean>> {
+    suspend fun updateOrderStatus(orderList: List<Order>, orderStatus: OrderStatus): Flow<Result<Boolean>> {
         return flow {
             kotlin.runCatching {
                 val orders = db.collection(ORDER_COLLECTION)
-                    .whereEqualTo("orderNumber", order.orderNumber)
+                    .whereEqualTo("orderNumber", orderList[0].orderNumber)
                     .get()
                     .await()
                 orders.forEach { order ->
                     db.collection(ORDER_COLLECTION)
                         .document(order.id)
-                        .update("orderState", orderStatus)
+                        .update("orderState", orderStatus.number)
                         .await()
                 }
             }.onSuccess {

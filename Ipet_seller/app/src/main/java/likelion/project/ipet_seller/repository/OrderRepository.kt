@@ -9,5 +9,5 @@ class OrderRepository {
 
     suspend fun getOrders(sellerId: String) = orderDataSource.getOrders(sellerId)
     suspend fun getOrdersWithMatchingOrderNumber(sellerId: String) = orderDataSource.getOrdersWithMatchingOrderNumber(sellerId)
-    suspend fun updateOrderStatus(order: Order, orderStatus: OrderStatus) = orderDataSource.updateOrderStatus(order, orderStatus)
+    suspend fun updateOrderStatus(orders: List<Order>, orderStatus: OrderStatus) = orderDataSource.updateOrderStatus(orders, orderStatus)
 }
