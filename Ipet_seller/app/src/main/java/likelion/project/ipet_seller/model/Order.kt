@@ -6,5 +6,5 @@ data class Order(
     val orderRecipient: String = "",
     val orderState: Int = -1,
     val sellerId: String = "",
-    val productIdx: Long = 0L,
+    val productIdx: String = "",
 )

@@ -1,24 +1,23 @@
 package likelion.project.ipet_seller.ui.product
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import likelion.project.ipet_seller.databinding.ItemProductlistBinding
 import likelion.project.ipet_seller.model.Product
 import likelion.project.ipet_seller.ui.main.MainActivity
 
-class ProductListAdapter(private val mainActivity: MainActivity) : RecyclerView.Adapter<ProductListAdapter.ProductListViewHolder>() {
+class ProductListAdapter(private val mainActivity: MainActivity, val onItemClickListener: (Product) -> Unit) : RecyclerView.Adapter<ProductListAdapter.ProductListViewHolder>() {
 
     private var productList = emptyList<Product>()
 
     fun subList(productList: List<Product>) {
         this.productList = productList
+        notifyDataSetChanged()
     }
 
     inner class ProductListViewHolder(private val binding: ItemProductlistBinding) : RecyclerView.ViewHolder(binding.root){
@@ -38,7 +37,7 @@ class ProductListAdapter(private val mainActivity: MainActivity) : RecyclerView.
 
             // 상품 삭제 버튼 클릭 시 이벤트
             itemProductListDelete.setOnClickListener {
-                Toast.makeText(mainActivity, "삭제 버튼 클릭 이벤트", Toast.LENGTH_SHORT).show()
+                onItemClickListener(productList[adapterPosition])
             }
         }
     }
@@ -59,7 +58,6 @@ class ProductListAdapter(private val mainActivity: MainActivity) : RecyclerView.
 
     override fun onBindViewHolder(holder: ProductListViewHolder, position: Int) {
         holder.run {
-            Log.d("product3", "${productList}")
             val product = productList[position]
             itemProductListTitle.text = product.productTitle
             itemProductListStock.text = product.productStock.toString()
