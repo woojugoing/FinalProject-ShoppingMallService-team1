@@ -12,6 +12,7 @@ object Versions {
     const val JUNIT_VERSION = "4.13.2"
     const val JUNIT_EXT_VERSION = "1.1.5"
     const val ESPRESSO_VERSION = "3.5.1"
+    const val GLIDE_VERSION = "4.15.1"
     const val VIEWMODEL_VERSION = "2.6.1"
 }
 
@@ -49,6 +50,10 @@ object DataStore {
 
 object ChartDeps {
     const val GRAPH = "com.github.PhilJay:MPAndroidChart:v3.1.0"
+}
+
+object GlideDeps {
+    const val GLIDE = "com.github.bumptech.glide:glide:${Versions.GLIDE_VERSION}"
 }
 
 object TestDeps {
