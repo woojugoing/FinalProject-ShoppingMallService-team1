@@ -26,4 +26,19 @@ class ProductDataSource {
             }
         }
     }
+
+    suspend fun deleteProducts(product: Product): Flow<Result<Boolean>> {
+        return flow {
+            runCatching {
+                db.collection(PRODUCT_COLLECTION)
+                    .document(product.productIdx)
+                    .delete()
+                    .await()
+            }.onSuccess {
+                emit(Result.success(true))
+            }.onFailure {
+                emit(Result.failure(it))
+            }
+        }
+    }
 }
