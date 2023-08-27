@@ -171,7 +171,7 @@ class OrderStatusFragment : Fragment() {
                 else -> "배송처리중"
             }
             Glide.with(holder.itemView)
-                .load(product.productImg)
+                .load(product.productImg[0])
                 .into(holder.thumbNail)
             if (orders[0].orderState == OrderStatus.BEFORE_PROCESSING.number) {
                 holder.confirm.visibility = View.VISIBLE
