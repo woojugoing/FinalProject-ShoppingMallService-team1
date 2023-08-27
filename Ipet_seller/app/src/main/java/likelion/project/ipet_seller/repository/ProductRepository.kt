@@ -11,4 +11,5 @@ class ProductRepository() {
 
     suspend fun getProducts(productSeller: String) = productDataSource.getProducts(productSeller)
     suspend fun deleteProduct(product: Product) = productDataSource.deleteProducts(product)
+    suspend fun registerProduct(product: Product) = productDataSource.registrerProduct(product)
 }
