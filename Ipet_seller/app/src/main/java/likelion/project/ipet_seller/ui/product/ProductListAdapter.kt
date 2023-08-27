@@ -62,7 +62,7 @@ class ProductListAdapter(private val mainActivity: MainActivity, val onItemClick
             itemProductListTitle.text = product.productTitle
             itemProductListStock.text = product.productStock.toString()
             Glide.with(holder.itemView)
-                .load(product.productImg)
+                .load(product.productImg[0])
                 .into(holder.itemProductListThumbnail)
         }
     }
