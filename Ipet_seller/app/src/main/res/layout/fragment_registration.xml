@@ -149,7 +149,7 @@
 
                 <EditText
                     android:padding="10dp"
-                    android:id="@+id/editTextCount"
+                    android:id="@+id/edit_text_stock"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="수량"

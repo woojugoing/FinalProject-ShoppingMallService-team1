@@ -50,6 +50,7 @@ class ProductDataSource {
     suspend fun registrerProduct(product: Product): Flow<Result<Boolean>> {
         return flow {
             kotlin.runCatching {
+                checkProduct(product)
                 val uploadedImages = mutableListOf<String>()
                 val productIdx = db.collection(PRODUCT_COLLECTION).document().id
                 product.productImg.forEach {
@@ -71,5 +72,17 @@ class ProductDataSource {
                 emit(Result.failure(it))
             }
         }
+    }
+
+    private fun checkProduct(product: Product) {
+        require(product.productImg.isNotEmpty()) { throw Exception("하나 이상의 이미지가 필요합니다") }
+        require(product.productTitle.isNotEmpty()) { throw Exception("상품명을 작성해주세요") }
+        require(product.productPrice != 0L) { throw Exception("가격을 입력해주세요") }
+        require(product.productStock != 0L) { throw Exception("수량을 입력해주세요") }
+        require(product.productAnimalType != "반려동물 선택") { throw Exception("동물 타입을 선택해주세요") }
+        require(product.productLcategory!= "대분류 선택") { throw Exception("대분류 카테고리를 선택해주세요") }
+        require(product.productScategory != "소분류 선택") { throw Exception("소분류를 선택해주세요") }
+        require(product.productSeller.isNotEmpty()) { throw Exception("판매자 아이디가 없습니다") }
+        require(product.productText.isNotEmpty()) { throw Exception("상품에 대한 내용을 작성해주세요") }
     }
 }

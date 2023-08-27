@@ -5,11 +5,9 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -24,14 +22,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import likelion.project.ipet_seller.R
 import likelion.project.ipet_seller.databinding.FragmentRegistrationBinding
 import likelion.project.ipet_seller.model.Product
 import likelion.project.ipet_seller.ui.main.MainActivity
-import java.time.LocalDate
-import java.util.UUID
 
 class RegistrationFragment : Fragment() {
 
@@ -182,18 +177,29 @@ class RegistrationFragment : Fragment() {
                 setOnMenuItemClickListener { menuItem ->
                     when (menuItem.itemId) {
                         R.id.item_save -> {
+
+                            val price = if (editTextPrice.text.toString().isEmpty()) {
+                                0L
+                            } else {
+                                editTextPrice.text.toString().toLong()
+                            }
+                            val stock = if (editTextStock.text.toString().isEmpty()) {
+                                0L
+                            } else {
+                                editTextStock.text.toString().toLong()
+                            }
+
                             progressBarRegistraintion.visibility = View.VISIBLE
                             viewModel.onUploadClickEvent(
-
                                 Product(
                                     productTitle = editTextText.text.toString(),
-                                    productPrice = editTextPrice.text.toString().toLong(),
+                                    productPrice = price,
                                     productImg = images,
                                     productAnimalType = product.productAnimalType,
                                     productLcategory = product.productLcategory,
                                     productScategory = product.productScategory,
                                     productText = editTextTextMultiLine.text.toString(),
-                                    productStock = editTextCount.text.toString().toLong(),
+                                    productStock = stock,
                                 )
                             )
                             true
@@ -212,10 +218,22 @@ class RegistrationFragment : Fragment() {
     private fun observe() {
         lifecycleScope.launch {
             viewModel.event.collect {
-                if (it) {
-                    showSnackBar(fragmentRegistrationBinding.root, "상품 업로드 되었습니다")
-                    mainActivity.removeFragment(MainActivity.REGISTRATION_FRAGMENT)
-                    fragmentRegistrationBinding.progressBarRegistraintion.visibility = View.GONE
+                when (it) {
+                    is Result.Success -> {
+                        showSnackBar(fragmentRegistrationBinding.root, it.message)
+                        mainActivity.removeFragment(MainActivity.REGISTRATION_FRAGMENT)
+                        fragmentRegistrationBinding.progressBarRegistraintion.visibility = View.GONE
+                    }
+
+                    is Result.Failure -> {
+                        showSnackBar(fragmentRegistrationBinding.root, it.message)
+                        fragmentRegistrationBinding.progressBarRegistraintion.visibility = View.GONE
+                    }
+
+                    is Result.Error -> {
+                        showSnackBar(fragmentRegistrationBinding.root, it.error.message!!)
+                        fragmentRegistrationBinding.progressBarRegistraintion.visibility = View.GONE
+                    }
                 }
             }
         }

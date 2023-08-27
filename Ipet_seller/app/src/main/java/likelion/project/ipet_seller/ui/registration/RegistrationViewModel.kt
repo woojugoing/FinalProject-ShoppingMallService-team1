@@ -15,14 +15,14 @@ import likelion.project.ipet_seller.model.Product
 import likelion.project.ipet_seller.repository.ProductRepository
 import likelion.project.ipet_seller.repository.SellerRepository
 
-class RegistrationViewModel(context: Context): ViewModel() {
+class RegistrationViewModel(context: Context) : ViewModel() {
     private val productRepository = ProductRepository()
     private val sellerRepository = SellerRepository(context)
 
     private val _uiState = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()
 
-    private val _event: MutableSharedFlow<Boolean> = MutableSharedFlow(extraBufferCapacity = 1)
+    private val _event = MutableSharedFlow<Result<String>>(extraBufferCapacity = 1)
     val event = _event.asSharedFlow()
 
     fun registerProduct(product: Product) {
@@ -31,7 +31,21 @@ class RegistrationViewModel(context: Context): ViewModel() {
                 it.onSuccess {
                     _uiState.update {
                         it.copy(
-                            isSave = true
+                            isSave = true,
+                            throwable = null
+                        )
+                    }
+                }.onFailure { throwable ->
+                    _uiState.update {
+                        it.copy(
+                            isSave = false,
+                            throwable = throwable
+                        )
+                    }
+                    delay(50)
+                    _uiState.update {
+                        it.copy(
+                            throwable = null
                         )
                     }
                 }
@@ -39,21 +53,28 @@ class RegistrationViewModel(context: Context): ViewModel() {
         }
     }
 
+
     fun onUploadClickEvent(product: Product) {
         viewModelScope.launch {
             registerProduct(product.copy(productSeller = sellerRepository.readSellerIdToLocal().first))
             uiState.collect {
                 if (it.isSave) {
-                    _event.tryEmit(true)
-                } else {
-                    _event.tryEmit(false)
+                    _event.tryEmit(Result.Success("상품 업로드 되었습니다"))
+                } else if (it.throwable != null) {
+                    _event.tryEmit(Result.Error(it.throwable))
                 }
-                delay(1000)
             }
         }
     }
 }
 
+sealed class Result<out T> {
+    data class Success<T>(val message: T) : Result<T>()
+    data class Failure<T>(val message: T) : Result<T>()
+    data class Error(val error: Throwable) : Result<Nothing>()
+}
+
 data class UiState(
-    val isSave: Boolean = false
+    val isSave: Boolean = false,
+    val throwable: Throwable? = null
 )
