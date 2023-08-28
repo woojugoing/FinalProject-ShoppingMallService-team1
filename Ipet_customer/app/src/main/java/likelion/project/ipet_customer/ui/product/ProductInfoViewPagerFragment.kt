@@ -5,10 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.FragmentProductInfoViewPagerBinding
 
-class ProductInfoViewPagerFragment(val image : Int) : Fragment() {
+class ProductInfoViewPagerFragment(val image : String) : Fragment() {
 
     lateinit var fragmentProductInfoViewPagerBinding: FragmentProductInfoViewPagerBinding
 
@@ -19,7 +20,9 @@ class ProductInfoViewPagerFragment(val image : Int) : Fragment() {
         fragmentProductInfoViewPagerBinding = FragmentProductInfoViewPagerBinding.inflate(inflater)
 
         fragmentProductInfoViewPagerBinding.run {
-            imageViewProductinfoViewpager.setImageResource(image)
+            Glide.with(this@ProductInfoViewPagerFragment)
+                .load(image)
+                .into(imageViewProductinfoViewpager)
         }
 
         return fragmentProductInfoViewPagerBinding.root
