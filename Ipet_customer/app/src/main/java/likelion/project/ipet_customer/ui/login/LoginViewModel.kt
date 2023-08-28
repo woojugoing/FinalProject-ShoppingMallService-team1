@@ -98,7 +98,7 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
                         var customerEmail = try {
                             payloadJSONObject["email"].toString()
                         } catch (e: Exception){
-                            "사욪자 제공 미동의"
+                            "사용자 제공 미동의"
                         }
                         val customer = Customer(customerId, customerNickname, customerEmail)
                         // 로그인
