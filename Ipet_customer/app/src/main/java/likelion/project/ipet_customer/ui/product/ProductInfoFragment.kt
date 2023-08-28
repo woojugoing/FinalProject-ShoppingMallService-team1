@@ -26,13 +26,7 @@ class ProductInfoFragment : Fragment() {
     var readToggle = ""
 
     // 임시 데이터
-    val list: ArrayList<Int> = ArrayList<Int>().let {
-        it.apply {
-            add(R.drawable.img_dog_food1)
-            add(R.drawable.img_dog_food2)
-            add(R.drawable.img_dog_food3)
-        }
-    }
+    lateinit var imgList: List<String>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,12 +51,14 @@ class ProductInfoFragment : Fragment() {
                     fragmentProductInfoBinding.textviewProductinfoTitle.text = it.productTitle
                     fragmentProductInfoBinding.textviewProductinfoText.text = it.productText
                     fragmentProductInfoBinding.textviewProductinfoPrice.text = "${mainActivity.formatNumberToCurrency(it.productPrice)}원"
+                    // imgList = it.productImg
                 }
             } else {
                 jointLiveData.observe(viewLifecycleOwner){
                     fragmentProductInfoBinding.textviewProductinfoTitle.text = it.jointTitle
                     fragmentProductInfoBinding.textviewProductinfoText.text = it.jointText
                     fragmentProductInfoBinding.textviewProductinfoPrice.text = "${mainActivity.formatNumberToCurrency(it.jointPrice)}원"
+                    imgList = it.jointImg
                 }
             }
         }
@@ -162,13 +158,13 @@ class ProductInfoFragment : Fragment() {
     // viewPager2 Adapter
     inner class ProductInfoFragmentStateAdapter(fragmentActivity: FragmentActivity): FragmentStateAdapter(fragmentActivity) {
         // 보여줄 페이지 수
-        override fun getItemCount(): Int = 3
+        override fun getItemCount(): Int = minOf(imgList.size, 3)
 
         override fun createFragment(position: Int): Fragment {
             return when (position) {
-                0 -> ProductInfoViewPagerFragment(list[position])
-                1 -> ProductInfoViewPagerFragment(list[position])
-                else -> ProductInfoViewPagerFragment(list[position])
+                0 -> ProductInfoViewPagerFragment(imgList[position])
+                1 -> ProductInfoViewPagerFragment(imgList[position])
+                else -> ProductInfoViewPagerFragment(imgList[position])
             }
         }
     }
