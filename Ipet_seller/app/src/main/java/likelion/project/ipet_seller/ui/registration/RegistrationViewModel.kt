@@ -1,7 +1,6 @@
 package likelion.project.ipet_seller.ui.registration
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
@@ -24,6 +23,9 @@ class RegistrationViewModel(context: Context) : ViewModel() {
 
     private val _event = MutableSharedFlow<Result<String>>(extraBufferCapacity = 1)
     val event = _event.asSharedFlow()
+
+    private val _spinnerEvent = MutableSharedFlow<Int>(extraBufferCapacity = 1)
+    val spinnerEvent = _spinnerEvent.asSharedFlow()
 
     fun registerProduct(product: Product) {
         viewModelScope.launch {
@@ -65,6 +67,10 @@ class RegistrationViewModel(context: Context) : ViewModel() {
                 }
             }
         }
+    }
+
+    fun onSpinnerItemClick(position: Int = 0) {
+        _spinnerEvent.tryEmit(position)
     }
 }
 
