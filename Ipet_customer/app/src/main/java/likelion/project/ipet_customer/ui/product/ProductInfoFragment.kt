@@ -6,12 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.ScrollView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.tabs.TabLayoutMediator
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.FragmentProductInfoBinding
 import likelion.project.ipet_customer.model.Joint
@@ -67,11 +70,16 @@ class ProductInfoFragment : Fragment() {
 
             // 찜 버튼
             imageviewProductinfoHeart.setOnClickListener {
-                imageviewProductinfoHeart.setImageResource(
-                    if (it.isSelected) R.drawable.ic_favorite_48dp
-                    else R.drawable.ic_favorite_fill_48dp
+                val imageView = it as ImageView
+                imageView.setImageResource(
+                    if (imageView.isSelected) {
+                        R.drawable.ic_favorite_48dp
+                    } else {
+                        R.drawable.ic_favorite_fill_48dp
+                    }
                 )
-                it.isSelected = !it.isSelected
+                imageView.setColorFilter(ContextCompat.getColor(mainActivity, R.color.red))
+                imageView.isSelected = !imageView.isSelected
             }
 
             textviewProductinfoReviewnumber.setOnClickListener {
@@ -146,6 +154,8 @@ class ProductInfoFragment : Fragment() {
         loadText(product.productTitle, product.productText, product.productPrice)
         imgList = product.productImg as ArrayList<String>
         binding.viewpager2ProductinfoThumbnail.adapter = ProductInfoFragmentStateAdapter(mainActivity)
+
+        setupTabLayoutMediator()
         loadDetailImage()
     }
 
@@ -153,7 +163,16 @@ class ProductInfoFragment : Fragment() {
         loadText(joint.jointTitle, joint.jointText, joint.jointPrice)
         imgList = joint.jointImg as ArrayList<String>
         binding.viewpager2ProductinfoThumbnail.adapter = ProductInfoFragmentStateAdapter(mainActivity)
+
+        setupTabLayoutMediator()
         loadDetailImage()
+    }
+
+    fun setupTabLayoutMediator(){
+        TabLayoutMediator(
+            binding.tabLayoutProductinfoDot,
+            binding.viewpager2ProductinfoThumbnail
+        ) { tab, position -> }.attach()
     }
 
     fun loadDetailImage(){

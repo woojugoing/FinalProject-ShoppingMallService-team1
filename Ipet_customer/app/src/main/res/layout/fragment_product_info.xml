@@ -36,25 +36,31 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
-                <FrameLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <androidx.viewpager2.widget.ViewPager2
                         android:id="@+id/viewpager2_productinfo_thumbnail"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
 
-                    </androidx.viewpager2.widget.ViewPager2>
-
-                    <ImageView
-                        android:id="@+id/imageview_productinfo_heart"
-                        android:layout_width="wrap_content"
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tabLayout_productinfo_dot"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|right"
-                        android:src="@drawable/ic_favorite_48dp" />
+                        android:background="@android:color/transparent"
+                        app:tabBackground="@drawable/selector_tab_dot"
+                        app:tabGravity="center"
+                        app:tabIndicatorHeight="0dp"
+                        app:layout_constraintStart_toStartOf="@id/viewpager2_productinfo_thumbnail"
+                        app:layout_constraintEnd_toEndOf="@id/viewpager2_productinfo_thumbnail"
+                        app:layout_constraintBottom_toBottomOf="@id/viewpager2_productinfo_thumbnail"/>
 
-                </FrameLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
                     android:id="@+id/textView_productinfo_brand"
@@ -202,15 +208,30 @@
         android:layout_height="wrap_content"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"/>
 
-    <Button
-        android:id="@+id/button_productinfo_buy"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:text="구매하기"
-        android:textAppearance="@style/Typography.Bold24"
-        android:textColor="@color/white"
-        app:backgroundTint="@color/rose_200" />
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/imageview_productinfo_heart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
+            android:src="@drawable/ic_favorite_48dp"
+            android:tint="#FF0000" />
+
+        <Button
+            android:id="@+id/button_productinfo_buy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="구매하기"
+            android:textAppearance="@style/Typography.Bold24"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/rose_200" />
+    </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
