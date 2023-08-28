@@ -7,7 +7,7 @@ class UserInfoRepository {
     private val customerDataSource = CustomerDataSource()
 
     // 새로운 사용자 정보 저장
-    fun saveAddress(customer: Customer){
-        customerDataSource.putUserData(customer)
+    fun setAddress(customer: Customer){
+        customerDataSource.setUserAddress(customer)
     }
 }
