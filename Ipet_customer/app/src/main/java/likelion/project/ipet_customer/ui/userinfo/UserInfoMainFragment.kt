@@ -38,9 +38,6 @@ class UserInfoMainFragment : Fragment() {
 
 
         fragmentUserInfoMainBinding.run {
-            data = arguments?.getString("data") ?: ""
-            textViewUserInfoAddress.append(data)
-
             toolbarUserInfoMain.run {
                 title = "내 정보"
                 setNavigationIcon(R.drawable.ic_back_24dp)
@@ -57,6 +54,7 @@ class UserInfoMainFragment : Fragment() {
                 text = LoginViewModel.customer.customerEmail
             }
 
+            // 취소/반품/교환
             imageViewUserInfoCancel.setOnClickListener {
                 fragmentState = "Cancel"
                 val newBundle = Bundle()
@@ -64,6 +62,7 @@ class UserInfoMainFragment : Fragment() {
                 mainActivity.replaceFragment(MainActivity.ORDER_STATUS_FRAGMENT, true, newBundle)
             }
 
+            // 판매/배송 더보기
             textViewUserInfoDetails.setOnClickListener {
                 fragmentState = "Detail"
                 val newBundle = Bundle()
@@ -71,6 +70,7 @@ class UserInfoMainFragment : Fragment() {
                 mainActivity.replaceFragment(MainActivity.ORDER_STATUS_FRAGMENT, true, newBundle)
             }
 
+            // 리뷰
             imageViewUserInfoReview.setOnClickListener {
                 fragmentState = "Review"
                 val newBundle = Bundle()
@@ -78,6 +78,7 @@ class UserInfoMainFragment : Fragment() {
                 mainActivity.replaceFragment(MainActivity.ORDER_STATUS_FRAGMENT, true, newBundle)
             }
 
+            // 장바구니
             imageViewUserInfoShopBasket.setOnClickListener {
                 fragmentState = "Shopping"
                 val newBundle = Bundle()
@@ -85,23 +86,36 @@ class UserInfoMainFragment : Fragment() {
                 mainActivity.replaceFragment(MainActivity.SHOPPING_BASKET_FRAGMENT, true, newBundle)
             }
 
+            // 쿠폰
             imageViewUserInfoCoupon.setOnClickListener {
                 mainActivity.replaceFragment(MainActivity.COUPON_FRAGMENT, true, null)
             }
 
+            // 찜
             imageViewUserInfoFavorite.setOnClickListener {
                 mainActivity.replaceFragment(MainActivity.HEART_FRAGMENT, true, null)
             }
 
+            // 로그아웃
             layoutUserInfoLogout.setOnClickListener {
                 mainActivity.activityMainBinding.bottomNavigation.visibility = View.GONE
                 mainActivity.replaceFragment(MainActivity.LOGIN_FRAGMENT, false, null)
             }
 
+            // 배송지 변경
+//            data = arguments?.getString("data") ?: ""
+//            textViewUserInfoAddress.append(data)
+            textViewUserInfoAddress.text = LoginViewModel.customer.customerAddress
+
             layoutUserInfoChangeAddress.setOnClickListener {
                 val binding = ItemUserinfoChangeaddressBinding.inflate(LayoutInflater.from(context))
                 val builder = MaterialAlertDialogBuilder(mainActivity)
                 builder.setView(binding.root)
+                if(LoginViewModel.customer.customerAddress == ""){
+                    builder.setTitle("배송지가 설정되지 않았습니다")
+                } else{
+                    builder.setTitle("현재 배송지: ${LoginViewModel.customer.customerAddress}")
+                }
                 val dialog = builder.create()
                 binding.textViewChangeAddressAddress.text = data
 
@@ -126,6 +140,7 @@ class UserInfoMainFragment : Fragment() {
                 dialog.show()
             }
 
+            // 회원 탈퇴
             layoutUserInfoWithDrawal.setOnClickListener {
                 val binding = ItemUserinfoDrawelcheckBinding.inflate(LayoutInflater.from(context))
                 val builder = MaterialAlertDialogBuilder(mainActivity)
