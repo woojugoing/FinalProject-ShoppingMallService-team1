@@ -44,7 +44,7 @@ class ProductInfoFragment : Fragment() {
 
         readToggle = arguments?.getString("readToggle")!!
 
-        if (readToggle == "product"){
+        if (readToggle == "product") {
             readProductIdx = arguments?.getString("readProductIdx")!!
         } else {
             readJointIdx = arguments?.getLong("readJointIdx")!!
@@ -54,7 +54,8 @@ class ProductInfoFragment : Fragment() {
 
         binding.run {
 
-            val sheetBehavior = BottomSheetBehavior.from(includeProductinfoBottomsheet.bottomsheetProductinfo)
+            val sheetBehavior =
+                BottomSheetBehavior.from(includeProductinfoBottomsheet.bottomsheetProductinfo)
 
             toolbarProductInfo.run {
 
@@ -65,7 +66,8 @@ class ProductInfoFragment : Fragment() {
             }
 
             // 원가 가격 표시
-            textviewProductinfoCostprice.paintFlags = textviewProductinfoCostprice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            textviewProductinfoCostprice.paintFlags =
+                textviewProductinfoCostprice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
             // 상세 이미지1
             imageviewProductinfoDetail1.setImageResource(R.drawable.img_dog_food_detail)
@@ -95,35 +97,36 @@ class ProductInfoFragment : Fragment() {
                 newBundle.putString("readProductIdx", readProductIdx)
                 mainActivity.replaceFragment(MainActivity.REVIEWALL_FRAGMENT, true, newBundle)
 
-            // 구매하기 버튼
-            buttonProductinfoBuy.setOnClickListener {
-                sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-            }
+                // 구매하기 버튼
+                buttonProductinfoBuy.setOnClickListener {
+                    sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                }
 
-            // bottomSheet
-            includeProductinfoBottomsheet.run {
-                // 원가 가격 표시
-                textviewBottomsheetCostprice.paintFlags = textviewProductinfoCostprice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                // bottomSheet
+                includeProductinfoBottomsheet.run {
+                    // 원가 가격 표시
+                    textviewBottomsheetCostprice.paintFlags =
+                        textviewProductinfoCostprice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
-                var num = 0
-                // 왼쪽 화살표 버튼
-                imagebuttonBottomsheetMinus.setOnClickListener {
-                    if(num > 0){
-                        num--
+                    var num = 0
+                    // 왼쪽 화살표 버튼
+                    imagebuttonBottomsheetMinus.setOnClickListener {
+                        if (num > 0) {
+                            num--
+                        }
+                    }
+                    // 오른쪽 화살표 버튼
+                    imagebuttonBottomsheetPlus.setOnClickListener {
+                        num++
                     }
                 }
-                // 오른쪽 화살표 버튼
-                imagebuttonBottomsheetPlus.setOnClickListener {
-                    num++
-                }
             }
-        }
 
-        setupViewModel()
-        return binding.root
+            setupViewModel()
+            return binding.root
+        }
     }
 
-    // viewPager2 Adapter
     inner class ProductInfoFragmentStateAdapter(fragmentActivity: FragmentActivity): FragmentStateAdapter(fragmentActivity) {
         // 보여줄 페이지 수
         override fun getItemCount(): Int = minOf(imgList.size, 3)
