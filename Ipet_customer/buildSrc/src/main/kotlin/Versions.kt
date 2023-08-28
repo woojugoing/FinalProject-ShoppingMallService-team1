@@ -17,6 +17,7 @@ object Versions {
     const val GLIDE_VERSION = "4.15.1"
     const val KAKAO_VERSION = "2.15.0"
     const val NAVER_VERSION = "5.7.0"
+    const val ROOM_VERSION = "2.5.2"
 }
 
 object AndroidXDeps {
@@ -68,5 +69,12 @@ object KakaoDeps {
 
 object NaverDeps {
     const val NAVER = "com.navercorp.nid:oauth-jdk8:${Versions.NAVER_VERSION}"
+}
+
+object Room {
+    const val ROOM_RUNTIME = "androidx.room:room-runtime:${Versions.ROOM_VERSION}"
+    const val ROOM_CORUTINE = "androidx.room:room-ktx:${Versions.ROOM_VERSION}"
+    const val ROOM_KAPT = "androidx.room:room-compiler:${Versions.ROOM_VERSION}"
+    const val KAPT_COMPILE =  "androidx.room:room-compiler:${Versions.ROOM_VERSION}"
 }
 
