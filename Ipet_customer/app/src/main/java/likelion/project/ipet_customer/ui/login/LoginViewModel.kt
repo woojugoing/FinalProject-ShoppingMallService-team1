@@ -100,8 +100,8 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
                         } catch (e: Exception){
                             "사용자 제공 미동의"
                         }
-                        val customerAddress = "배송지 미설정"
-                        val customer = Customer(customerId, customerNickname, customerEmail, customerAddress)
+                        val customerAddressAddress = "배송지 미설정"
+                        val customer = Customer(customerId, customerNickname, customerEmail, customerAddressAddress)
                         // 로그인
                         loginWithDatabase(customer)
                     }
@@ -125,8 +125,8 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
                         val customerNickname = response.profile?.name.toString()
                         val customerId = response.profile?.id.toString()
                         val customerEmail = response.profile?.email.toString()
-                        val customerAddress = "배송지 미설정"
-                        val customer = Customer(customerId, customerNickname, customerEmail, customerAddress)
+                        val customerAddressAddress = "배송지 미설정"
+                        val customer = Customer(customerId, customerNickname, customerEmail, customerAddressAddress)
                         // 로그인
                         loginWithDatabase(customer)
                     }
@@ -175,9 +175,9 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
             val customerNickname = account.displayName
             val customerId = account.id
             val customerEmail = account.email
-            val customerAddress = "배송지 미설정"
+            val customerAddressAddress = "배송지 미설정"
             if (customerId != null && customerNickname != null && customerEmail != null) {
-                val customer = Customer(customerId, customerNickname, customerEmail, customerAddress)
+                val customer = Customer(customerId, customerNickname, customerEmail, customerAddressAddress)
                 // 로그인
                 loginWithDatabase(customer)
             }

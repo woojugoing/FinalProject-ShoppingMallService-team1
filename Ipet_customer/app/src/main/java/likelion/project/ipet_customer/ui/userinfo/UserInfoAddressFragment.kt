@@ -32,7 +32,7 @@ class UserInfoAddressFragment : Fragment() {
             val newBundle = Bundle()
             newBundle.putString("data", data)
             // 주소 데이터 ViewModel 저장
-            LoginViewModel.customer.customerAddress = data
+            LoginViewModel.customer.customerAddressAddress = data
             mainActivity.replaceFragment(MainActivity.USER_INFO_MAIN_FRAGMENT, false, newBundle)
             Toast.makeText(mainActivity, "상세 주소를 이어서 입력해주세요.", Toast.LENGTH_SHORT).show()
         }

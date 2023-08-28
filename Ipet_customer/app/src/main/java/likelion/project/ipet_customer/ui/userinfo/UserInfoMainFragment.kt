@@ -31,11 +31,11 @@ class UserInfoMainFragment : Fragment() {
         Log.i("user", LoginViewModel.customer.customerId)
         Log.i("user", LoginViewModel.customer.customerName)
         Log.i("user", LoginViewModel.customer.customerEmail)
-        Log.i("user", LoginViewModel.customer.customerAddress)
+        Log.i("user", LoginViewModel.customer.customerAddressAddress)
 
 
         fragmentUserInfoMainBinding.run {
-            textViewUserInfoAddress.append(LoginViewModel.customer.customerAddress)
+            textViewUserInfoAddress.append(LoginViewModel.customer.customerAddressAddress)
 
 
             toolbarUserInfoMain.run {
@@ -110,7 +110,7 @@ class UserInfoMainFragment : Fragment() {
                 val dialog = builder.create()
 
                 // 주소 표시
-                binding.textViewChangeAddressAddress.text = LoginViewModel.customer.customerAddress
+                binding.textViewChangeAddressAddress.text = LoginViewModel.customer.customerAddressAddress
 
                 // 배송지 주소 검색
                 binding.buttonChangeAddressAdd.setOnClickListener {
@@ -124,7 +124,7 @@ class UserInfoMainFragment : Fragment() {
                     dialog.dismiss()
                 }
 
-                if(LoginViewModel.customer.customerAddress == "배송지 미설정") {
+                if(LoginViewModel.customer.customerAddressAddress == "배송지 미설정") {
                     binding.textViewChangeAddressAddress.visibility = View.GONE
                     binding.editTextChangeAddressDetail.visibility = View.GONE
                     binding.buttonChangeAddressConfirm.visibility = View.GONE

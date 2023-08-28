@@ -19,7 +19,8 @@ class LoginRepository {
                     it.documents[0]["customerId"].toString(),
                     it.documents[0]["customerName"].toString(),
                     it.documents[0]["customerEmail"].toString(),
-                    it.documents[0]["customerAddress"].toString())
+                    it.documents[0]["customerAddressAddress"].toString(),
+                    it.documents[0]["customerAddressDetail"].toString())
             }
         }
     }
