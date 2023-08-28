@@ -10,6 +10,7 @@ import android.widget.ScrollView
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.FragmentProductInfoBinding
@@ -24,7 +25,7 @@ class ProductInfoFragment : Fragment() {
     var readProductIdx = ""
     var readJointIdx = 0L
     var readToggle = ""
-    
+
     var imgList: List<String> = emptyList()
 
     override fun onCreateView(
@@ -50,16 +51,22 @@ class ProductInfoFragment : Fragment() {
                     fragmentProductInfoBinding.textviewProductinfoTitle.text = it.productTitle
                     fragmentProductInfoBinding.textviewProductinfoText.text = it.productText
                     fragmentProductInfoBinding.textviewProductinfoPrice.text = "${mainActivity.formatNumberToCurrency(it.productPrice)}원"
+
                     imgList = it.productImg as ArrayList<String>
                     fragmentProductInfoBinding.viewpager2ProductinfoThumbnail.adapter = ProductInfoFragmentStateAdapter(mainActivity)
+
+                    loadDetailImage()
                 }
             } else {
                 jointLiveData.observe(viewLifecycleOwner){
                     fragmentProductInfoBinding.textviewProductinfoTitle.text = it.jointTitle
                     fragmentProductInfoBinding.textviewProductinfoText.text = it.jointText
                     fragmentProductInfoBinding.textviewProductinfoPrice.text = "${mainActivity.formatNumberToCurrency(it.jointPrice)}원"
+
                     imgList = it.jointImg as ArrayList<String>
                     fragmentProductInfoBinding.viewpager2ProductinfoThumbnail.adapter = ProductInfoFragmentStateAdapter(mainActivity)
+
+                    loadDetailImage()
                 }
             }
         }
@@ -163,6 +170,18 @@ class ProductInfoFragment : Fragment() {
                 1 -> ProductInfoViewPagerFragment(imgList[position])
                 else -> ProductInfoViewPagerFragment(imgList[position])
             }
+        }
+    }
+
+    fun loadDetailImage(){
+        if (imgList.size > 3){
+            Glide.with(requireContext())
+                .load(imgList[3])
+                .into(fragmentProductInfoBinding.imageviewProductinfoDetail1)
+
+            Glide.with(requireContext())
+                .load(imgList[4])
+                .into(fragmentProductInfoBinding.imageviewProductinfoDetail2)
         }
     }
 }
