@@ -24,9 +24,8 @@ class ProductInfoFragment : Fragment() {
     var readProductIdx = ""
     var readJointIdx = 0L
     var readToggle = ""
-
-    // 임시 데이터
-    lateinit var imgList: List<String>
+    
+    var imgList: List<String> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
