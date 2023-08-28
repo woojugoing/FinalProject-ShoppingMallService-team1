@@ -117,7 +117,10 @@ class ProductInfoFragment : Fragment() {
             // 리뷰 보러 가기 버튼
             buttonProductInfoShowReview.run {
                 setOnClickListener {
-                    mainActivity.replaceFragment(MainActivity.REVIEWALL_FRAGMENT, true, null)
+                    readProductIdx = arguments?.getString("readProductIdx")!!
+                    val newBundle = Bundle()
+                    newBundle.putString("readProductIdx", readProductIdx)
+                    mainActivity.replaceFragment(MainActivity.REVIEWALL_FRAGMENT, true, newBundle)
                 }
             }
 

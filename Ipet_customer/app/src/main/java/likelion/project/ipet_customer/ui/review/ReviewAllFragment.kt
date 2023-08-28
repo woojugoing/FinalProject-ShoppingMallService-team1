@@ -31,6 +31,8 @@ class ReviewAllFragment : Fragment() {
 
     val reviewDataList = mutableListOf<Review>()
     val db = Firebase.firestore
+
+    var readProductIdx = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,7 +51,10 @@ class ReviewAllFragment : Fragment() {
                 }
             }
 
+            readProductIdx = arguments?.getString("readProductIdx")!!
+
             db.collection("Review")
+                .whereEqualTo("firebaseKey", readProductIdx)    // productInfoFragment 에서, readProductIdx 받아오기
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {
