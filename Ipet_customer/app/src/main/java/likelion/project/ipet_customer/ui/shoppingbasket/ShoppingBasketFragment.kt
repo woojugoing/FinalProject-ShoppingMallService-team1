@@ -110,6 +110,8 @@ class ShoppingBasketFragment : Fragment() {
     }
 
     private fun checkProductDB() {
+        productDataList.clear()
+
         db.collection("Cart")
             .whereEqualTo("buyerId", customerId) // 구매자의 아이디 받아오기
             .whereEqualTo("productIdx", "H338D04FOFDkay8LYyNW")    // Todo 공동구매의 제품번호를 받아오도록하기
@@ -157,6 +159,7 @@ class ShoppingBasketFragment : Fragment() {
     }
 
     private fun checkJoinDB() {
+        jointDataList.clear()
 
         db.collection("Cart")
             .whereEqualTo("buyerId", customerId) // 구매자의 아이디 받아오기
