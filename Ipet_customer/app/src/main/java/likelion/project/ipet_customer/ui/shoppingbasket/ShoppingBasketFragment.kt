@@ -83,6 +83,7 @@ class ShoppingBasketFragment : Fragment() {
             // 담아둔 상품이 없을 때, 쇼핑하러 가기 버튼
             buttonShoppingBasketGo.run {
                 setOnClickListener {
+                    mainActivity.selectBottomNavigationItem(R.id.item_bottom_home)
                     mainActivity.replaceFragment(MainActivity.HOME_FRAGMENT, false, null)
                 }
             }
@@ -90,6 +91,7 @@ class ShoppingBasketFragment : Fragment() {
             // 공동 구매 상품을 안담았을 때, 공동구매 하러가기 버튼
             buttonShoppingBasketGroupJoin.run {
                 setOnClickListener {
+                    mainActivity.selectBottomNavigationItem(R.id.item_bottom_joinT)
                     mainActivity.replaceFragment(MainActivity.PRODUCT_JOINT_LIST_FRAGMENT, false, null)
                 }
             }
