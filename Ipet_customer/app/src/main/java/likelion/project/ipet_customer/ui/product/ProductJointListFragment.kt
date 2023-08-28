@@ -47,7 +47,7 @@ class ProductJointListFragment : Fragment() {
                     for (document in result) {
                         val idx = document["jointIdx"] as Long
                         val animalType = document["jointAnimalType"] as String
-                        val img = document["jointImg"] as String
+                        val img = document["jointImg"] as ArrayList<String>
                         val member = document["jointMember"] as Long
                         val price = document["jointPrice"] as Long
                         val seller = document["jointSeller"] as String

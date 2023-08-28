@@ -12,4 +12,16 @@ class JointRepository {
         val querySnapshot = db.collection("Joint").get().await()
         return querySnapshot.toObjects(Joint::class.java)
     }
+
+    suspend fun getOneJoint(jointIdx: Long): Joint {
+        val query = db.collection("Joint").whereEqualTo("jointIdx", jointIdx)
+        val querySnapshot = query.get().await()
+
+        for (documentSnapshot in querySnapshot) {
+            val joint = documentSnapshot.toObject(Joint::class.java)
+            return joint
+        }
+
+        throw NoSuchElementException("Product with productIdx $jointIdx not found")
+    }
 }

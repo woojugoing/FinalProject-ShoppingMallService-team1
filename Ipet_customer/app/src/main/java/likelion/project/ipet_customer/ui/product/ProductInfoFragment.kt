@@ -8,15 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ScrollView
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.whenResumed
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.FragmentProductInfoBinding
 import likelion.project.ipet_customer.ui.main.MainActivity
@@ -28,15 +22,10 @@ class ProductInfoFragment : Fragment() {
     lateinit var productInfoViewModel: ProductInfoViewModel
 
     var readProductIdx = ""
-
-    // 임시 데이터
-    val list: ArrayList<Int> = ArrayList<Int>().let {
-        it.apply {
-            add(R.drawable.img_dog_food1)
-            add(R.drawable.img_dog_food2)
-            add(R.drawable.img_dog_food3)
-        }
-    }
+    var readJointIdx = 0L
+    var readToggle = ""
+    
+    var imgList: List<String> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,12 +34,33 @@ class ProductInfoFragment : Fragment() {
         fragmentProductInfoBinding = FragmentProductInfoBinding.inflate(inflater)
         mainActivity = activity as MainActivity
 
+        readToggle = arguments?.getString("readToggle")!!
+
+        if (readToggle == "product"){
+            readProductIdx = arguments?.getString("readProductIdx")!!
+        } else {
+            readJointIdx = arguments?.getLong("readJointIdx")!!
+        }
+
         productInfoViewModel = ViewModelProvider(this)[ProductInfoViewModel::class.java]
+
         productInfoViewModel.run {
-            productLiveData.observe(viewLifecycleOwner){
-                fragmentProductInfoBinding.textviewProductinfoTitle.text = it.productTitle
-                fragmentProductInfoBinding.textviewProductinfoText.text = it.productText
-                fragmentProductInfoBinding.textviewProductinfoPrice.text = "${mainActivity.formatNumberToCurrency(it.productPrice)}원"
+            if (readToggle == "product"){
+                productLiveData.observe(viewLifecycleOwner){
+                    fragmentProductInfoBinding.textviewProductinfoTitle.text = it.productTitle
+                    fragmentProductInfoBinding.textviewProductinfoText.text = it.productText
+                    fragmentProductInfoBinding.textviewProductinfoPrice.text = "${mainActivity.formatNumberToCurrency(it.productPrice)}원"
+                    imgList = it.productImg as ArrayList<String>
+                    fragmentProductInfoBinding.viewpager2ProductinfoThumbnail.adapter = ProductInfoFragmentStateAdapter(mainActivity)
+                }
+            } else {
+                jointLiveData.observe(viewLifecycleOwner){
+                    fragmentProductInfoBinding.textviewProductinfoTitle.text = it.jointTitle
+                    fragmentProductInfoBinding.textviewProductinfoText.text = it.jointText
+                    fragmentProductInfoBinding.textviewProductinfoPrice.text = "${mainActivity.formatNumberToCurrency(it.jointPrice)}원"
+                    imgList = it.jointImg as ArrayList<String>
+                    fragmentProductInfoBinding.viewpager2ProductinfoThumbnail.adapter = ProductInfoFragmentStateAdapter(mainActivity)
+                }
             }
         }
 
@@ -68,10 +78,6 @@ class ProductInfoFragment : Fragment() {
 
             // 원가 가격 표시
             textviewProductinfoCostprice.paintFlags = textviewProductinfoCostprice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-
-            viewpager2ProductinfoThumbnail.run {
-                adapter = ProductInfoFragmentStateAdapter(mainActivity)
-            }
 
             // 상세 이미지1
             imageviewProductinfoDetail1.run {
@@ -104,7 +110,10 @@ class ProductInfoFragment : Fragment() {
             // 리뷰 보러 가기 버튼
             buttonProductInfoShowReview.run {
                 setOnClickListener {
-                    mainActivity.replaceFragment(MainActivity.REVIEWALL_FRAGMENT, true, null)
+                    readProductIdx = arguments?.getString("readProductIdx")!!
+                    val newBundle = Bundle()
+                    newBundle.putString("readProductIdx", readProductIdx)
+                    mainActivity.replaceFragment(MainActivity.REVIEWALL_FRAGMENT, true, newBundle)
                 }
             }
 
@@ -134,8 +143,11 @@ class ProductInfoFragment : Fragment() {
             }
         }
 
-        readProductIdx = arguments?.getString("readProductIdx")!!
-        productInfoViewModel.loadOneProduct(readProductIdx)
+        if (readToggle == "product"){
+            productInfoViewModel.loadOneProduct(readProductIdx)
+        } else {
+            productInfoViewModel.loadOneJoint(readJointIdx)
+        }
 
         return fragmentProductInfoBinding.root
     }
@@ -143,13 +155,13 @@ class ProductInfoFragment : Fragment() {
     // viewPager2 Adapter
     inner class ProductInfoFragmentStateAdapter(fragmentActivity: FragmentActivity): FragmentStateAdapter(fragmentActivity) {
         // 보여줄 페이지 수
-        override fun getItemCount(): Int = 3
+        override fun getItemCount(): Int = minOf(imgList.size, 3)
 
         override fun createFragment(position: Int): Fragment {
             return when (position) {
-                0 -> ProductInfoViewPagerFragment(list[position])
-                1 -> ProductInfoViewPagerFragment(list[position])
-                else -> ProductInfoViewPagerFragment(list[position])
+                0 -> ProductInfoViewPagerFragment(imgList[position])
+                1 -> ProductInfoViewPagerFragment(imgList[position])
+                else -> ProductInfoViewPagerFragment(imgList[position])
             }
         }
     }
