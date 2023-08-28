@@ -45,7 +45,7 @@ class HomeBestAdapter(private val mainActivity: MainActivity,val products: Mutab
             binding.root.setOnClickListener {
                 var bundle = Bundle()
                 val readProductIdx = products[adapterPosition].productIdx
-                bundle.putString("readProductIdx", readProductIdx)
+                bundle.putString("readProductIdx", readProductIdx.toString())
 
                 mainActivity.replaceFragment(MainActivity.PRODUCT_INFO_FRAGMENT, true, bundle)
             }
