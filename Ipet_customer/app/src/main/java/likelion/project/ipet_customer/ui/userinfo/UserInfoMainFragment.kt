@@ -1,6 +1,5 @@
 package likelion.project.ipet_customer.ui.userinfo
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,7 +11,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.FragmentUserInfoMainBinding
 import likelion.project.ipet_customer.databinding.ItemUserinfoChangeaddressBinding
-import likelion.project.ipet_customer.databinding.ItemUserinfoDepositBinding
 import likelion.project.ipet_customer.databinding.ItemUserinfoDrawelcheckBinding
 import likelion.project.ipet_customer.ui.login.LoginViewModel
 import likelion.project.ipet_customer.ui.main.MainActivity
@@ -22,7 +20,6 @@ class UserInfoMainFragment : Fragment() {
     lateinit var fragmentUserInfoMainBinding: FragmentUserInfoMainBinding
     lateinit var mainActivity: MainActivity
     var fragmentState = ""
-    lateinit var data: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,12 +31,12 @@ class UserInfoMainFragment : Fragment() {
         Log.i("user", LoginViewModel.customer.customerId)
         Log.i("user", LoginViewModel.customer.customerName)
         Log.i("user", LoginViewModel.customer.customerEmail)
-        Log.i("user", LoginViewModel.customer.customerAddress)
+        Log.i("user", LoginViewModel.customer.customerAddressAddress)
 
 
         fragmentUserInfoMainBinding.run {
-            data = arguments?.getString("data") ?: ""
-            textViewUserInfoAddress.append(data)
+            textViewUserInfoAddress.append(LoginViewModel.customer.customerAddressAddress)
+
 
             toolbarUserInfoMain.run {
                 title = "내 정보"
@@ -57,6 +54,7 @@ class UserInfoMainFragment : Fragment() {
                 text = LoginViewModel.customer.customerEmail
             }
 
+            // 취소/반품/교환
             imageViewUserInfoCancel.setOnClickListener {
                 fragmentState = "Cancel"
                 val newBundle = Bundle()
@@ -64,6 +62,7 @@ class UserInfoMainFragment : Fragment() {
                 mainActivity.replaceFragment(MainActivity.ORDER_STATUS_FRAGMENT, true, newBundle)
             }
 
+            // 판매/배송 더보기
             textViewUserInfoDetails.setOnClickListener {
                 fragmentState = "Detail"
                 val newBundle = Bundle()
@@ -71,6 +70,7 @@ class UserInfoMainFragment : Fragment() {
                 mainActivity.replaceFragment(MainActivity.ORDER_STATUS_FRAGMENT, true, newBundle)
             }
 
+            // 리뷰
             imageViewUserInfoReview.setOnClickListener {
                 fragmentState = "Review"
                 val newBundle = Bundle()
@@ -78,6 +78,7 @@ class UserInfoMainFragment : Fragment() {
                 mainActivity.replaceFragment(MainActivity.ORDER_STATUS_FRAGMENT, true, newBundle)
             }
 
+            // 장바구니
             imageViewUserInfoShopBasket.setOnClickListener {
                 fragmentState = "Shopping"
                 val newBundle = Bundle()
@@ -85,40 +86,45 @@ class UserInfoMainFragment : Fragment() {
                 mainActivity.replaceFragment(MainActivity.SHOPPING_BASKET_FRAGMENT, true, newBundle)
             }
 
+            // 쿠폰
             imageViewUserInfoCoupon.setOnClickListener {
                 mainActivity.replaceFragment(MainActivity.COUPON_FRAGMENT, true, null)
             }
 
+            // 찜
             imageViewUserInfoFavorite.setOnClickListener {
                 mainActivity.replaceFragment(MainActivity.HEART_FRAGMENT, true, null)
             }
 
+            // 로그아웃
             layoutUserInfoLogout.setOnClickListener {
                 mainActivity.activityMainBinding.bottomNavigation.visibility = View.GONE
                 mainActivity.replaceFragment(MainActivity.LOGIN_FRAGMENT, false, null)
             }
 
+            // 배송지 변경
             layoutUserInfoChangeAddress.setOnClickListener {
                 val binding = ItemUserinfoChangeaddressBinding.inflate(LayoutInflater.from(context))
                 val builder = MaterialAlertDialogBuilder(mainActivity)
                 builder.setView(binding.root)
                 val dialog = builder.create()
-                binding.textViewChangeAddressAddress.text = data
 
+                // 주소 표시
+                binding.textViewChangeAddressAddress.text = LoginViewModel.customer.customerAddressAddress
+
+                // 배송지 주소 검색
                 binding.buttonChangeAddressAdd.setOnClickListener {
                     mainActivity.replaceFragment(MainActivity.USER_INFO_ADDRESS_FRAGMENT, true, null)
                     dialog.dismiss()
                 }
 
+                // 입력 완료
                 binding.buttonChangeAddressConfirm.setOnClickListener {
-                    data += " ${binding.editTextChangeAddressDetail.text}"
-                    val address = data
-                    Log.d("woojugoing", address)
                     Toast.makeText(mainActivity, "상세 주소가 정상적으로 저장되었습니다.", Toast.LENGTH_SHORT).show()
                     dialog.dismiss()
                 }
 
-                if(data == "") {
+                if(LoginViewModel.customer.customerAddressAddress == "배송지 미설정") {
                     binding.textViewChangeAddressAddress.visibility = View.GONE
                     binding.editTextChangeAddressDetail.visibility = View.GONE
                     binding.buttonChangeAddressConfirm.visibility = View.GONE
@@ -126,6 +132,7 @@ class UserInfoMainFragment : Fragment() {
                 dialog.show()
             }
 
+            // 회원 탈퇴
             layoutUserInfoWithDrawal.setOnClickListener {
                 val binding = ItemUserinfoDrawelcheckBinding.inflate(LayoutInflater.from(context))
                 val builder = MaterialAlertDialogBuilder(mainActivity)

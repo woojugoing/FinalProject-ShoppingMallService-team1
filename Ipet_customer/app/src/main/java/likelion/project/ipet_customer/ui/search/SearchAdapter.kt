@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import likelion.project.ipet_customer.databinding.ItemProductCardBinding
 import likelion.project.ipet_customer.model.Product
 import likelion.project.ipet_customer.ui.main.MainActivity
@@ -51,5 +52,10 @@ class SearchAdapter(
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.textViewCardTitle.text = productList[position].productTitle
         holder.textViewCardCost.text = "${mainActivity.formatNumberToCurrency(productList[position].productPrice)}원"
+        if (productList[position].productImg[0] != "") {
+            Glide.with(holder.itemView)
+                .load(productList[position].productImg[0])
+                .into(holder.imageViewCardThumbnail)
+        }
     }
 }
