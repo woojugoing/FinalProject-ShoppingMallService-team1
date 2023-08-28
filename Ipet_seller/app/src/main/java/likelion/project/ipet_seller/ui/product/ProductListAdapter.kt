@@ -59,8 +59,15 @@ class ProductListAdapter(private val mainActivity: MainActivity, val onItemClick
     override fun onBindViewHolder(holder: ProductListViewHolder, position: Int) {
         holder.run {
             val product = productList[position]
+            val categories = mutableListOf<String>()
+            categories.run {
+                add(product.productAnimalType)
+                add(product.productLcategory)
+                add(product.productScategory)
+            }
             itemProductListTitle.text = product.productTitle
-            itemProductListStock.text = product.productStock.toString()
+            itemProductListStock.text = "재고: ${product.productStock}개"
+            itemProductListCategory.text = categories.toList().joinToString("/")
             Glide.with(holder.itemView)
                 .load(product.productImg[0])
                 .into(holder.itemProductListThumbnail)
