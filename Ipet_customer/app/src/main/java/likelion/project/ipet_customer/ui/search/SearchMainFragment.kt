@@ -1,26 +1,25 @@
 package likelion.project.ipet_customer.ui.search
 
-import android.app.Application
+import SearchAdapter
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.chip.Chip
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import likelion.project.ipet_customer.databinding.FragmentSearchMainBinding
-import likelion.project.ipet_customer.databinding.ItemProductCardBinding
 import likelion.project.ipet_customer.model.Product
 import likelion.project.ipet_customer.model.Search
 import likelion.project.ipet_customer.ui.main.MainActivity
+import kotlin.concurrent.thread
 
 class SearchMainFragment : Fragment() {
 
@@ -28,6 +27,7 @@ class SearchMainFragment : Fragment() {
     lateinit var mainActivity: MainActivity
     lateinit var viewModel: SearchViewModel
     val productList = mutableListOf<Product>()
+    val bestSellerList = mutableListOf<Any>()
     val db = Firebase.firestore
 
     override fun onCreateView(
@@ -42,7 +42,7 @@ class SearchMainFragment : Fragment() {
             viewModel.getAllSearches.observe(viewLifecycleOwner, Observer { search ->
                 val searchList = search.map { it.searchData }
                 val reverseList = searchList.reversed()
-                chip.text = reverseList.getOrNull(0) ?: "검색어 1"
+                chip1.text = reverseList.getOrNull(0) ?: "검색어 1"
                 chip2.text = reverseList.getOrNull(1) ?: "검색어 2"
                 chip3.text = reverseList.getOrNull(2) ?: "검색어 3"
                 chip4.text = reverseList.getOrNull(3) ?: "검색어 4"
@@ -53,7 +53,7 @@ class SearchMainFragment : Fragment() {
                 // 각 칩에 대해 처리
                 for (i in 0 until 4) {
                     val currentChip = when (i) {
-                        0 -> chip
+                        0 -> chip1
                         1 -> chip2
                         2 -> chip3
                         3 -> chip4
@@ -74,25 +74,10 @@ class SearchMainFragment : Fragment() {
                 }
             })
 
-            chip.setOnClickListener {
-                val searchText = chip.text.toString()
-                performSearch(searchText)
-            }
-
-            chip2.setOnClickListener {
-                val searchText = chip2.text.toString()
-                performSearch(searchText)
-            }
-
-            chip3.setOnClickListener {
-                val searchText = chip3.text.toString()
-                performSearch(searchText)
-            }
-
-            chip4.setOnClickListener {
-                val searchText = chip4.text.toString()
-                performSearch(searchText)
-            }
+            chip1.setOnClickListener { chiptoSearch(chip1) }
+            chip2.setOnClickListener { chiptoSearch(chip2) }
+            chip3.setOnClickListener { chiptoSearch(chip3) }
+            chip4.setOnClickListener { chiptoSearch(chip4) }
 
             searchViewSearch.run {
                 queryHint = "검색어를 입력하세요."
@@ -114,6 +99,10 @@ class SearchMainFragment : Fragment() {
                             layoutSearchRecent.visibility = View.VISIBLE
                             layoutSearchBest.visibility = View.VISIBLE
 
+                            thread {
+                                val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                                imm.hideSoftInputFromWindow(view?.windowToken, 0)
+                            }
                         }
                         return false
                     }
@@ -121,10 +110,12 @@ class SearchMainFragment : Fragment() {
             }
 
             recyclerViewSearchResult.run {
-                adapter = Adapter()
+                adapter = SearchAdapter(productList, mainActivity)
                 layoutManager = GridLayoutManager(context, 2)
             }
         }
+
+        findTop5BestSellers()
 
         return fragmentSearchMainBinding.root
     }
@@ -175,41 +166,46 @@ class SearchMainFragment : Fragment() {
                 }
         }
     }
+    fun chiptoSearch(chip: Chip){
+        val searchText = chip.text.toString()
+        performSearch(searchText)
+    }
 
-    inner class Adapter: RecyclerView.Adapter<Adapter.Holder>() {
-        inner class Holder(rowBinding: ItemProductCardBinding): RecyclerView.ViewHolder(rowBinding.root) {
-            val imageViewCardThumbnail: ImageView
-            val textViewCardTitle: TextView
-            val textViewCardCost: TextView
+    private fun findTop5BestSellers() {
+        // Firebase Firestore에서 Order 컬렉션 조회
+        db.collection("Order")
+            .get()
+            .addOnSuccessListener { orderResult ->
+                val salesMap = mutableMapOf<String, Int>()
 
-            init {
-                imageViewCardThumbnail = rowBinding.imageViewCardThumbnail
-                textViewCardTitle = rowBinding.textViewCardTitle
-                textViewCardCost = rowBinding.textViewCardCost
-                rowBinding.root.setOnClickListener {
-                    mainActivity.replaceFragment(MainActivity.PRODUCT_INFO_FRAGMENT, true, null)
+                for (orderDocument in orderResult) {
+                    val productIdx = orderDocument["productIdx"] as String
+                    val orderNumber = orderDocument["orderNumber"] as Long
+                    if (salesMap.containsKey(productIdx)) {
+                        val currentSales = salesMap[productIdx] ?: 0
+                        salesMap[productIdx] = currentSales + orderNumber.toInt()
+                    } else {
+                        salesMap[productIdx] = orderNumber.toInt()
+                    }
+                }
+
+                val bestSellers = salesMap.entries.sortedByDescending { it.value }.take(5)
+                val bestSellerProductIdxList = bestSellers.map { it.key }
+                for (productIdx in bestSellerProductIdxList) {
+                    db.collection("Product")
+                        .document(productIdx)
+                        .get()
+                        .addOnSuccessListener { productDocument ->
+                            val bestSellerTitle = productDocument["productTitle"] as String
+                            bestSellerList.add(bestSellerTitle)
+
+                            fragmentSearchMainBinding.buttonSearchMain1.text = (bestSellerList.getOrNull(0) ?: "상품 없음").toString()
+                            fragmentSearchMainBinding.buttonSearchMain2.text = (bestSellerList.getOrNull(1) ?: "상품 없음").toString()
+                            fragmentSearchMainBinding.buttonSearchMain3.text = (bestSellerList.getOrNull(2) ?: "상품 없음").toString()
+                            fragmentSearchMainBinding.buttonSearchMain4.text = (bestSellerList.getOrNull(3) ?: "상품 없음").toString()
+                            fragmentSearchMainBinding.buttonSearchMain5.text = (bestSellerList.getOrNull(4) ?: "상품 없음").toString()
+                        }
                 }
             }
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-            val rowBinding = ItemProductCardBinding.inflate(layoutInflater)
-            val holder = Holder(rowBinding)
-
-            rowBinding.root.layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-            return holder
-        }
-
-        override fun getItemCount(): Int {
-            return productList.size
-        }
-
-        override fun onBindViewHolder(holder: Holder, position: Int) {
-            holder.textViewCardTitle.text = productList[position].productTitle
-            holder.textViewCardCost.text = productList[position].productPrice.toString()
-        }
     }
 }
