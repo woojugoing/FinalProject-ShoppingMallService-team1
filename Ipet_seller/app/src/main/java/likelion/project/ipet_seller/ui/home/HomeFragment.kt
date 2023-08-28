@@ -95,6 +95,7 @@ class HomeFragment : Fragment() {
         viewModel.run {
             fetchOrders()
             fetchSeller()
+            fetchOrdersWithMatchingOrderNumber()
         }
     }
 
@@ -103,14 +104,13 @@ class HomeFragment : Fragment() {
             viewModel.uistate.collect {
                 fragmentHomeBinding.run {
                     textViewHomeSellerName.text = "판매자 ${it.seller?.sellerName} 님"
-                    textViewHomeNewOrderCount.text = "신규 주문: ${it.orderCount}건"
+                    textViewHomeNewOrderCount.text = "신규 주문: ${it.beforeProcessingCount}건"
                     textViewHomePreparingCount.text = it.preparingCount.toString()
                     textViewHomeDeliveringCount.text = it.deliveringCount.toString()
                     textViewHomeDeliveredCount.text = it.deliveredCount.toString()
                 }
             }
         }
-
         lifecycleScope.launch {
             viewModel.event.collect {
                 mainActivity.replaceFragment(MainActivity.LOGIN_FRAGMENT, false, null)

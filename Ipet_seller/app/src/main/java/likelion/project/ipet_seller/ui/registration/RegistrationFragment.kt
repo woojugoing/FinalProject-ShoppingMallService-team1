@@ -19,8 +19,13 @@ import android.widget.Spinner
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 import likelion.project.ipet_seller.R
 import likelion.project.ipet_seller.databinding.FragmentRegistrationBinding
+import likelion.project.ipet_seller.model.Product
 import likelion.project.ipet_seller.ui.main.MainActivity
 
 class RegistrationFragment : Fragment() {
@@ -29,6 +34,7 @@ class RegistrationFragment : Fragment() {
     lateinit var mainActivity: MainActivity
 
     lateinit var albumActivityLauncher: ActivityResultLauncher<Intent>
+    lateinit var viewModel: RegistrationViewModel
 
     val permissionList = arrayOf(
         Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -48,16 +54,23 @@ class RegistrationFragment : Fragment() {
     ): View? {
         fragmentRegistrationBinding = FragmentRegistrationBinding.inflate(layoutInflater)
         mainActivity = activity as MainActivity
+        viewModel = ViewModelProvider(
+            this,
+            RegistrationViewModelFactory(mainActivity)
+        )[RegistrationViewModel::class.java]
+
+        observe()
 
         requestPermissions(permissionList, 0)
 
         val contract1 = ActivityResultContracts.StartActivityForResult()
-        albumActivityLauncher = registerForActivityResult(contract1){
+        val images = mutableListOf<String>()
+        albumActivityLauncher = registerForActivityResult(contract1) {
 
-            if(it?.resultCode == AppCompatActivity.RESULT_OK){
+            if (it?.resultCode == AppCompatActivity.RESULT_OK) {
                 val uri = it.data?.data
 
-                if(uri != null){
+                if (uri != null) {
                     val bitmap: Bitmap? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                         val source = ImageDecoder.createSource(mainActivity.contentResolver, uri)
                         ImageDecoder.decodeBitmap(source)
@@ -70,23 +83,16 @@ class RegistrationFragment : Fragment() {
                             BitmapFactory.decodeFile(source)
                         }
                     }
+                    images.add(uri.toString())
+
                     selectedImageButton?.setImageBitmap(bitmap)
                 }
 
             }
         }
 
+
         fragmentRegistrationBinding.run {
-            toolbarRegistration.run {
-                title = "판매 상품 등록"
-                setNavigationIcon(R.drawable.ic_back_24dp)
-                inflateMenu(R.menu.menu_registration)
-
-                setNavigationOnClickListener {
-                    mainActivity.removeFragment(MainActivity.REGISTRATION_FRAGMENT)
-                }
-            }
-
             imageButtonRegistration.run {
                 setOnClickListener {
                     selectedImageButton = this
@@ -142,22 +148,100 @@ class RegistrationFragment : Fragment() {
                     launchAlbumPicker()
                 }
             }
-
+            var product = Product()
             setupSpinner(spinnerRegistrationAnimalType, animalType) { parent, view, position, id ->
-
+                product = product.copy(productAnimalType = animalType[position])
             }
 
-            setupSpinner(spinnerRegistrationMainCategory, mainCategory) { parent, view, position, id ->
-
+            setupSpinner(
+                spinnerRegistrationMainCategory,
+                mainCategory
+            ) { parent, view, position, id ->
+                product = product.copy(productLcategory = mainCategory[position])
             }
 
-            setupSpinner(spinnerRegistrationSubCategory, subCategory) { parent, view, position, id ->
+            setupSpinner(
+                spinnerRegistrationSubCategory,
+                subCategory
+            ) { parent, view, position, id ->
+                product = product.copy(productScategory = subCategory[position])
+            }
+            toolbarRegistration.run {
+                title = "판매 상품 등록"
+                setNavigationIcon(R.drawable.ic_back_24dp)
+                inflateMenu(R.menu.menu_registration)
 
+                setNavigationOnClickListener {
+                    mainActivity.removeFragment(MainActivity.REGISTRATION_FRAGMENT)
+                }
+                setOnMenuItemClickListener { menuItem ->
+                    when (menuItem.itemId) {
+                        R.id.item_save -> {
+
+                            val price = if (editTextPrice.text.toString().isEmpty()) {
+                                0L
+                            } else {
+                                editTextPrice.text.toString().toLong()
+                            }
+                            val stock = if (editTextStock.text.toString().isEmpty()) {
+                                0L
+                            } else {
+                                editTextStock.text.toString().toLong()
+                            }
+
+                            progressBarRegistraintion.visibility = View.VISIBLE
+                            viewModel.onUploadClickEvent(
+                                Product(
+                                    productTitle = editTextText.text.toString(),
+                                    productPrice = price,
+                                    productImg = images,
+                                    productAnimalType = product.productAnimalType,
+                                    productLcategory = product.productLcategory,
+                                    productScategory = product.productScategory,
+                                    productText = editTextTextMultiLine.text.toString(),
+                                    productStock = stock,
+                                )
+                            )
+                            true
+                        }
+
+                        else -> false
+                    }
+                }
             }
 
         }
 
         return fragmentRegistrationBinding.root
+    }
+
+    private fun observe() {
+        lifecycleScope.launch {
+            viewModel.event.collect {
+                when (it) {
+                    is Result.Success -> {
+                        showSnackBar(fragmentRegistrationBinding.root, it.message)
+                        mainActivity.removeFragment(MainActivity.REGISTRATION_FRAGMENT)
+                        fragmentRegistrationBinding.progressBarRegistraintion.visibility = View.GONE
+                    }
+
+                    is Result.Failure -> {
+                        showSnackBar(fragmentRegistrationBinding.root, it.message)
+                        fragmentRegistrationBinding.progressBarRegistraintion.visibility = View.GONE
+                    }
+
+                    is Result.Error -> {
+                        showSnackBar(fragmentRegistrationBinding.root, it.error.message!!)
+                        fragmentRegistrationBinding.progressBarRegistraintion.visibility = View.GONE
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showSnackBar(view: View, message: String) {
+        Snackbar.make(view, message, Snackbar.LENGTH_SHORT)
+            .show()
     }
 
     private fun launchAlbumPicker() {

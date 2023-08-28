@@ -64,6 +64,9 @@ dependencies {
     // MPAndroidChart
     implementation ChartDeps.GRAPH
 
+    // Glide
+    implementation GlideDeps.GLIDE
+
     // Test
     testImplementation TestDeps.JUNIT
     androidTestImplementation TestDeps.JUNIT_EXT
