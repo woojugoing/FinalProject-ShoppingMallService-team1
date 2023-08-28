@@ -6,32 +6,39 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.ScrollView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.tabs.TabLayoutMediator
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.FragmentProductInfoBinding
+import likelion.project.ipet_customer.model.Joint
+import likelion.project.ipet_customer.model.Product
+import likelion.project.ipet_customer.model.Review
 import likelion.project.ipet_customer.ui.main.MainActivity
 
 class ProductInfoFragment : Fragment() {
 
-    lateinit var fragmentProductInfoBinding: FragmentProductInfoBinding
+    lateinit var binding: FragmentProductInfoBinding
     lateinit var mainActivity: MainActivity
     lateinit var productInfoViewModel: ProductInfoViewModel
 
     var readProductIdx = ""
     var readJointIdx = 0L
     var readToggle = ""
-    
+
     var imgList: List<String> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        fragmentProductInfoBinding = FragmentProductInfoBinding.inflate(inflater)
+        binding = FragmentProductInfoBinding.inflate(inflater)
         mainActivity = activity as MainActivity
 
         readToggle = arguments?.getString("readToggle")!!
@@ -44,27 +51,7 @@ class ProductInfoFragment : Fragment() {
 
         productInfoViewModel = ViewModelProvider(this)[ProductInfoViewModel::class.java]
 
-        productInfoViewModel.run {
-            if (readToggle == "product"){
-                productLiveData.observe(viewLifecycleOwner){
-                    fragmentProductInfoBinding.textviewProductinfoTitle.text = it.productTitle
-                    fragmentProductInfoBinding.textviewProductinfoText.text = it.productText
-                    fragmentProductInfoBinding.textviewProductinfoPrice.text = "${mainActivity.formatNumberToCurrency(it.productPrice)}원"
-                    imgList = it.productImg as ArrayList<String>
-                    fragmentProductInfoBinding.viewpager2ProductinfoThumbnail.adapter = ProductInfoFragmentStateAdapter(mainActivity)
-                }
-            } else {
-                jointLiveData.observe(viewLifecycleOwner){
-                    fragmentProductInfoBinding.textviewProductinfoTitle.text = it.jointTitle
-                    fragmentProductInfoBinding.textviewProductinfoText.text = it.jointText
-                    fragmentProductInfoBinding.textviewProductinfoPrice.text = "${mainActivity.formatNumberToCurrency(it.jointPrice)}원"
-                    imgList = it.jointImg as ArrayList<String>
-                    fragmentProductInfoBinding.viewpager2ProductinfoThumbnail.adapter = ProductInfoFragmentStateAdapter(mainActivity)
-                }
-            }
-        }
-
-        fragmentProductInfoBinding.run {
+        binding.run {
 
             val sheetBehavior = BottomSheetBehavior.from(includeProductinfoBottomsheet.bottomsheetProductinfo)
 
@@ -80,57 +67,36 @@ class ProductInfoFragment : Fragment() {
             textviewProductinfoCostprice.paintFlags = textviewProductinfoCostprice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
             // 상세 이미지1
-            imageviewProductinfoDetail1.run {
-                setImageResource(R.drawable.img_dog_food_detail)
-            }
+            imageviewProductinfoDetail1.setImageResource(R.drawable.img_dog_food_detail)
 
             // 찜 버튼
-            imageviewProductinfoHeart.run{
-                var flag = false
-                setOnClickListener {
-                    // 찜한 상태일 때
-                    if(flag){
-                        this.setImageResource(R.drawable.ic_favorite_48dp)
+            imageviewProductinfoHeart.setOnClickListener {
+                val imageView = it as ImageView
+                imageView.setImageResource(
+                    if (imageView.isSelected) {
+                        R.drawable.ic_favorite_48dp
+                    } else {
+                        R.drawable.ic_favorite_fill_48dp
                     }
-                    // 찜하지 않은 상태일 때
-                    else {
-                        this.setImageResource(R.drawable.ic_favorite_fill_48dp)
-                    }
-
-                    flag = !flag
-                }
+                )
+                imageView.setColorFilter(ContextCompat.getColor(mainActivity, R.color.red))
+                imageView.isSelected = !imageView.isSelected
             }
 
-            textviewProductinfoReviewnumber.run {
-                setOnClickListener {
-                    scrollviewProductinfo.fullScroll(ScrollView.FOCUS_DOWN)
-                }
+            textviewProductinfoReviewnumber.setOnClickListener {
+                scrollviewProductinfo.fullScroll(ScrollView.FOCUS_DOWN)
             }
 
             // 리뷰 보러 가기 버튼
-            buttonProductInfoShowReview.run {
-                setOnClickListener {
-                    readToggle = arguments?.getString("readToggle")!!
-
-                    if (readToggle == "product"){
-                        readProductIdx = arguments?.getString("readProductIdx")!!
-                        val newBundle = Bundle()
-                        newBundle.putString("readProductIdx", readProductIdx)
-                        mainActivity.replaceFragment(MainActivity.REVIEWALL_FRAGMENT, true, newBundle)
-                    } else {
-                        readJointIdx = arguments?.getLong("readJointIdx")!!
-                        val newBundle = Bundle()
-                        newBundle.putString("readProductIdx", readJointIdx.toString())
-                        mainActivity.replaceFragment(MainActivity.REVIEWALL_FRAGMENT, true, newBundle)
-                    }
-                }
-            }
+            buttonProductInfoShowReview.setOnClickListener {
+                readProductIdx = arguments?.getString("readProductIdx")!!
+                val newBundle = Bundle()
+                newBundle.putString("readProductIdx", readProductIdx)
+                mainActivity.replaceFragment(MainActivity.REVIEWALL_FRAGMENT, true, newBundle)
 
             // 구매하기 버튼
-            buttonProductinfoBuy.run {
-                setOnClickListener {
-                    sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-                }
+            buttonProductinfoBuy.setOnClickListener {
+                sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
             }
 
             // bottomSheet
@@ -152,13 +118,8 @@ class ProductInfoFragment : Fragment() {
             }
         }
 
-        if (readToggle == "product"){
-            productInfoViewModel.loadOneProduct(readProductIdx)
-        } else {
-            productInfoViewModel.loadOneJoint(readJointIdx)
-        }
-
-        return fragmentProductInfoBinding.root
+        setupViewModel()
+        return binding.root
     }
 
     // viewPager2 Adapter
@@ -172,6 +133,89 @@ class ProductInfoFragment : Fragment() {
                 1 -> ProductInfoViewPagerFragment(imgList[position])
                 else -> ProductInfoViewPagerFragment(imgList[position])
             }
+        }
+    }
+
+    private fun setupViewModel() {
+        if (readToggle == "product") {
+            productInfoViewModel.productLiveData.observe(viewLifecycleOwner) { product ->
+                handleProductData(product)
+            }
+            productInfoViewModel.reviewLiveData.observe(viewLifecycleOwner){
+                handleReviewData(it)
+            }
+            productInfoViewModel.loadOneProduct(readProductIdx)
+            productInfoViewModel.loadSelectReview(readProductIdx)
+        } else {
+            productInfoViewModel.jointLiveData.observe(viewLifecycleOwner) { joint ->
+                handleJointData(joint)
+            }
+            productInfoViewModel.loadOneJoint(readJointIdx)
+        }
+    }
+
+    private fun handleProductData(product: Product) {
+        loadText(product.productTitle, product.productText, product.productPrice)
+        imgList = product.productImg as ArrayList<String>
+        binding.viewpager2ProductinfoThumbnail.adapter = ProductInfoFragmentStateAdapter(mainActivity)
+
+        setupTabLayoutMediator()
+        loadDetailImage()
+    }
+
+    private fun handleJointData(joint: Joint) {
+        loadText(joint.jointTitle, joint.jointText, joint.jointPrice)
+        imgList = joint.jointImg as ArrayList<String>
+        binding.viewpager2ProductinfoThumbnail.adapter = ProductInfoFragmentStateAdapter(mainActivity)
+
+        setupTabLayoutMediator()
+        loadDetailImage()
+    }
+
+    private fun handleReviewData(reviews: MutableList<Review>) {
+        if (reviews.isEmpty()){
+            loadReviewData(0f, 0)
+        } else {
+            var total = 0f
+
+            for (review in reviews){
+                total += review.reviewScore.toFloat()
+            }
+
+            loadReviewData(total/reviews.size, reviews.size)
+        }
+    }
+
+    fun setupTabLayoutMediator(){
+        TabLayoutMediator(
+            binding.tabLayoutProductinfoDot,
+            binding.viewpager2ProductinfoThumbnail
+        ) { tab, position -> }.attach()
+    }
+
+    fun loadDetailImage(){
+        if (imgList.size > 3){
+            Glide.with(requireContext())
+                .load(imgList[3])
+                .into(binding.imageviewProductinfoDetail1)
+
+            Glide.with(requireContext())
+                .load(imgList[4])
+                .into(binding.imageviewProductinfoDetail2)
+        }
+    }
+
+    fun loadText(title:String, text:String, price:Long){
+        binding.textviewProductinfoTitle.text = title
+        binding.textviewProductinfoText.text = text
+        binding.textviewProductinfoPrice.text = "${mainActivity.formatNumberToCurrency(price)}원"
+    }
+
+    fun loadReviewData(score:Float, number : Int){
+        binding.run {
+            ratingbarProductinfoScore.rating = score
+            textviewProductinfoScore.text = "$score"
+            textviewProductinfoReviewnumber.text = "($number)"
         }
     }
 }
