@@ -13,7 +13,7 @@ class JointRepository {
         return querySnapshot.toObjects(Joint::class.java)
     }
 
-    suspend fun getOneJoint(jointIdx: Long): Joint {
+    suspend fun getOneJoint(jointIdx: String): Joint {
         val query = db.collection("Joint").whereEqualTo("jointIdx", jointIdx)
         val querySnapshot = query.get().await()
 
@@ -31,7 +31,7 @@ class JointRepository {
             .addOnSuccessListener { result ->
                 val joinTdataList = mutableListOf<Joint>()
                 for (document in result) {
-                    val idx = document["jointIdx"] as Long
+                    val idx = document["jointIdx"] as String
                     val animalType = document["jointAnimalType"] as String
                     val img = document["jointImg"] as ArrayList<String>
                     val member = document["jointMember"] as Long

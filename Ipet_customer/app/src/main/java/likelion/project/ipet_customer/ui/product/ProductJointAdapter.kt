@@ -24,7 +24,7 @@ class ProductJointAdapter(
             rowBinding.root.setOnClickListener {
                 val bundle = Bundle()
                 val readJointIdx = viewModel.getJointList()[adapterPosition].jointIdx
-                bundle.putLong("readJointIdx", readJointIdx)
+                bundle.putString("readJointIdx", readJointIdx)
                 bundle.putString("readToggle", "joint")
 
                 mainActivity.replaceFragment(MainActivity.PRODUCT_INFO_FRAGMENT, true, bundle)

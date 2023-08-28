@@ -2,7 +2,7 @@ package likelion.project.ipet_customer.model
 
 data class Joint (
     val jointAnimalType : String = "",
-    val jointIdx : Long = 0,
+    val jointIdx : String = "",
     val jointImg : ArrayList<*> = arrayListOf<Any>(),
     val jointMember : Long = 0,
     val jointPrice: Long = 0,
