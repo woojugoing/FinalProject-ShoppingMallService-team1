@@ -6,5 +6,6 @@ data class Customer(
     val customerName: String = "",
     val customerEmail: String = "",
     // 기타 필요한 정보
-    val customerAddress: String = ""
+    var customerAddressAddress: String = "",
+    var customerAddressDetail: String = ""
 )

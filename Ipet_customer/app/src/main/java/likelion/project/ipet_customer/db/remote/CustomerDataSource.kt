@@ -25,4 +25,12 @@ class CustomerDataSource {
             .whereEqualTo("customerId", customerId)
             .get()
     }
+
+    // 유저 주소 데이터 베이스 변경
+    fun setUserAddress(customer: Customer){
+        getUserData(customer).addOnSuccessListener {
+            val filePath = it.documents[0].reference.path
+            db.document(filePath).update("customerAddressAddress", customer.customerAddressAddress)
+        }
+    }
 }
