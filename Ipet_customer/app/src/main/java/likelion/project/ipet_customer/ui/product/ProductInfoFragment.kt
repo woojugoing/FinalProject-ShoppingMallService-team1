@@ -110,10 +110,19 @@ class ProductInfoFragment : Fragment() {
             // 리뷰 보러 가기 버튼
             buttonProductInfoShowReview.run {
                 setOnClickListener {
-                    readProductIdx = arguments?.getString("readProductIdx")!!
-                    val newBundle = Bundle()
-                    newBundle.putString("readProductIdx", readProductIdx)
-                    mainActivity.replaceFragment(MainActivity.REVIEWALL_FRAGMENT, true, newBundle)
+                    readToggle = arguments?.getString("readToggle")!!
+
+                    if (readToggle == "product"){
+                        readProductIdx = arguments?.getString("readProductIdx")!!
+                        val newBundle = Bundle()
+                        newBundle.putString("readProductIdx", readProductIdx)
+                        mainActivity.replaceFragment(MainActivity.REVIEWALL_FRAGMENT, true, newBundle)
+                    } else {
+                        readJointIdx = arguments?.getLong("readJointIdx")!!
+                        val newBundle = Bundle()
+                        newBundle.putString("readProductIdx", readJointIdx.toString())
+                        mainActivity.replaceFragment(MainActivity.REVIEWALL_FRAGMENT, true, newBundle)
+                    }
                 }
             }
 
