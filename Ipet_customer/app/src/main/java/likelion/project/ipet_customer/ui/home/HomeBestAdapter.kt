@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.ItemProductCardBinding
 import likelion.project.ipet_customer.model.Product
@@ -81,5 +82,10 @@ class HomeBestAdapter(private val mainActivity: MainActivity,val products: Mutab
 
         holder.itemBestTitle.text = product.productTitle
         holder.itemBestPrice.text = "${mainActivity.formatNumberToCurrency(product.productPrice)}원"
+        if (product.productImg[0] != "") {
+            Glide.with(holder.itemView)
+                .load(product.productImg[0])
+                .into(holder.itemBestImg)
+        }
     }
 }
