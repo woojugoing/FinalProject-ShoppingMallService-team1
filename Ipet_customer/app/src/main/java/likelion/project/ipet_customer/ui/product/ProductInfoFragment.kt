@@ -51,14 +51,14 @@ class ProductInfoFragment : Fragment() {
                     fragmentProductInfoBinding.textviewProductinfoTitle.text = it.productTitle
                     fragmentProductInfoBinding.textviewProductinfoText.text = it.productText
                     fragmentProductInfoBinding.textviewProductinfoPrice.text = "${mainActivity.formatNumberToCurrency(it.productPrice)}원"
-                    // imgList = it.productImg
+                    imgList = it.productImg as ArrayList<String>
                 }
             } else {
                 jointLiveData.observe(viewLifecycleOwner){
                     fragmentProductInfoBinding.textviewProductinfoTitle.text = it.jointTitle
                     fragmentProductInfoBinding.textviewProductinfoText.text = it.jointText
                     fragmentProductInfoBinding.textviewProductinfoPrice.text = "${mainActivity.formatNumberToCurrency(it.jointPrice)}원"
-                    imgList = it.jointImg
+                    imgList = it.jointImg as ArrayList<String>
                 }
             }
         }
