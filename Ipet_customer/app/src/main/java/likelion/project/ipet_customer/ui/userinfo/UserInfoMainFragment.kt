@@ -14,6 +14,7 @@ import likelion.project.ipet_customer.databinding.FragmentUserInfoMainBinding
 import likelion.project.ipet_customer.databinding.ItemUserinfoChangeaddressBinding
 import likelion.project.ipet_customer.databinding.ItemUserinfoDepositBinding
 import likelion.project.ipet_customer.databinding.ItemUserinfoDrawelcheckBinding
+import likelion.project.ipet_customer.ui.login.LoginViewModel
 import likelion.project.ipet_customer.ui.main.MainActivity
 
 class UserInfoMainFragment : Fragment() {
@@ -30,6 +31,12 @@ class UserInfoMainFragment : Fragment() {
         fragmentUserInfoMainBinding = FragmentUserInfoMainBinding.inflate(inflater)
         mainActivity = activity as MainActivity
 
+        Log.i("user", LoginViewModel.customer.customerId)
+        Log.i("user", LoginViewModel.customer.customerName)
+        Log.i("user", LoginViewModel.customer.customerEmail)
+        Log.i("user", LoginViewModel.customer.customerAddress)
+
+
         fragmentUserInfoMainBinding.run {
             data = arguments?.getString("data") ?: ""
             textViewUserInfoAddress.append(data)
@@ -40,6 +47,14 @@ class UserInfoMainFragment : Fragment() {
                 setNavigationOnClickListener {
                     mainActivity.replaceFragment(MainActivity.PRODUCT_INFO_FRAGMENT, false, null)
                 }
+            }
+
+            textViewUserInfoName.run{
+                text = LoginViewModel.customer.customerName + "님"
+            }
+
+            textViewUserInfoEmail.run{
+                text = LoginViewModel.customer.customerEmail
             }
 
             imageViewUserInfoCancel.setOnClickListener {
