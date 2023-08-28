@@ -19,6 +19,7 @@ import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.FragmentProductInfoBinding
 import likelion.project.ipet_customer.model.Joint
 import likelion.project.ipet_customer.model.Product
+import likelion.project.ipet_customer.model.Review
 import likelion.project.ipet_customer.ui.main.MainActivity
 
 class ProductInfoFragment : Fragment() {
@@ -141,7 +142,11 @@ class ProductInfoFragment : Fragment() {
             productInfoViewModel.productLiveData.observe(viewLifecycleOwner) { product ->
                 handleProductData(product)
             }
+            productInfoViewModel.reviewLiveData.observe(viewLifecycleOwner){
+                handleReviewData(it)
+            }
             productInfoViewModel.loadOneProduct(readProductIdx)
+            productInfoViewModel.loadSelectReview(readProductIdx)
         } else {
             productInfoViewModel.jointLiveData.observe(viewLifecycleOwner) { joint ->
                 handleJointData(joint)
@@ -168,6 +173,20 @@ class ProductInfoFragment : Fragment() {
         loadDetailImage()
     }
 
+    private fun handleReviewData(reviews: MutableList<Review>) {
+        if (reviews.isEmpty()){
+            loadReviewData(0f, 0)
+        } else {
+            var total = 0f
+
+            for (review in reviews){
+                total += review.reviewScore.toFloat()
+            }
+
+            loadReviewData(total/reviews.size, reviews.size)
+        }
+    }
+
     fun setupTabLayoutMediator(){
         TabLayoutMediator(
             binding.tabLayoutProductinfoDot,
@@ -191,5 +210,13 @@ class ProductInfoFragment : Fragment() {
         binding.textviewProductinfoTitle.text = title
         binding.textviewProductinfoText.text = text
         binding.textviewProductinfoPrice.text = "${mainActivity.formatNumberToCurrency(price)}원"
+    }
+
+    fun loadReviewData(score:Float, number : Int){
+        binding.run {
+            ratingbarProductinfoScore.rating = score
+            textviewProductinfoScore.text = "$score"
+            textviewProductinfoReviewnumber.text = "($number)"
+        }
     }
 }
