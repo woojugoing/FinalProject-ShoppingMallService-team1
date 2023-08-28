@@ -210,6 +210,11 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE)
     }
 
+    // 어떤, 바텀 네비게이션이 선택되었는지 알려주기
+    fun selectBottomNavigationItem(itemId: Int) {
+        activityMainBinding.bottomNavigation.selectedItemId = itemId
+    }
+
     companion object {
         val PAYMENT_ADDRESS_FRAGMENT = "PaymentAddressFragment"
         val PAYMENT_COMPLETE_FRAGMENT = "PaymentCompleteFragment"
