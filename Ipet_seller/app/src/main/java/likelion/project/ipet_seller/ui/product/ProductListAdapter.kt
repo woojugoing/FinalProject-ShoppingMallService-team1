@@ -66,7 +66,7 @@ class ProductListAdapter(private val mainActivity: MainActivity, val onItemClick
                 add(product.productScategory)
             }
             itemProductListTitle.text = product.productTitle
-            itemProductListStock.text = product.productStock.toString()
+            itemProductListStock.text = "재고: ${product.productStock}개"
             itemProductListCategory.text = categories.toList().joinToString("/")
             Glide.with(holder.itemView)
                 .load(product.productImg[0])
