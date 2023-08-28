@@ -91,10 +91,16 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
                         // 사용자 규격 정보
                         val idTokenPayload = Base64.decode(idTokenList[1], Base64.DEFAULT)
                             .toString(Charsets.UTF_8)
+                        Log.i("login", idTokenPayload)
                         val payloadJSONObject = JSONObject(idTokenPayload)
                         val customerNickname = payloadJSONObject["nickname"].toString()
                         val customerId = payloadJSONObject["sub"].toString()
-                        val customer = Customer(customerId, customerNickname)
+                        var customerEmail = try {
+                            payloadJSONObject["email"].toString()
+                        } catch (e: Exception){
+                            "사욪자 제공 미동의"
+                        }
+                        val customer = Customer(customerId, customerNickname, customerEmail)
                         // 로그인
                         loginWithDatabase(customer)
                     }
