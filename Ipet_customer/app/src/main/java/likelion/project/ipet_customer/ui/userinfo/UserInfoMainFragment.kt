@@ -1,6 +1,5 @@
 package likelion.project.ipet_customer.ui.userinfo
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,7 +11,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.FragmentUserInfoMainBinding
 import likelion.project.ipet_customer.databinding.ItemUserinfoChangeaddressBinding
-import likelion.project.ipet_customer.databinding.ItemUserinfoDepositBinding
 import likelion.project.ipet_customer.databinding.ItemUserinfoDrawelcheckBinding
 import likelion.project.ipet_customer.ui.login.LoginViewModel
 import likelion.project.ipet_customer.ui.main.MainActivity
@@ -22,7 +20,6 @@ class UserInfoMainFragment : Fragment() {
     lateinit var fragmentUserInfoMainBinding: FragmentUserInfoMainBinding
     lateinit var mainActivity: MainActivity
     var fragmentState = ""
-    lateinit var data: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +35,9 @@ class UserInfoMainFragment : Fragment() {
 
 
         fragmentUserInfoMainBinding.run {
+            textViewUserInfoAddress.append(LoginViewModel.customer.customerAddress)
+
+
             toolbarUserInfoMain.run {
                 title = "내 정보"
                 setNavigationIcon(R.drawable.ic_back_24dp)
@@ -103,36 +103,28 @@ class UserInfoMainFragment : Fragment() {
             }
 
             // 배송지 변경
-//            data = arguments?.getString("data") ?: ""
-//            textViewUserInfoAddress.append(data)
-            textViewUserInfoAddress.text = LoginViewModel.customer.customerAddress
-
             layoutUserInfoChangeAddress.setOnClickListener {
                 val binding = ItemUserinfoChangeaddressBinding.inflate(LayoutInflater.from(context))
                 val builder = MaterialAlertDialogBuilder(mainActivity)
                 builder.setView(binding.root)
-                if(LoginViewModel.customer.customerAddress == ""){
-                    builder.setTitle("배송지가 설정되지 않았습니다")
-                } else{
-                    builder.setTitle("현재 배송지: ${LoginViewModel.customer.customerAddress}")
-                }
                 val dialog = builder.create()
-                binding.textViewChangeAddressAddress.text = data
 
+                // 주소 표시
+                binding.textViewChangeAddressAddress.text = LoginViewModel.customer.customerAddress
+
+                // 배송지 주소 검색
                 binding.buttonChangeAddressAdd.setOnClickListener {
                     mainActivity.replaceFragment(MainActivity.USER_INFO_ADDRESS_FRAGMENT, true, null)
                     dialog.dismiss()
                 }
 
+                // 입력 완료
                 binding.buttonChangeAddressConfirm.setOnClickListener {
-                    data += " ${binding.editTextChangeAddressDetail.text}"
-                    val address = data
-                    Log.d("woojugoing", address)
                     Toast.makeText(mainActivity, "상세 주소가 정상적으로 저장되었습니다.", Toast.LENGTH_SHORT).show()
                     dialog.dismiss()
                 }
 
-                if(data == "") {
+                if(LoginViewModel.customer.customerAddress == "배송지 미설정") {
                     binding.textViewChangeAddressAddress.visibility = View.GONE
                     binding.editTextChangeAddressDetail.visibility = View.GONE
                     binding.buttonChangeAddressConfirm.visibility = View.GONE
