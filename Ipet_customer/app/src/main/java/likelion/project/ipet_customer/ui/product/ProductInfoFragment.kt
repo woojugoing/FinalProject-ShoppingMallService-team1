@@ -8,15 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ScrollView
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.whenResumed
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.FragmentProductInfoBinding
 import likelion.project.ipet_customer.ui.main.MainActivity
@@ -28,6 +22,8 @@ class ProductInfoFragment : Fragment() {
     lateinit var productInfoViewModel: ProductInfoViewModel
 
     var readProductIdx = ""
+    var readJointIdx = 0L
+    var readToggle = ""
 
     // 임시 데이터
     val list: ArrayList<Int> = ArrayList<Int>().let {
@@ -45,12 +41,29 @@ class ProductInfoFragment : Fragment() {
         fragmentProductInfoBinding = FragmentProductInfoBinding.inflate(inflater)
         mainActivity = activity as MainActivity
 
+        readToggle = arguments?.getString("readToggle")!!
+
+        if (readToggle == "product"){
+            readProductIdx = arguments?.getString("readProductIdx")!!
+        } else {
+            readJointIdx = arguments?.getLong("readJointIdx")!!
+        }
+
         productInfoViewModel = ViewModelProvider(this)[ProductInfoViewModel::class.java]
+
         productInfoViewModel.run {
-            productLiveData.observe(viewLifecycleOwner){
-                fragmentProductInfoBinding.textviewProductinfoTitle.text = it.productTitle
-                fragmentProductInfoBinding.textviewProductinfoText.text = it.productText
-                fragmentProductInfoBinding.textviewProductinfoPrice.text = "${mainActivity.formatNumberToCurrency(it.productPrice)}원"
+            if (readToggle == "product"){
+                productLiveData.observe(viewLifecycleOwner){
+                    fragmentProductInfoBinding.textviewProductinfoTitle.text = it.productTitle
+                    fragmentProductInfoBinding.textviewProductinfoText.text = it.productText
+                    fragmentProductInfoBinding.textviewProductinfoPrice.text = "${mainActivity.formatNumberToCurrency(it.productPrice)}원"
+                }
+            } else {
+                jointLiveData.observe(viewLifecycleOwner){
+                    fragmentProductInfoBinding.textviewProductinfoTitle.text = it.jointTitle
+                    fragmentProductInfoBinding.textviewProductinfoText.text = it.jointText
+                    fragmentProductInfoBinding.textviewProductinfoPrice.text = "${mainActivity.formatNumberToCurrency(it.jointPrice)}원"
+                }
             }
         }
 
@@ -134,8 +147,11 @@ class ProductInfoFragment : Fragment() {
             }
         }
 
-        readProductIdx = arguments?.getString("readProductIdx")!!
-        productInfoViewModel.loadOneProduct(readProductIdx)
+        if (readToggle == "product"){
+            productInfoViewModel.loadOneProduct(readProductIdx)
+        } else {
+            productInfoViewModel.loadOneJoint(readJointIdx)
+        }
 
         return fragmentProductInfoBinding.root
     }
