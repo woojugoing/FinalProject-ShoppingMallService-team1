@@ -172,8 +172,9 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
             val account = completedTask.getResult(ApiException::class.java)
             val customerNickname = account.displayName
             val customerId = account.id
-            if (customerId != null && customerNickname != null) {
-                val customer = Customer(customerId, customerNickname)
+            val customerEmail = account.email
+            if (customerId != null && customerNickname != null && customerEmail != null) {
+                val customer = Customer(customerId, customerNickname, customerEmail)
                 // 로그인
                 loginWithDatabase(customer)
             }
