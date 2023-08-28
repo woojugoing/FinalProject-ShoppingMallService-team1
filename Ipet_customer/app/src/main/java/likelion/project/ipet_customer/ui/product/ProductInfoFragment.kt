@@ -27,7 +27,7 @@ class ProductInfoFragment : Fragment() {
     lateinit var mainActivity: MainActivity
     lateinit var productInfoViewModel: ProductInfoViewModel
 
-    var readProductIdx = 0L
+    var readProductIdx = ""
 
     // 임시 데이터
     val list: ArrayList<Int> = ArrayList<Int>().let {
@@ -134,7 +134,7 @@ class ProductInfoFragment : Fragment() {
             }
         }
 
-        readProductIdx = arguments?.getLong("readProductIdx")!!
+        readProductIdx = arguments?.getString("readProductIdx")!!
         productInfoViewModel.loadOneProduct(readProductIdx)
 
         return fragmentProductInfoBinding.root

@@ -2,7 +2,7 @@ package likelion.project.ipet_customer.model
 
 data class Product(
     val productAnimalType: String = "",
-    val productIdx: Long = 0,
+    val productIdx: String = "",
     val productImg: String = "",
     val productLCategory: String = "",
     val productPrice: Long = 0,

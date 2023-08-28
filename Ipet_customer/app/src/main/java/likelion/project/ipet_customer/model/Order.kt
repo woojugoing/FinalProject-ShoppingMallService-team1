@@ -5,6 +5,6 @@ data class Order (
     val orderNumber : Long = 0,
     val orderRecipient : String = "",
     val orderState : Long = 0,
-    val productIdx : Long = 0,
+    val productIdx : String = "",
     val sellerId : String = ""
 )

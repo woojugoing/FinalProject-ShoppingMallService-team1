@@ -13,7 +13,7 @@ class ProductInfoViewModel : ViewModel() {
 
     val productLiveData = MutableLiveData<Product>()
 
-    fun loadOneProduct(productIdx : Long){
+    fun loadOneProduct(productIdx : String){
         viewModelScope.launch{
             val product = productRepository.getOneProduct(productIdx)
             productLiveData.postValue(product)

@@ -14,7 +14,7 @@ class ProductRepository {
         return querySnapshot.toObjects(Product::class.java)
     }
 
-    suspend fun getOneProduct(productIdx: Long): Product {
+    suspend fun getOneProduct(productIdx: String): Product {
         val query = db.collection("Product").whereEqualTo("productIdx", productIdx)
         val querySnapshot = query.get().await()
 
