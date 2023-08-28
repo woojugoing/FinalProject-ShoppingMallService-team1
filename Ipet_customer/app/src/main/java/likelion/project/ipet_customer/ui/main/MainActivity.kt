@@ -1,5 +1,6 @@
 package likelion.project.ipet_customer.ui.main
 
+import ProductJointListFragment
 import android.Manifest
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
@@ -34,12 +35,10 @@ import likelion.project.ipet_customer.ui.payment.PaymentCompleteFragment
 import likelion.project.ipet_customer.ui.payment.PaymentFragment
 import likelion.project.ipet_customer.ui.permission.PermissionFragment
 import likelion.project.ipet_customer.ui.product.ProductInfoFragment
-import likelion.project.ipet_customer.ui.product.ProductJointListFragment
 import likelion.project.ipet_customer.ui.product.ProductListFragment
 import likelion.project.ipet_customer.ui.review.ReviewAllFragment
 import likelion.project.ipet_customer.ui.review.ReviewWriteFragment
 import likelion.project.ipet_customer.ui.search.SearchMainFragment
-import likelion.project.ipet_customer.ui.search.SearchResultFragment
 import likelion.project.ipet_customer.ui.shoppingbasket.ShoppingBasketFragment
 import likelion.project.ipet_customer.ui.userinfo.UserInfoAddressFragment
 import likelion.project.ipet_customer.ui.userinfo.UserInfoMainFragment

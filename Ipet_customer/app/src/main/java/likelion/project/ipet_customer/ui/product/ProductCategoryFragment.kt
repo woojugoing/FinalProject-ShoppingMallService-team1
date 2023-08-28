@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -55,7 +56,8 @@ class ProductCategoryFragment : Fragment() {
             }
 
             db.collection("Product")
-                .whereEqualTo("productLCategory", lCategoryState)
+                .whereEqualTo("productLcategory", lCategoryState)
+                .whereEqualTo("productScategory", sCategoryName)
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {
@@ -67,8 +69,8 @@ class ProductCategoryFragment : Fragment() {
                         val text = document["productText"] as String
                         val title = document["productTitle"] as String
                         val stock = document["productStock"] as Long
-                        val lCategory = document["productLCategory"] as String
-                        val sCategory = document["productSCategory"] as String
+                        val lCategory = document["productLcategory"] as String
+                        val sCategory = document["productScategory"] as String
 
                         val item = Product(animalType, idx, img, lCategory,price, sCategory, seller, stock, text, title)
                         productList.add(item)
@@ -91,7 +93,11 @@ class ProductCategoryFragment : Fragment() {
                 textViewCardTitle = itemProductCardBinding.textViewCardTitle
                 textViewCardCost = itemProductCardBinding.textViewCardCost
                 itemProductCardBinding.root.setOnClickListener {
-                    mainActivity.replaceFragment(MainActivity.PRODUCT_INFO_FRAGMENT, false, null)
+                    var bundle = Bundle()
+                    val readProductIdx = productList[adapterPosition].productIdx
+                    bundle.putString("readProductIdx", readProductIdx)
+                    bundle.putString("readToggle", "product")
+                    mainActivity.replaceFragment(MainActivity.PRODUCT_INFO_FRAGMENT, true, bundle)
                 }
             }
         }
@@ -115,6 +121,11 @@ class ProductCategoryFragment : Fragment() {
         override fun onBindViewHolder(holder: Holder, position: Int) {
             holder.textViewCardTitle.text = productList[position].productTitle
             holder.textViewCardCost.text = productList[position].productPrice.toString()
+            if (productList[position].productImg[0] != "") {
+                Glide.with(holder.itemView)
+                    .load(productList[position].productImg[0])
+                    .into(holder.imageViewCardThumbnail)
+            }
         }
     }
     fun setSmallCategory(cat1: String, cat2: String, cat3: String, cat4: String, cat5: String, cat6: String) {
