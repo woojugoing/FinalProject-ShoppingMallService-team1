@@ -27,7 +27,7 @@ class ProductInfoViewModel : ViewModel() {
         }
     }
 
-    fun loadOneJoint(jointIdx : Long){
+    fun loadOneJoint(jointIdx : String){
         viewModelScope.launch{
             val joint = jointRepository.getOneJoint(jointIdx)
             jointLiveData.postValue(joint)
