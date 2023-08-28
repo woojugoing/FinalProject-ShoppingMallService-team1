@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.ItemProductCardBinding
 import likelion.project.ipet_customer.model.Joint
@@ -101,8 +102,12 @@ class HomeJointAdapter(private val mainActivity: MainActivity, val jointsList: M
 
         holder.itemJointMemberIc.setColorFilter(ContextCompat.getColor(mainActivity, R.color.brown_200))
 
-        // img 추가 필요
         holder.itemJointTitle.text = joint.jointTitle
         holder.itemJointPrice.text = "${mainActivity.formatNumberToCurrency(joint.jointPrice)}원"
+        if (joint.jointImg[0] != "") {
+            Glide.with(holder.itemView)
+                .load(joint.jointImg[0])
+                .into(holder.itemJointImg)
+        }
     }
 }
