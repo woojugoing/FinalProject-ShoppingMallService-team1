@@ -30,7 +30,7 @@ class ProductInfoFragment : Fragment() {
     lateinit var productInfoViewModel: ProductInfoViewModel
 
     var readProductIdx = ""
-    var readJointIdx = 0L
+    var readJointIdx = ""
     var readToggle = ""
 
     var imgList: List<String> = emptyList()
@@ -47,7 +47,7 @@ class ProductInfoFragment : Fragment() {
         if (readToggle == "product") {
             readProductIdx = arguments?.getString("readProductIdx")!!
         } else {
-            readJointIdx = arguments?.getLong("readJointIdx")!!
+            readJointIdx = arguments?.getString("readJointIdx")!!
         }
 
         productInfoViewModel = ViewModelProvider(this)[ProductInfoViewModel::class.java]
