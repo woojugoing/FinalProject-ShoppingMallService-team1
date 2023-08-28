@@ -70,7 +70,7 @@ class HomeViewModel : ViewModel() {
 
             val mappingList = sortedGroupedOrders
                 .flatMap { (productIdx, _) ->
-                    products.filter { it.productIdx == productIdx }
+                    products.filter { it.productIdx.equals(productIdx) }
                 }
 
             val filteredProducts = filterAnimalType(mappingList) { product ->

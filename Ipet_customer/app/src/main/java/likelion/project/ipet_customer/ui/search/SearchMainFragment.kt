@@ -57,15 +57,15 @@ class SearchMainFragment : Fragment() {
                                     for (document in result) {
                                         val title = document["productTitle"] as String
                                         if(title.contains("$query")) {
-                                            val idx = document["productIdx"] as Long
+                                            val idx = document["productIdx"] as String
                                             val animalType = document["productAnimalType"] as String
-                                            val img = document["productImg"] as String
+                                            val img = document["productImg"] as ArrayList<*>
                                             val price = document["productPrice"] as Long
                                             val seller = document["productSeller"] as String
                                             val text = document["productText"] as String
                                             val stock = document["productStock"] as Long
-                                            val lCategory = document["productLCategory"] as String
-                                            val sCategory = document["productSCategory"] as String
+                                            val lCategory = document["productLcategory"] as String
+                                            val sCategory = document["productScategory"] as String
 
                                             val item = Product(
                                                 animalType, idx, img, lCategory, price, sCategory, seller, stock, text, title
@@ -73,7 +73,6 @@ class SearchMainFragment : Fragment() {
                                             productList.add(item)
                                             fragmentSearchMainBinding.recyclerViewSearchResult.adapter?.notifyDataSetChanged()
                                         }
-
                                     }
                                 }
                             return true

@@ -59,9 +59,9 @@ class ProductCategoryFragment : Fragment() {
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {
-                        val idx = document["productIdx"] as Long
+                        val idx = document["productIdx"] as String
                         val animalType = document["productAnimalType"] as String
-                        val img = document["productImg"] as String
+                        val img = document["productImg"] as ArrayList<*>
                         val price = document["productPrice"] as Long
                         val seller = document["productSeller"] as String
                         val text = document["productText"] as String
