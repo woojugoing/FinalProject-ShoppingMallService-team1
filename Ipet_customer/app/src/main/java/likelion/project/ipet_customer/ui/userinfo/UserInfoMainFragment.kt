@@ -98,15 +98,6 @@ class UserInfoMainFragment : Fragment() {
                 mainActivity.replaceFragment(MainActivity.LOGIN_FRAGMENT, false, null)
             }
 
-            textViewUserInfoDeposit.setOnClickListener {
-                val binding = ItemUserinfoDepositBinding.inflate(LayoutInflater.from(context))
-                val builder = MaterialAlertDialogBuilder(mainActivity)
-                builder.setView(binding.root)
-                binding.textViewUserinfoDeposit.append("[2023/02/11]\t\t(2,000)\t\t고양이 사료\n")
-                binding.textViewUserinfoDeposit.append("[2023/03/13]\t\t(3,000)\t\t강아지 장난감\n")
-                builder.show()
-            }
-
             layoutUserInfoChangeAddress.setOnClickListener {
                 val binding = ItemUserinfoChangeaddressBinding.inflate(LayoutInflater.from(context))
                 val builder = MaterialAlertDialogBuilder(mainActivity)
