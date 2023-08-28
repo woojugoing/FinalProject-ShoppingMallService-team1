@@ -123,7 +123,8 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
                         // 사용자 규격 정보
                         val customerNickname = response.profile?.name.toString()
                         val customerId = response.profile?.id.toString()
-                        val customer = Customer(customerId, customerNickname)
+                        val customerEmail = response.profile?.email.toString()
+                        val customer = Customer(customerId, customerNickname, customerEmail)
                         // 로그인
                         loginWithDatabase(customer)
                     }
