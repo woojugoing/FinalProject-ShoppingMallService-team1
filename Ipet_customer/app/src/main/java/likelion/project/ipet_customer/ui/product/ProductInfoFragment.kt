@@ -93,7 +93,6 @@ class ProductInfoFragment : Fragment() {
                 val newBundle = Bundle()
                 newBundle.putString("readProductIdx", readProductIdx)
                 mainActivity.replaceFragment(MainActivity.REVIEWALL_FRAGMENT, true, newBundle)
-            }
 
             // 구매하기 버튼
             buttonProductinfoBuy.setOnClickListener {
