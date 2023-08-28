@@ -24,9 +24,8 @@ class ProductInfoFragment : Fragment() {
     var readProductIdx = ""
     var readJointIdx = 0L
     var readToggle = ""
-
-    // 임시 데이터
-    lateinit var imgList: List<String>
+    
+    var imgList: List<String> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,6 +51,7 @@ class ProductInfoFragment : Fragment() {
                     fragmentProductInfoBinding.textviewProductinfoText.text = it.productText
                     fragmentProductInfoBinding.textviewProductinfoPrice.text = "${mainActivity.formatNumberToCurrency(it.productPrice)}원"
                     imgList = it.productImg as ArrayList<String>
+                    fragmentProductInfoBinding.viewpager2ProductinfoThumbnail.adapter = ProductInfoFragmentStateAdapter(mainActivity)
                 }
             } else {
                 jointLiveData.observe(viewLifecycleOwner){
@@ -59,6 +59,7 @@ class ProductInfoFragment : Fragment() {
                     fragmentProductInfoBinding.textviewProductinfoText.text = it.jointText
                     fragmentProductInfoBinding.textviewProductinfoPrice.text = "${mainActivity.formatNumberToCurrency(it.jointPrice)}원"
                     imgList = it.jointImg as ArrayList<String>
+                    fragmentProductInfoBinding.viewpager2ProductinfoThumbnail.adapter = ProductInfoFragmentStateAdapter(mainActivity)
                 }
             }
         }
@@ -77,10 +78,6 @@ class ProductInfoFragment : Fragment() {
 
             // 원가 가격 표시
             textviewProductinfoCostprice.paintFlags = textviewProductinfoCostprice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-
-            viewpager2ProductinfoThumbnail.run {
-                adapter = ProductInfoFragmentStateAdapter(mainActivity)
-            }
 
             // 상세 이미지1
             imageviewProductinfoDetail1.run {
