@@ -1,5 +1,6 @@
 package likelion.project.ipet_customer.ui.search
 
+import android.app.Application
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.ktx.firestore
@@ -16,14 +19,15 @@ import com.google.firebase.ktx.Firebase
 import likelion.project.ipet_customer.databinding.FragmentSearchMainBinding
 import likelion.project.ipet_customer.databinding.ItemProductCardBinding
 import likelion.project.ipet_customer.model.Product
+import likelion.project.ipet_customer.model.Search
 import likelion.project.ipet_customer.ui.main.MainActivity
 
 class SearchMainFragment : Fragment() {
 
     lateinit var fragmentSearchMainBinding: FragmentSearchMainBinding
     lateinit var mainActivity: MainActivity
+    lateinit var viewModel: SearchViewModel
     val productList = mutableListOf<Product>()
-    var searchResult = ""
     val db = Firebase.firestore
 
     override fun onCreateView(
@@ -32,13 +36,17 @@ class SearchMainFragment : Fragment() {
     ): View? {
         fragmentSearchMainBinding = FragmentSearchMainBinding.inflate(inflater)
         mainActivity = activity as MainActivity
+        viewModel = ViewModelProvider(this, SearchViewModel.Factory(mainActivity.application)).get(SearchViewModel::class.java)
 
         fragmentSearchMainBinding.run {
-            chip.text = "검색어 1"
-            chip2.text = "검색어 2"
-            chip3.text = "검색어 3"
-            chip4.text = "검색어 4"
-
+            viewModel.getAllSearches.observe(viewLifecycleOwner, Observer { search ->
+                val searchList = search.map { it.searchData }
+                val reverseList = searchList.reversed()
+                fragmentSearchMainBinding.chip.text = reverseList.getOrNull(0) ?: "검색어 1"
+                fragmentSearchMainBinding.chip2.text = reverseList.getOrNull(1) ?: "검색어 2"
+                fragmentSearchMainBinding.chip3.text = reverseList.getOrNull(2) ?: "검색어 3"
+                fragmentSearchMainBinding.chip4.text = reverseList.getOrNull(3) ?: "검색어 4"
+            })
             searchViewSearch.run {
                 queryHint = "검색어를 입력하세요."
                 isSubmitButtonEnabled = true
@@ -48,7 +56,8 @@ class SearchMainFragment : Fragment() {
                             Log.d("검색 결과 search", searchViewSearch.query.toString())
                             layoutSearchRecent.visibility = View.GONE
                             layoutSearchBest.visibility = View.GONE
-
+                            val search = Search(0, query.toString())
+                            viewModel.insertSearch(search)
                             productList.clear()
 
                             db.collection("Product")
