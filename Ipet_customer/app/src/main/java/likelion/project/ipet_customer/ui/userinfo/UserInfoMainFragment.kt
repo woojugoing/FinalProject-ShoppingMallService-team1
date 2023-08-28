@@ -14,6 +14,7 @@ import likelion.project.ipet_customer.databinding.FragmentUserInfoMainBinding
 import likelion.project.ipet_customer.databinding.ItemUserinfoChangeaddressBinding
 import likelion.project.ipet_customer.databinding.ItemUserinfoDepositBinding
 import likelion.project.ipet_customer.databinding.ItemUserinfoDrawelcheckBinding
+import likelion.project.ipet_customer.ui.login.LoginViewModel
 import likelion.project.ipet_customer.ui.main.MainActivity
 
 class UserInfoMainFragment : Fragment() {
@@ -30,6 +31,12 @@ class UserInfoMainFragment : Fragment() {
         fragmentUserInfoMainBinding = FragmentUserInfoMainBinding.inflate(inflater)
         mainActivity = activity as MainActivity
 
+        Log.i("user", LoginViewModel.customer.customerId)
+        Log.i("user", LoginViewModel.customer.customerName)
+        Log.i("user", LoginViewModel.customer.customerEmail)
+        Log.i("user", LoginViewModel.customer.customerAddress)
+
+
         fragmentUserInfoMainBinding.run {
             data = arguments?.getString("data") ?: ""
             textViewUserInfoAddress.append(data)
@@ -40,6 +47,14 @@ class UserInfoMainFragment : Fragment() {
                 setNavigationOnClickListener {
                     mainActivity.replaceFragment(MainActivity.PRODUCT_INFO_FRAGMENT, false, null)
                 }
+            }
+
+            textViewUserInfoName.run{
+                text = LoginViewModel.customer.customerName + "님"
+            }
+
+            textViewUserInfoEmail.run{
+                text = LoginViewModel.customer.customerEmail
             }
 
             imageViewUserInfoCancel.setOnClickListener {
@@ -81,15 +96,6 @@ class UserInfoMainFragment : Fragment() {
             layoutUserInfoLogout.setOnClickListener {
                 mainActivity.activityMainBinding.bottomNavigation.visibility = View.GONE
                 mainActivity.replaceFragment(MainActivity.LOGIN_FRAGMENT, false, null)
-            }
-
-            textViewUserInfoDeposit.setOnClickListener {
-                val binding = ItemUserinfoDepositBinding.inflate(LayoutInflater.from(context))
-                val builder = MaterialAlertDialogBuilder(mainActivity)
-                builder.setView(binding.root)
-                binding.textViewUserinfoDeposit.append("[2023/02/11]\t\t(2,000)\t\t고양이 사료\n")
-                binding.textViewUserinfoDeposit.append("[2023/03/13]\t\t(3,000)\t\t강아지 장난감\n")
-                builder.show()
             }
 
             layoutUserInfoChangeAddress.setOnClickListener {
