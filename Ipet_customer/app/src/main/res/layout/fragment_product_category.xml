@@ -6,78 +6,84 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:baselineAligned="false">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+        <Button
+            android:id="@+id/button_category_1"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:text="주니어"
+            android:textAlignment="center"
+            android:textAppearance="@style/Typography.Regular14" />
 
-            <Button
-                android:id="@+id/button_category_1"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/pretendard_regular"
-                android:text="주니어"
-                android:textAlignment="center" />
+        <Button
+            android:id="@+id/button_category_2"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:text="어덜트"
+            android:textAlignment="center"
+            android:textAppearance="@style/Typography.Regular14" />
 
-            <Button
-                android:id="@+id/button_category_2"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/pretendard_regular"
-                android:text="어덜트"
-                android:textAlignment="center" />
+        <Button
+            android:id="@+id/button_category_3"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:text="시니어"
+            android:textAlignment="center"
+            android:textAppearance="@style/Typography.Regular14" />
 
-            <Button
-                android:id="@+id/button_category_3"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/pretendard_regular"
-                android:text="시니어"
-                android:textAlignment="center" />
+        <Button
+            android:id="@+id/button_category_4"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:text="다이어트"
+            android:textAlignment="center"
+            android:textAppearance="@style/Typography.Regular14" />
 
-            <Button
-                android:id="@+id/button_category_4"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/pretendard_regular"
-                android:text="다이어트"
-                android:textAlignment="center" />
+        <Button
+            android:id="@+id/button_category_5"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:text="건식 사료"
+            android:textAlignment="center"
+            android:textAppearance="@style/Typography.Regular14" />
 
-            <Button
-                android:id="@+id/button_category_5"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/pretendard_regular"
-                android:text="건식 사료"
-                android:textAlignment="center" />
+        <Button
+            android:id="@+id/button_category_6"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:text="습식 사료"
+            android:textAlignment="center"
+            android:textAppearance="@style/Typography.Regular14" />
 
-            <Button
-                android:id="@+id/button_category_6"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/pretendard_regular"
-                android:text="습식 사료"
-                android:textAlignment="center" />
-
-        </LinearLayout>
-    </HorizontalScrollView>
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
