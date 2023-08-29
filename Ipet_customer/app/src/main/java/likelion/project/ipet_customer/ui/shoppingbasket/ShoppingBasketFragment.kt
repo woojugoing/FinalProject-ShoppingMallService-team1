@@ -318,6 +318,33 @@ class ShoppingBasketFragment : Fragment() {
             }
     }
 
+    // 선택한 상품/공동구매 항목에 따라 텍스트 업데이트
+    private fun updateTextWithSelectedItems() {
+        val totalSelectedPrice = selectedProducts.sumBy { productDataList[it].productPrice.toInt() }
+        val totalSelectedGroupPrice = selectedGroupProducts.sumBy { jointDataList[it].jointPrice.toInt() }
+
+        val totalPriceText = if (totalSelectedPrice > 0 || totalSelectedGroupPrice > 0) {
+            "${mainActivity.formatNumberToCurrency(totalSelectedPrice.toLong() + totalSelectedGroupPrice.toLong())}원"
+        } else {
+            "0원"
+        }
+        fragmentShoppingBasketBinding.textViewShoppingBasketTotalPrice.text = totalPriceText
+    }
+
+    // 선택한 상품/공동구매 항목에 따라 버튼 텍스트 업데이트
+    private fun updateButtonWithSelectedItems() {
+        val totalSelectedPrice = selectedProducts.sumBy { productDataList[it].productPrice.toInt() }
+        val totalSelectedGroupPrice = selectedGroupProducts.sumBy { jointDataList[it].jointPrice.toInt() }
+
+        val totalPriceText = if (totalSelectedPrice > 0 || totalSelectedGroupPrice > 0) {
+            "합계 ${mainActivity.formatNumberToCurrency(totalSelectedPrice.toLong() + totalSelectedGroupPrice.toLong() + 3000)}원  |  결제하기"
+        } else {
+            "결제하기"
+        }
+
+        fragmentShoppingBasketBinding.buttonShoppingBasketPayment.text = totalPriceText
+    }
+
     inner class ShoppingBasketAdapter : RecyclerView.Adapter<ShoppingBasketAdapter.ShoppingBasketHolder>() {
 
         inner class ShoppingBasketHolder(itemShoppingBasketProductBinding: ItemShoppingBasketProductBinding) : RecyclerView.ViewHolder(itemShoppingBasketProductBinding.root) {
@@ -376,6 +403,8 @@ class ShoppingBasketFragment : Fragment() {
                 } else {
                     selectedProducts.remove(position)
                 }
+                updateTextWithSelectedItems()
+                updateButtonWithSelectedItems()
             }
 
         }
@@ -442,6 +471,8 @@ class ShoppingBasketFragment : Fragment() {
                 } else {
                     selectedGroupProducts.remove(position)
                 }
+                updateTextWithSelectedItems()
+                updateButtonWithSelectedItems()
             }
 
         }

@@ -219,7 +219,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
                             android:layout_weight="1"
-                            android:text="15,000원"
+                            android:text="0원"
                             android:textAlignment="textEnd" />
 
                     </LinearLayout>
@@ -286,7 +286,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
-                        android:text="합계 18,000원  |  결제하기"
+                        android:text="결제하기"
                         android:textColor="@color/white" />
 
                 </LinearLayout>
