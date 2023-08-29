@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
+    id 'kotlinx-serialization'
 }
 
 android {
@@ -66,6 +67,9 @@ dependencies {
 
     // Glide
     implementation GlideDeps.GLIDE
+
+    // Serialization
+    implementation Serialization.SERIALIZATION_JSON
 
     // Test
     testImplementation TestDeps.JUNIT
