@@ -34,4 +34,12 @@ class CustomerDataSource {
             db.document(filePath).update("customerAddressDetail", customer.customerAddressDetail)
         }
     }
+
+    // 유저 데이터 삭제
+    fun deleteUserData(customer: Customer){
+        getUserData(customer).addOnSuccessListener {
+            val filePath = it.documents[0].reference.path
+            db.document(filePath).delete()
+        }
+    }
 }

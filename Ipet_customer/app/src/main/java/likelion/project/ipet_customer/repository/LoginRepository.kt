@@ -16,6 +16,7 @@ class LoginRepository {
             }else{
                 // 기존 아이디 존재
                 LoginViewModel.customer = Customer(
+                    it.documents[0]["customerType"].toString().toInt(),
                     it.documents[0]["customerId"].toString(),
                     it.documents[0]["customerName"].toString(),
                     it.documents[0]["customerEmail"].toString(),
