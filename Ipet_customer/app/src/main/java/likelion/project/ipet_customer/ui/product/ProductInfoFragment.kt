@@ -94,11 +94,19 @@ class ProductInfoFragment : Fragment() {
 
             // 리뷰 보러 가기 버튼
             buttonProductInfoShowReview.setOnClickListener {
-                readProductIdx = arguments?.getString("readProductIdx")!!
-                val newBundle = Bundle()
-                newBundle.putString("readProductIdx", readProductIdx)
+                readToggle = arguments?.getString("readToggle")!!
 
-                mainActivity.replaceFragment(MainActivity.REVIEWALL_FRAGMENT, true, newBundle)
+                if (readToggle == "product"){
+                    readProductIdx = arguments?.getString("readProductIdx")!!
+                    val newBundle = Bundle()
+                    newBundle.putString("readProductIdx", readProductIdx)
+                    mainActivity.replaceFragment(MainActivity.REVIEWALL_FRAGMENT, true, newBundle)
+                } else {
+                    readJointIdx = arguments?.getString("readJointIdx")!!
+                    val newBundle = Bundle()
+                    newBundle.putString("readProductIdx", readJointIdx)
+                    mainActivity.replaceFragment(MainActivity.REVIEWALL_FRAGMENT, true, newBundle)
+                }
             }
 
             sheetBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
