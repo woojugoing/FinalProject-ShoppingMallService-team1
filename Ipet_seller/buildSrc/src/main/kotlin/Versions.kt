@@ -13,6 +13,7 @@ object Versions {
     const val ESPRESSO_VERSION = "3.5.1"
     const val GLIDE_VERSION = "4.15.1"
     const val VIEWMODEL_VERSION = "2.6.1"
+    const val SERIALIZATION_VERSION = "1.6.0"
 }
 
 object AndroidXDeps {
@@ -53,6 +54,10 @@ object ChartDeps {
 
 object GlideDeps {
     const val GLIDE = "com.github.bumptech.glide:glide:${Versions.GLIDE_VERSION}"
+}
+
+object Serialization {
+    const val SERIALIZATION_JSON = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.SERIALIZATION_VERSION}"
 }
 
 object TestDeps {

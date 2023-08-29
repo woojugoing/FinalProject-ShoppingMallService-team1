@@ -1,5 +1,8 @@
 package likelion.project.ipet_seller.model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Product(
     val productIdx: String = "",
     val productTitle: String = "",
