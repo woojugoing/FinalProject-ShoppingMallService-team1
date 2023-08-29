@@ -1,3 +1,5 @@
+@file:Suppress("UNREACHABLE_CODE")
+
 package likelion.project.ipet_seller.ui.registration
 
 import android.Manifest
@@ -8,7 +10,6 @@ import android.graphics.ImageDecoder
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,9 +20,11 @@ import android.widget.Spinner
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import likelion.project.ipet_seller.R
 import likelion.project.ipet_seller.databinding.FragmentRegistrationBinding
@@ -35,6 +38,7 @@ class RegistrationFragment : Fragment() {
 
     lateinit var albumActivityLauncher: ActivityResultLauncher<Intent>
     lateinit var viewModel: RegistrationViewModel
+    private var product = Product()
 
     val permissionList = arrayOf(
         Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -46,7 +50,7 @@ class RegistrationFragment : Fragment() {
 
     val animalType = arrayOf("반려동물 선택", "강아지", "고양이")
     val mainCategory = arrayOf("대분류 선택", "사료", "간식", "장난감", "의류", "집")
-    val subCategory = arrayOf("소분류 선택", "주니어", "어덜트", "시니어", "다이어트", "건식 사료", "습식 사료")
+    var subCategory = arrayOf("소분류 선택", "주니어", "어덜트", "시니어", "다이어트", "건식 사료", "습식 사료")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -148,7 +152,7 @@ class RegistrationFragment : Fragment() {
                     launchAlbumPicker()
                 }
             }
-            var product = Product()
+
             setupSpinner(spinnerRegistrationAnimalType, animalType) { parent, view, position, id ->
                 product = product.copy(productAnimalType = animalType[position])
             }
@@ -158,14 +162,9 @@ class RegistrationFragment : Fragment() {
                 mainCategory
             ) { parent, view, position, id ->
                 product = product.copy(productLcategory = mainCategory[position])
+                viewModel.onSpinnerItemClick(position)
             }
 
-            setupSpinner(
-                spinnerRegistrationSubCategory,
-                subCategory
-            ) { parent, view, position, id ->
-                product = product.copy(productScategory = subCategory[position])
-            }
             toolbarRegistration.run {
                 title = "판매 상품 등록"
                 setNavigationIcon(R.drawable.ic_back_24dp)
@@ -217,26 +216,53 @@ class RegistrationFragment : Fragment() {
 
     private fun observe() {
         lifecycleScope.launch {
-            viewModel.event.collect {
-                when (it) {
-                    is Result.Success -> {
-                        showSnackBar(fragmentRegistrationBinding.root, it.message)
-                        mainActivity.removeFragment(MainActivity.REGISTRATION_FRAGMENT)
-                        fragmentRegistrationBinding.progressBarRegistraintion.visibility = View.GONE
-                    }
+            launch {
+                viewModel.event.collect {
+                    when (it) {
+                        is Result.Success -> {
+                            showSnackBar(fragmentRegistrationBinding.root, it.message)
+                            mainActivity.removeFragment(MainActivity.REGISTRATION_FRAGMENT)
+                            fragmentRegistrationBinding.progressBarRegistraintion.visibility =
+                                View.GONE
+                        }
 
-                    is Result.Failure -> {
-                        showSnackBar(fragmentRegistrationBinding.root, it.message)
-                        fragmentRegistrationBinding.progressBarRegistraintion.visibility = View.GONE
-                    }
+                        is Result.Failure -> {
+                            showSnackBar(fragmentRegistrationBinding.root, it.message)
+                            fragmentRegistrationBinding.progressBarRegistraintion.visibility =
+                                View.GONE
+                        }
 
-                    is Result.Error -> {
-                        showSnackBar(fragmentRegistrationBinding.root, it.error.message!!)
-                        fragmentRegistrationBinding.progressBarRegistraintion.visibility = View.GONE
+                        is Result.Error -> {
+                            showSnackBar(fragmentRegistrationBinding.root, it.error.message!!)
+                            fragmentRegistrationBinding.progressBarRegistraintion.visibility =
+                                View.GONE
+                        }
                     }
                 }
             }
+
+            launch {
+                viewModel.spinnerEvent.collect {
+                    val subCategory = getSubCategories(it)
+                    setupSpinner(
+                        fragmentRegistrationBinding.spinnerRegistrationSubCategory,
+                        subCategory
+                    ) { parent, view, position, id ->
+                        product = product.copy(productScategory = subCategory[position])
+                    }
+                    delay(200)
+                }
+            }
         }
+    }
+
+    private fun getSubCategories(it: Int) = when (mainCategory[it]) {
+        "사료" -> arrayOf("주니어", "어덜트", "시니어", "다이어트", "건식", "습식")
+        "간식" -> arrayOf("껌", "스낵", "육포", "캔", "비스켓", "기타")
+        "장난감" -> arrayOf("공", "인형", "큐브", "훈련용품", "스크래쳐", "기타")
+        "의류" -> arrayOf("레인코트", "신발", "외투", "원피스", "셔츠", "기타")
+        "집" -> arrayOf("계단", "매트", "울타리", "안전문", "하우스", "기타")
+        else -> arrayOf("대분류를 선택해주세요")
     }
 
     private fun showSnackBar(view: View, message: String) {
