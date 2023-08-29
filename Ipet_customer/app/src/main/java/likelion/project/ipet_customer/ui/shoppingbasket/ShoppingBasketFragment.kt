@@ -174,7 +174,7 @@ class ShoppingBasketFragment : Fragment() {
                         .addOnSuccessListener {jointResult ->
                             for (jointDocument in jointResult) {
                                 val jointAnimalType = jointDocument["jointAnimalType"] as String
-                                val jointIdx = jointDocument["jointIdx"] as Long
+                                val jointIdx = jointDocument["jointIdx"] as String
                                 val jointImg = jointDocument["jointImg"] as ArrayList<*>
                                 val jointMember  = jointDocument["jointMember"] as Long
                                 val jointPrice = jointDocument["jointPrice"] as Long
