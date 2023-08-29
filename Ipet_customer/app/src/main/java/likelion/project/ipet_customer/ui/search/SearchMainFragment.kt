@@ -3,18 +3,24 @@ package likelion.project.ipet_customer.ui.search
 import SearchAdapter
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
+import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.chip.Chip
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import likelion.project.ipet_customer.databinding.FragmentSearchMainBinding
 import likelion.project.ipet_customer.model.Product
 import likelion.project.ipet_customer.model.Search
@@ -27,6 +33,7 @@ class SearchMainFragment : Fragment() {
     lateinit var mainActivity: MainActivity
     lateinit var viewModel: SearchViewModel
     val productList = mutableListOf<Product>()
+    val bestIdxList = mutableListOf<String>()
     val bestSellerList = mutableListOf<Any>()
     val db = Firebase.firestore
 
@@ -47,10 +54,8 @@ class SearchMainFragment : Fragment() {
                 chip3.text = reverseList.getOrNull(2) ?: "검색어 3"
                 chip4.text = reverseList.getOrNull(3) ?: "검색어 4"
 
-                // 칩에 보여줄 검색어를 저장할 리스트
                 val chipTexts = mutableListOf<String>()
 
-                // 각 칩에 대해 처리
                 for (i in 0 until 4) {
                     val currentChip = when (i) {
                         0 -> chip1
@@ -60,7 +65,6 @@ class SearchMainFragment : Fragment() {
                         else -> null
                     }
 
-                    // 현재 칩이 null이 아니고, 해당 칩의 텍스트가 중복되지 않으면 추가
                     if (currentChip != null) {
                         val searchText = reverseList.getOrNull(i)
                         if (searchText != null && !chipTexts.contains(searchText)) {
@@ -115,9 +119,40 @@ class SearchMainFragment : Fragment() {
             }
         }
 
-        findTop5BestSellers()
+        findTop5BestSellersCoroutine()
 
         return fragmentSearchMainBinding.root
+    }
+
+    private fun findTop5BestSellersCoroutine() {
+        lifecycleScope.launch {
+            findTop5BestSellers()
+            fragmentSearchMainBinding.run {
+                searchToInfo(buttonSearchMain1, 0)
+                searchToInfo(buttonSearchMain2, 1)
+                searchToInfo(buttonSearchMain3, 2)
+                searchToInfo(buttonSearchMain4, 3)
+                searchToInfo(buttonSearchMain5, 4)
+            }
+        }
+    }
+
+    private fun searchToInfo(button: Button, idx: Int) {
+        if (idx < bestIdxList.size) {
+            button.run {
+                text = bestSellerList[idx].toString()
+                setOnClickListener {
+                    val bundle = Bundle()
+                    val readProductIdx = bestIdxList[idx]
+                    bundle.putString("readProductIdx", readProductIdx)
+                    bundle.putString("readToggle", "product")
+                    mainActivity.replaceFragment(MainActivity.PRODUCT_INFO_FRAGMENT, true, bundle)
+                }
+            }
+        } else {
+            button.text = "상품 없음"
+            button.setOnClickListener(null)
+        }
     }
 
     private fun performSearch(query: String) {
@@ -171,41 +206,30 @@ class SearchMainFragment : Fragment() {
         performSearch(searchText)
     }
 
-    private fun findTop5BestSellers() {
+    private suspend fun findTop5BestSellers() {
         // Firebase Firestore에서 Order 컬렉션 조회
-        db.collection("Order")
-            .get()
-            .addOnSuccessListener { orderResult ->
-                val salesMap = mutableMapOf<String, Int>()
+        val orderResult = db.collection("Order").get().await()
+        val salesMap = mutableMapOf<String, Int>()
 
-                for (orderDocument in orderResult) {
-                    val productIdx = orderDocument["productIdx"] as String
-                    val orderNumber = orderDocument["orderNumber"] as Long
-                    if (salesMap.containsKey(productIdx)) {
-                        val currentSales = salesMap[productIdx] ?: 0
-                        salesMap[productIdx] = currentSales + orderNumber.toInt()
-                    } else {
-                        salesMap[productIdx] = orderNumber.toInt()
-                    }
-                }
-
-                val bestSellers = salesMap.entries.sortedByDescending { it.value }.take(5)
-                val bestSellerProductIdxList = bestSellers.map { it.key }
-                for (productIdx in bestSellerProductIdxList) {
-                    db.collection("Product")
-                        .document(productIdx)
-                        .get()
-                        .addOnSuccessListener { productDocument ->
-                            val bestSellerTitle = productDocument["productTitle"] as String
-                            bestSellerList.add(bestSellerTitle)
-
-                            fragmentSearchMainBinding.buttonSearchMain1.text = (bestSellerList.getOrNull(0) ?: "상품 없음").toString()
-                            fragmentSearchMainBinding.buttonSearchMain2.text = (bestSellerList.getOrNull(1) ?: "상품 없음").toString()
-                            fragmentSearchMainBinding.buttonSearchMain3.text = (bestSellerList.getOrNull(2) ?: "상품 없음").toString()
-                            fragmentSearchMainBinding.buttonSearchMain4.text = (bestSellerList.getOrNull(3) ?: "상품 없음").toString()
-                            fragmentSearchMainBinding.buttonSearchMain5.text = (bestSellerList.getOrNull(4) ?: "상품 없음").toString()
-                        }
-                }
+        for (orderDocument in orderResult) {
+            val productIdx = orderDocument["productIdx"] as String
+            val orderNumber = orderDocument["orderNumber"] as Long
+            if (salesMap.containsKey(productIdx)) {
+                val currentSales = salesMap[productIdx] ?: 0
+                salesMap[productIdx] = currentSales + orderNumber.toInt()
+            } else {
+                salesMap[productIdx] = orderNumber.toInt()
             }
+        }
+
+        val bestSellers = salesMap.entries.sortedByDescending { it.value }.take(5)
+        val bestSellerProductIdxList = bestSellers.map { it.key }
+        for (productIdx in bestSellerProductIdxList) {
+            val productDocument = db.collection("Product").document(productIdx).get().await()
+            val bestSellerIdx = productDocument["productIdx"] as String
+            val bestSellerTitle = productDocument["productTitle"] as String
+            bestIdxList.add(bestSellerIdx)
+            bestSellerList.add(bestSellerTitle)
+        }
     }
 }
