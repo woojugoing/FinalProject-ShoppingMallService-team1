@@ -59,9 +59,6 @@ class UserInfoAddressFragment : Fragment() {
                 loadUrl(blogAddress)
             }
         }
-
         return fragmentUserInfoAddressBinding.root
     }
-
-
 }
