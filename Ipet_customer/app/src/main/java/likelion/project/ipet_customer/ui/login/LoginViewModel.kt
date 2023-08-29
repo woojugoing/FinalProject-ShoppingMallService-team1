@@ -61,7 +61,7 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
                     val payloadJSONObject = JSONObject(idTokenPayload)
                     val customerNickname = payloadJSONObject["nickname"].toString()
                     val customerId = payloadJSONObject["sub"].toString()
-                    val customer = Customer(customerId, customerNickname)
+                    val customer = Customer(LOGIN_KAKAO, customerId, customerNickname)
                     // 로그인
                     loginWithDatabase(customer)
                 }
@@ -101,7 +101,7 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
                             "사용자 제공 미동의"
                         }
                         val customerAddressAddress = "배송지 미설정"
-                        val customer = Customer(customerId, customerNickname, customerEmail, customerAddressAddress)
+                        val customer = Customer(LOGIN_KAKAO, customerId, customerNickname, customerEmail, customerAddressAddress)
                         // 로그인
                         loginWithDatabase(customer)
                     }
@@ -126,7 +126,7 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
                         val customerId = response.profile?.id.toString()
                         val customerEmail = response.profile?.email.toString()
                         val customerAddressAddress = "배송지 미설정"
-                        val customer = Customer(customerId, customerNickname, customerEmail, customerAddressAddress)
+                        val customer = Customer(LOGIN_NAVER, customerId, customerNickname, customerEmail, customerAddressAddress)
                         // 로그인
                         loginWithDatabase(customer)
                     }
@@ -177,7 +177,7 @@ class LoginViewModel(mainActivity: MainActivity) : ViewModel() {
             val customerEmail = account.email
             val customerAddressAddress = "배송지 미설정"
             if (customerId != null && customerNickname != null && customerEmail != null) {
-                val customer = Customer(customerId, customerNickname, customerEmail, customerAddressAddress)
+                val customer = Customer(LOGIN_GOOGLE, customerId, customerNickname, customerEmail, customerAddressAddress)
                 // 로그인
                 loginWithDatabase(customer)
             }

@@ -7,7 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F7F2FA"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <view
         android:id="@+id/view"
@@ -85,7 +86,7 @@
                 android:id="@+id/textview_bottomsheet_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0"
+                android:text="1"
                 android:textAppearance="@style/Typography.Bold20"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imagebutton_bottomsheet_minus"
