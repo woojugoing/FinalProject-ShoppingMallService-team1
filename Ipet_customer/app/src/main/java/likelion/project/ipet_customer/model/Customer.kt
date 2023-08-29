@@ -2,6 +2,7 @@ package likelion.project.ipet_customer.model
 
 data class Customer(
     // 초기 로그인 단계에서 설정되는 정보
+    val customerType: Int = 0,
     val customerId: String = "",
     val customerName: String = "",
     val customerEmail: String = "",
