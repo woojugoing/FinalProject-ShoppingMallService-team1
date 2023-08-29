@@ -8,14 +8,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.ScrollView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.launch
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.FragmentProductInfoBinding
 import likelion.project.ipet_customer.model.Joint
@@ -34,6 +37,7 @@ class ProductInfoFragment : Fragment() {
     var readToggle = ""
 
     var imgList: List<String> = emptyList()
+    lateinit var sheetBehavior: BottomSheetBehavior<LinearLayout>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +45,8 @@ class ProductInfoFragment : Fragment() {
     ): View? {
         binding = FragmentProductInfoBinding.inflate(inflater)
         mainActivity = activity as MainActivity
+
+        sheetBehavior = BottomSheetBehavior.from(binding.includeProductinfoBottomsheet.bottomsheetProductinfo)
 
         readToggle = arguments?.getString("readToggle")!!
 
@@ -53,10 +59,6 @@ class ProductInfoFragment : Fragment() {
         productInfoViewModel = ViewModelProvider(this)[ProductInfoViewModel::class.java]
 
         binding.run {
-
-            val sheetBehavior =
-                BottomSheetBehavior.from(includeProductinfoBottomsheet.bottomsheetProductinfo)
-
             toolbarProductInfo.run {
 
                 setNavigationIcon(R.drawable.ic_back_24dp)
@@ -95,43 +97,19 @@ class ProductInfoFragment : Fragment() {
                 readProductIdx = arguments?.getString("readProductIdx")!!
                 val newBundle = Bundle()
                 newBundle.putString("readProductIdx", readProductIdx)
+
                 mainActivity.replaceFragment(MainActivity.REVIEWALL_FRAGMENT, true, newBundle)
-
-                // 구매하기 버튼
-                buttonProductinfoBuy.setOnClickListener {
-                    sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-                }
             }
 
-            includeProductinfoBottomsheet.run {
-                // 원가 가격 표시
-                textviewBottomsheetCostprice.paintFlags =
-                    textviewProductinfoCostprice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-
-                var num = 1
-                // 왼쪽 화살표 버튼
-                imagebuttonBottomsheetMinus.setOnClickListener {
-                    if (num > 1) {
-                        num--
-                    }
-                }
-                // 오른쪽 화살표 버튼
-                imagebuttonBottomsheetPlus.setOnClickListener {
-                    num++
+            sheetBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+                override fun onStateChanged(bottomSheet: View, newState: Int) {
+                    Log.d("InfoFragment", "BottomSheet state changed: $newState")
                 }
 
-                buttonBottomsheetBuy.setOnClickListener {
-                    for (n in 1 .. num){
-                        productInfoViewModel.setAddCart(readProductIdx, "일반")
-                    }
-
-                    mainActivity.replaceFragment(MainActivity.SHOPPING_BASKET_FRAGMENT, true, null)
+                override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                    // 슬라이딩 중인 경우
                 }
-
-                buttonBottomsheetCart.setOnClickListener {
-                    productInfoViewModel.setAddCart(readProductIdx, "일반")
-                }
-            }
+            })
 
             setupViewModel()
             return binding.root
@@ -176,8 +154,52 @@ class ProductInfoFragment : Fragment() {
             viewpager2ProductinfoThumbnail.adapter = ProductInfoFragmentStateAdapter(mainActivity)
 
             buttonProductinfoBuy.setOnClickListener {
-                val sheetBehavior = BottomSheetBehavior.from(includeProductinfoBottomsheet.bottomsheetProductinfo)
                 sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+
+            }
+
+            includeProductinfoBottomsheet.run {
+
+                // 원가 가격 표시
+                textviewBottomsheetCostprice.paintFlags =
+                    textviewProductinfoCostprice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+
+                var num = 1
+                // 왼쪽 화살표 버튼
+                imagebuttonBottomsheetMinus.setOnClickListener {
+                    if (num > 1) {
+                        num--
+                        textviewBottomsheetNumber.text = "$num"
+                    }
+                }
+                // 오른쪽 화살표 버튼
+                imagebuttonBottomsheetPlus.setOnClickListener {
+                    num++
+                    textviewBottomsheetNumber.text = "$num"
+                }
+
+                buttonBottomsheetBuy.setOnClickListener {
+                    lifecycleScope.launch {
+                        for (n in 1 .. num) {
+                            productInfoViewModel.setAddCart(readProductIdx, "일반")
+                        }
+                    }
+
+                    sheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+                    mainActivity.replaceFragment(MainActivity.SHOPPING_BASKET_FRAGMENT, true, null)
+                }
+
+                buttonBottomsheetCart.setOnClickListener {
+                    if (sheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+                        sheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+                    }
+
+                    lifecycleScope.launch {
+                        for (n in 1 .. num) {
+                            productInfoViewModel.setAddCart(readProductIdx, "일반")
+                        }
+                    }
+                }
             }
         }
 
@@ -193,15 +215,13 @@ class ProductInfoFragment : Fragment() {
             buttonProductinfoBuy.run {
                 text = "공동 구매 참여하기"
                 setOnClickListener {
-                    productInfoViewModel.setAddCart(readProductIdx, "공동")
+                    productInfoViewModel.setAddCart(readJointIdx, "공동")
                     mainActivity.replaceFragment(MainActivity.SHOPPING_BASKET_FRAGMENT, true, null)
                 }
             }
 
             imageviewProductinfoHeart.visibility = View.GONE
         }
-
-
 
         setupTabLayoutMediator()
         loadDetailImage()
