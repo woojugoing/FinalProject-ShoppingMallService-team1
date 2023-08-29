@@ -101,25 +101,6 @@ class ProductInfoFragment : Fragment() {
                 buttonProductinfoBuy.setOnClickListener {
                     sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
                 }
-
-                // bottomSheet
-                includeProductinfoBottomsheet.run {
-                    // 원가 가격 표시
-                    textviewBottomsheetCostprice.paintFlags =
-                        textviewProductinfoCostprice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-
-                    var num = 0
-                    // 왼쪽 화살표 버튼
-                    imagebuttonBottomsheetMinus.setOnClickListener {
-                        if (num > 0) {
-                            num--
-                        }
-                    }
-                    // 오른쪽 화살표 버튼
-                    imagebuttonBottomsheetPlus.setOnClickListener {
-                        num++
-                    }
-                }
             }
 
             setupViewModel()
@@ -161,7 +142,35 @@ class ProductInfoFragment : Fragment() {
     private fun handleProductData(product: Product) {
         loadText(product.productTitle, product.productText, product.productPrice)
         imgList = product.productImg as ArrayList<String>
-        binding.viewpager2ProductinfoThumbnail.adapter = ProductInfoFragmentStateAdapter(mainActivity)
+        binding.run {
+            viewpager2ProductinfoThumbnail.adapter = ProductInfoFragmentStateAdapter(mainActivity)
+            // bottomSheet
+            includeProductinfoBottomsheet.run {
+                // 원가 가격 표시
+                textviewBottomsheetCostprice.paintFlags =
+                    textviewProductinfoCostprice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+
+                var num = 0
+                // 왼쪽 화살표 버튼
+                imagebuttonBottomsheetMinus.setOnClickListener {
+                    if (num > 0) {
+                        num--
+                    }
+                }
+                // 오른쪽 화살표 버튼
+                imagebuttonBottomsheetPlus.setOnClickListener {
+                    num++
+                }
+
+                buttonBottomsheetBuy.setOnClickListener {
+
+                }
+
+                buttonBottomsheetCart.setOnClickListener {
+
+                }
+            }
+        }
 
         setupTabLayoutMediator()
         loadDetailImage()
@@ -170,7 +179,19 @@ class ProductInfoFragment : Fragment() {
     private fun handleJointData(joint: Joint) {
         loadText(joint.jointTitle, joint.jointText, joint.jointPrice)
         imgList = joint.jointImg as ArrayList<String>
-        binding.viewpager2ProductinfoThumbnail.adapter = ProductInfoFragmentStateAdapter(mainActivity)
+        binding.run {
+            viewpager2ProductinfoThumbnail.adapter = ProductInfoFragmentStateAdapter(mainActivity)
+            buttonProductinfoBuy.run {
+                text = "공동 구매 참여하기"
+                setOnClickListener {
+                    
+                }
+            }
+
+            imageviewProductinfoHeart.visibility = View.GONE
+        }
+
+
 
         setupTabLayoutMediator()
         loadDetailImage()
