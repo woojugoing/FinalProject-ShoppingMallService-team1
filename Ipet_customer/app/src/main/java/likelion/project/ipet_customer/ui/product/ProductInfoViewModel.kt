@@ -3,18 +3,24 @@ package likelion.project.ipet_customer.ui.product
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import likelion.project.ipet_customer.model.Cart
 import likelion.project.ipet_customer.model.Joint
 import likelion.project.ipet_customer.model.Product
 import likelion.project.ipet_customer.model.Review
+import likelion.project.ipet_customer.repository.CartRepository
 import likelion.project.ipet_customer.repository.JointRepository
 import likelion.project.ipet_customer.repository.ProductRepository
 import likelion.project.ipet_customer.repository.ReviewRepository
+import likelion.project.ipet_customer.ui.login.LoginViewModel
 
 class ProductInfoViewModel : ViewModel() {
     private val productRepository = ProductRepository()
     private val jointRepository = JointRepository()
     private val reviewRepository = ReviewRepository()
+    private val cartRepository = CartRepository()
 
     val productLiveData = MutableLiveData<Product>()
     val jointLiveData = MutableLiveData<Joint>()
@@ -38,6 +44,21 @@ class ProductInfoViewModel : ViewModel() {
         viewModelScope.launch{
             val reviews = reviewRepository.selectReview(productIdx)
             reviewLiveData.postValue(reviews)
+        }
+    }
+
+    fun setAddCart(productIdx : String, productType: String){
+        viewModelScope.launch(Dispatchers.IO) {
+            val customerId = LoginViewModel.customer.customerId
+            val cart = Cart(customerId, productIdx, productType)
+
+            // 비동기 작업 수행 후 Deferred를 반환
+            val deferred = async(Dispatchers.IO) {
+                cartRepository.setAddCart(cart)
+            }
+
+            // 비동기 작업이 완료될 때까지 대기하며 결과 반환
+            deferred.await()
         }
     }
 }

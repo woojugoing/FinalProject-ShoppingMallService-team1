@@ -222,7 +222,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center|left"
             android:src="@drawable/ic_favorite_48dp"
-            android:tint="#FF0000" />
+            app:tint="#FF0000" />
 
         <Button
             android:id="@+id/button_productinfo_buy"
