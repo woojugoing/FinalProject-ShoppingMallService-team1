@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.FragmentPaymentCompleteBinding
 import likelion.project.ipet_customer.ui.main.MainActivity
 
@@ -50,6 +51,7 @@ class PaymentCompleteFragment : Fragment() {
                     for (i in 0 until fragmentManager.backStackEntryCount) {
                         fragmentManager.popBackStackImmediate()
                     }
+                    mainActivity.selectBottomNavigationItem(R.id.item_bottom_home)
                     mainActivity.replaceFragment(MainActivity.HOME_FRAGMENT, false, null)
 
                 }
@@ -65,7 +67,12 @@ class PaymentCompleteFragment : Fragment() {
                         fragmentManager.popBackStackImmediate()
                     }
 
-                    mainActivity.replaceFragment(MainActivity.USER_INFO_MAIN_FRAGMENT, false, null)
+                    mainActivity.activityMainBinding.bottomNavigation.visibility = View.VISIBLE
+                    mainActivity.selectBottomNavigationItem(R.id.item_bottom_userInfo)
+
+                    val newBundle = Bundle()
+                    newBundle.putString("fragmentState", "Detail")
+                    mainActivity.replaceFragment(MainActivity.ORDER_STATUS_FRAGMENT, true, newBundle)
                 }
             }
 
