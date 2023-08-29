@@ -31,6 +31,7 @@ class CustomerDataSource {
         getUserData(customer).addOnSuccessListener {
             val filePath = it.documents[0].reference.path
             db.document(filePath).update("customerAddressAddress", customer.customerAddressAddress)
+            db.document(filePath).update("customerAddressDetail", customer.customerAddressDetail)
         }
     }
 }
