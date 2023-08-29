@@ -145,6 +145,7 @@ class UserInfoMainFragment : Fragment() {
                 val dialog = builder.create()
 
                 binding.buttonDrawelCheckYes.setOnClickListener {
+                    userInfoViewModel.signOut(LoginViewModel.customer, mainActivity)
                     mainActivity.activityMainBinding.bottomNavigation.visibility = View.GONE
                     mainActivity.replaceFragment(MainActivity.LOGIN_FRAGMENT, false, null)
                     dialog.dismiss()
