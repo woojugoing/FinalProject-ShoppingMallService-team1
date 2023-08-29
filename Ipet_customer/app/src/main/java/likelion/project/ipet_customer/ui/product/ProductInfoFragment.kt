@@ -108,10 +108,10 @@ class ProductInfoFragment : Fragment() {
                 textviewBottomsheetCostprice.paintFlags =
                     textviewProductinfoCostprice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
-                var num = 0
+                var num = 1
                 // 왼쪽 화살표 버튼
                 imagebuttonBottomsheetMinus.setOnClickListener {
-                    if (num > 0) {
+                    if (num > 1) {
                         num--
                     }
                 }
@@ -121,11 +121,15 @@ class ProductInfoFragment : Fragment() {
                 }
 
                 buttonBottomsheetBuy.setOnClickListener {
+                    for (n in 1 .. num){
+                        productInfoViewModel.setAddCart(readProductIdx, "일반")
+                    }
 
+                    mainActivity.replaceFragment(MainActivity.SHOPPING_BASKET_FRAGMENT, true, null)
                 }
 
                 buttonBottomsheetCart.setOnClickListener {
-
+                    productInfoViewModel.setAddCart(readProductIdx, "일반")
                 }
             }
 
@@ -189,7 +193,8 @@ class ProductInfoFragment : Fragment() {
             buttonProductinfoBuy.run {
                 text = "공동 구매 참여하기"
                 setOnClickListener {
-                    
+                    productInfoViewModel.setAddCart(readProductIdx, "공동")
+                    mainActivity.replaceFragment(MainActivity.SHOPPING_BASKET_FRAGMENT, true, null)
                 }
             }
 
