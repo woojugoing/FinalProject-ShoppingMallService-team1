@@ -57,6 +57,8 @@ class ProductInfoFragment : Fragment() {
         }
 
         productInfoViewModel = ViewModelProvider(this)[ProductInfoViewModel::class.java]
+        
+        setupHeartListener()
 
         binding.run {
             toolbarProductInfo.run {
@@ -73,20 +75,6 @@ class ProductInfoFragment : Fragment() {
 
             // 상세 이미지1
             imageviewProductinfoDetail1.setImageResource(R.drawable.img_dog_food_detail)
-
-            // 찜 버튼
-            imageviewProductinfoHeart.setOnClickListener {
-                val imageView = it as ImageView
-                imageView.setImageResource(
-                    if (imageView.isSelected) {
-                        R.drawable.ic_favorite_48dp
-                    } else {
-                        R.drawable.ic_favorite_fill_48dp
-                    }
-                )
-                imageView.setColorFilter(ContextCompat.getColor(mainActivity, R.color.red))
-                imageView.isSelected = !imageView.isSelected
-            }
 
             textviewProductinfoReviewnumber.setOnClickListener {
                 scrollviewProductinfo.fullScroll(ScrollView.FOCUS_DOWN)
@@ -246,6 +234,25 @@ class ProductInfoFragment : Fragment() {
             }
 
             loadReviewData(total/reviews.size, reviews.size)
+        }
+    }
+
+    private fun setupHeartListener() {
+        val productIdx = readProductIdx
+
+        productInfoViewModel.registerHeartListener(productIdx) { isHearted ->
+            // 리스너 콜백에서 하트 버튼 상태와 동작을 업데이트
+            if (isHearted) {
+                binding.imageviewProductinfoHeart.setImageResource(R.drawable.ic_favorite_fill_48dp)
+                binding.imageviewProductinfoHeart.setOnClickListener {
+                    productInfoViewModel.setDeleteHeart(readProductIdx)
+                }
+            } else {
+                binding.imageviewProductinfoHeart.setImageResource(R.drawable.ic_favorite_48dp)
+                binding.imageviewProductinfoHeart.setOnClickListener {
+                    productInfoViewModel.setAddHeart(readProductIdx)
+                }
+            }
         }
     }
 
