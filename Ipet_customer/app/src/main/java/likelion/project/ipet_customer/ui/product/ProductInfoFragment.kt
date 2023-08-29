@@ -103,6 +103,32 @@ class ProductInfoFragment : Fragment() {
                 }
             }
 
+            includeProductinfoBottomsheet.run {
+                // 원가 가격 표시
+                textviewBottomsheetCostprice.paintFlags =
+                    textviewProductinfoCostprice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+
+                var num = 0
+                // 왼쪽 화살표 버튼
+                imagebuttonBottomsheetMinus.setOnClickListener {
+                    if (num > 0) {
+                        num--
+                    }
+                }
+                // 오른쪽 화살표 버튼
+                imagebuttonBottomsheetPlus.setOnClickListener {
+                    num++
+                }
+
+                buttonBottomsheetBuy.setOnClickListener {
+
+                }
+
+                buttonBottomsheetCart.setOnClickListener {
+
+                }
+            }
+
             setupViewModel()
             return binding.root
         }
@@ -144,31 +170,10 @@ class ProductInfoFragment : Fragment() {
         imgList = product.productImg as ArrayList<String>
         binding.run {
             viewpager2ProductinfoThumbnail.adapter = ProductInfoFragmentStateAdapter(mainActivity)
-            // bottomSheet
-            includeProductinfoBottomsheet.run {
-                // 원가 가격 표시
-                textviewBottomsheetCostprice.paintFlags =
-                    textviewProductinfoCostprice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
-                var num = 0
-                // 왼쪽 화살표 버튼
-                imagebuttonBottomsheetMinus.setOnClickListener {
-                    if (num > 0) {
-                        num--
-                    }
-                }
-                // 오른쪽 화살표 버튼
-                imagebuttonBottomsheetPlus.setOnClickListener {
-                    num++
-                }
-
-                buttonBottomsheetBuy.setOnClickListener {
-
-                }
-
-                buttonBottomsheetCart.setOnClickListener {
-
-                }
+            buttonProductinfoBuy.setOnClickListener {
+                val sheetBehavior = BottomSheetBehavior.from(includeProductinfoBottomsheet.bottomsheetProductinfo)
+                sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
             }
         }
 
