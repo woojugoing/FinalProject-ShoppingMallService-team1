@@ -233,45 +233,41 @@ class ShoppingBasketFragment : Fragment() {
         productDataList.clear()
 
         db.collection("Cart")
-            .whereEqualTo("buyerId", customerId) // 구매자의 아이디 받아오기
-            .whereEqualTo("productIdx", "H338D04FOFDkay8LYyNW")    // Todo 공동구매의 제품번호를 받아오도록하기
+            .whereEqualTo("buyerId", customerId)
             .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    val productIdx = document["productIdx"] as String
+            .addOnSuccessListener { cartResult ->
+                val productIdxList = mutableListOf<String>()
 
-                    db.collection("Product")
-                        .whereEqualTo("productIdx", productIdx)
-                        .get(com.google.firebase.firestore.Source.CACHE)
-                        .addOnSuccessListener {product ->
-                            for (documentProduct in product) {
+                for (cartDocument in cartResult) {
+                    val productIdx = cartDocument.getString("productIdx")
+                    if (!productIdx.isNullOrEmpty()) {
+                        productIdxList.add(productIdx)
+                    }
+                }
 
-                                val productAnimalType = documentProduct["productAnimalType"] as String
-                                val productIdx = documentProduct["productIdx"] as String
-                                val productImg = documentProduct["productImg"] as ArrayList<*>
-                                val productLCategory  = documentProduct["productLcategory"] as String
-                                val productPrice = documentProduct["productPrice"] as Long
-                                val productSCategory = documentProduct["productScategory"] as String
-                                val productSeller = documentProduct["productSeller"] as String
-                                val productStock = documentProduct["productStock"] as Long
-                                val productText = documentProduct["productText"] as String
-                                val productTitle = documentProduct["productTitle"] as String
-
-                                val product = Product(productAnimalType, productIdx, productImg, productLCategory, productPrice, productSCategory, productSeller, productStock, productText, productTitle)
+                if (productIdxList.isNotEmpty()) {
+                    // 위에서 가져온 productIdxList를 이용하여 Product 컬렉션에서 데이터 조회
+                    val productQuery = db.collection("Product").whereIn("productIdx", productIdxList)
+                    productQuery.get(com.google.firebase.firestore.Source.CACHE)
+                        .addOnSuccessListener { productResult ->
+                            for (productDocument in productResult) {
+                                val product = productDocument.toObject(Product::class.java)
                                 productDataList.add(product)
-
-                                Log.d("ShoppingBasketFragment", "productDataList : ${productDataList}")
                             }
+
                             fragmentShoppingBasketBinding.recyclerGoodsList.adapter?.notifyDataSetChanged()
-                            if(productDataList.isEmpty()) {
+                            if (productDataList.isEmpty()) {
                                 fragmentShoppingBasketBinding.linearLayoutEmpty.visibility = View.VISIBLE
                             } else {
                                 fragmentShoppingBasketBinding.linearLayoutEmpty.visibility = View.GONE
                             }
-
                         }
+                        .addOnFailureListener { exception ->
+                            Log.d("ShoppingBasketFragment", "Error getting documents: ", exception)
+                        }
+                } else {
+                    // productIdxList가 비어있을 때 처리
                 }
-
             }
             .addOnFailureListener { exception ->
                 Log.d("ShoppingBasketFragment", "Error getting documents: ", exception)
@@ -282,53 +278,44 @@ class ShoppingBasketFragment : Fragment() {
         jointDataList.clear()
 
         db.collection("Cart")
-            .whereEqualTo("buyerId", customerId) // 구매자의 아이디 받아오기
-            .whereEqualTo("productIdx", "WtrL3xe6aTQA86oZAXGL")    // Todo 공동구매의 제품번호를 받아오도록하기
+            .whereEqualTo("buyerId", customerId)
             .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    val jointIdx = document["productIdx"] as String
-                    Log.d("ShoppingBasketFragment", "jointIdx : ${jointIdx}")
+            .addOnSuccessListener { cartResult ->
+                val productIdxList = mutableListOf<String>()
 
-                    // Joint 컬렉션에서 jointIdx와 값이 같은 문서를 찾기
-                    db.collection("Joint")
-                        .whereEqualTo("jointIdx", jointIdx)
-                        .get(com.google.firebase.firestore.Source.CACHE)
-                        .addOnSuccessListener {jointResult ->
+                for (cartDocument in cartResult) {
+                    val productIdx = cartDocument.getString("productIdx")
+                    if (!productIdx.isNullOrEmpty()) {
+                        productIdxList.add(productIdx)
+                    }
+                }
+
+                if (productIdxList.isNotEmpty()) {
+                    val jointQuery = db.collection("Joint").whereIn("jointIdx", productIdxList)
+                    jointQuery.get(com.google.firebase.firestore.Source.CACHE)
+                        .addOnSuccessListener { jointResult ->
                             for (jointDocument in jointResult) {
-                                val jointAnimalType = jointDocument["jointAnimalType"] as String
-                                val jointIdx = jointDocument["jointIdx"] as String
-                                val jointImg = jointDocument["jointImg"] as ArrayList<*>
-                                val jointMember  = jointDocument["jointMember"] as Long
-                                val jointPrice = jointDocument["jointPrice"] as Long
-                                val jointSeller = jointDocument["jointSeller"] as String
-                                val jointTerm = jointDocument["jointTerm"] as String
-                                val jointText = jointDocument["jointText"] as String
-                                val jointTitle = jointDocument["jointTitle"] as String
-                                val jointTotalMember = jointDocument["jointTotalMember"] as Long
-
-                                val product = Joint(jointAnimalType, jointIdx, jointImg, jointMember, jointPrice, jointSeller, jointTerm, jointText, jointTitle, jointTotalMember)
-                                jointDataList.add(product)
-
-                                Log.d("ShoppingBasketFragment", "jointDataList : ${jointDataList}")
+                                val joint = jointDocument.toObject(Joint::class.java)
+                                jointDataList.add(joint)
                             }
+
                             fragmentShoppingBasketBinding.recyclerGroupGoodsList.adapter?.notifyDataSetChanged()
-                            if(jointDataList.isEmpty()) {
+                            if (jointDataList.isEmpty()) {
                                 fragmentShoppingBasketBinding.linearLayoutEmptyGroup.visibility = View.VISIBLE
                             } else {
                                 fragmentShoppingBasketBinding.linearLayoutEmptyGroup.visibility = View.GONE
                             }
-
-
                         }
-
-
+                        .addOnFailureListener { exception ->
+                            Log.d("ShoppingBasketFragment", "Error getting documents: ", exception)
+                        }
+                } else {
+                    // productIdxList가 비어있을 때 처리
                 }
             }
             .addOnFailureListener { exception ->
                 Log.d("ShoppingBasketFragment", "Error getting documents: ", exception)
             }
-
     }
 
     inner class ShoppingBasketAdapter : RecyclerView.Adapter<ShoppingBasketAdapter.ShoppingBasketHolder>() {
