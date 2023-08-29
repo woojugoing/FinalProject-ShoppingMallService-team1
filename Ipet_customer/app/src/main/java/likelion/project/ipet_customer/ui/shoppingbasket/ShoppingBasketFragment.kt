@@ -33,6 +33,10 @@ class ShoppingBasketFragment : Fragment() {
     val db = Firebase.firestore
     val customerId = LoginViewModel.customer.customerId
 
+    // 선택된 상품 인덱스를 추적하는 집합
+    private val selectedProducts = mutableSetOf<Int>()
+    private val selectedGroupProducts = mutableSetOf<Int>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -104,6 +108,122 @@ class ShoppingBasketFragment : Fragment() {
                 }
             }
 
+            // 담아둔 상품의 "선택삭제" 텍스트 클릭 시
+            textViewShoppingBasketSelectDelete.setOnClickListener {
+                val iterator = selectedProducts.iterator()
+                while (iterator.hasNext()) {
+                    val selectedIndex = iterator.next()
+                    val selectedProduct = productDataList[selectedIndex]
+
+                    // 선택된 제품의 ID를 사용하여 파이어스토어에서 해당 데이터를 삭제한다
+                    db.collection("Cart")
+                        .whereEqualTo("buyerId", customerId)
+                        .whereEqualTo("productIdx", selectedProduct.productIdx) // 선택된 제품의 ID를 조건으로 설정
+                        .get()
+                        .addOnSuccessListener { result ->
+                            for (document in result) {
+                                // 파이어스토어에서 해당 문서를 삭제한다
+                                db.collection("Cart").document(document.id).delete()
+                            }
+                        }
+                        .addOnFailureListener { exception ->
+                            Log.d("ShoppingBasketFragment", "Error deleting document: ", exception)
+                        }
+
+                    iterator.remove()
+                    productDataList.removeAt(selectedIndex)
+                }
+
+                fragmentShoppingBasketBinding.recyclerGoodsList.adapter?.notifyDataSetChanged()
+                if(productDataList.isEmpty()) {
+                    fragmentShoppingBasketBinding.linearLayoutEmpty.visibility = View.VISIBLE
+                } else {
+                    fragmentShoppingBasketBinding.linearLayoutEmpty.visibility = View.GONE
+                }
+            }
+
+            // 담아둔 상품의 "전체삭제" 텍스트 클릭 시
+            textViewShoppingBasketSelectDeleteAll.setOnClickListener {
+                for (product in productDataList) {
+                    val productIdx = product.productIdx // 제품 데이터에서 고유 식별자 가져옴
+
+                    db.collection("Cart")
+                        .whereEqualTo("buyerId", customerId)
+                        .whereEqualTo("productIdx", productIdx)
+                        .get()
+                        .addOnSuccessListener { result ->
+                            for (document in result) {
+                                db.collection("Cart").document(document.id).delete()
+                            }
+                        }
+                        .addOnFailureListener { exception ->
+                            Log.d("ShoppingBasketFragment", "Error deleting document: ", exception)
+                        }
+                }
+
+                productDataList.clear()
+                fragmentShoppingBasketBinding.recyclerGoodsList.adapter?.notifyDataSetChanged()
+
+                fragmentShoppingBasketBinding.linearLayoutEmpty.visibility = View.VISIBLE
+            }
+
+            // 담아둔 공동 구매 상품의 "선택삭제" 텍스트 클릭 시
+            textViewShoppingBasketGroupSelectDelete.setOnClickListener {
+                val iterator = selectedGroupProducts.iterator()
+                while (iterator.hasNext()) {
+                    val selectedIndex = iterator.next()
+                    val selectedJoint = jointDataList[selectedIndex]
+
+                    db.collection("Cart")
+                        .whereEqualTo("buyerId", customerId)
+                        .whereEqualTo("productIdx", selectedJoint.jointIdx) // 선택된 공동 구매 품목의 ID를 조건으로 설정
+                        .get()
+                        .addOnSuccessListener { result ->
+                            for (document in result) {
+                                db.collection("Cart").document(document.id).delete()
+                            }
+                        }
+                        .addOnFailureListener { exception ->
+                            Log.d("ShoppingBasketFragment", "Error deleting document: ", exception)
+                        }
+
+                    iterator.remove()
+                    jointDataList.removeAt(selectedIndex)
+                }
+
+                fragmentShoppingBasketBinding.recyclerGroupGoodsList.adapter?.notifyDataSetChanged()
+                if (jointDataList.isEmpty()) {
+                    fragmentShoppingBasketBinding.linearLayoutEmptyGroup.visibility = View.VISIBLE
+                } else {
+                    fragmentShoppingBasketBinding.linearLayoutEmptyGroup.visibility = View.GONE
+                }
+            }
+
+            // 담아둔 공동 구매 상품의 "전체삭제" 텍스트 클릭 시
+            textViewShoppingBasketGroupSelectDeleteAll.setOnClickListener {
+                for (joint in jointDataList) {
+                    val jointIdx = joint.jointIdx
+
+                    db.collection("Cart")
+                        .whereEqualTo("buyerId", customerId)
+                        .whereEqualTo("productIdx", jointIdx)
+                        .get()
+                        .addOnSuccessListener { result ->
+                            for (document in result) {
+                                db.collection("Cart").document(document.id).delete()
+                            }
+                        }
+                        .addOnFailureListener { exception ->
+                            Log.d("ShoppingBasketFragment", "Error deleting document: ", exception)
+                        }
+                }
+
+                jointDataList.clear()
+                fragmentShoppingBasketBinding.recyclerGroupGoodsList.adapter?.notifyDataSetChanged()
+
+                fragmentShoppingBasketBinding.linearLayoutEmptyGroup.visibility = View.VISIBLE
+            }
+
         }
 
         return fragmentShoppingBasketBinding.root
@@ -163,7 +283,7 @@ class ShoppingBasketFragment : Fragment() {
 
         db.collection("Cart")
             .whereEqualTo("buyerId", customerId) // 구매자의 아이디 받아오기
-            .whereEqualTo("productIdx", "1")    // Todo 공동구매의 제품번호를 받아오도록하기
+            .whereEqualTo("productIdx", "WtrL3xe6aTQA86oZAXGL")    // Todo 공동구매의 제품번호를 받아오도록하기
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
@@ -172,12 +292,12 @@ class ShoppingBasketFragment : Fragment() {
 
                     // Joint 컬렉션에서 jointIdx와 값이 같은 문서를 찾기
                     db.collection("Joint")
-                        .whereEqualTo("jointIdx", jointIdx.toLong())
+                        .whereEqualTo("jointIdx", jointIdx)
                         .get(com.google.firebase.firestore.Source.CACHE)
                         .addOnSuccessListener {jointResult ->
                             for (jointDocument in jointResult) {
                                 val jointAnimalType = jointDocument["jointAnimalType"] as String
-                                val jointIdx = jointDocument["jointIdx"] as Long
+                                val jointIdx = jointDocument["jointIdx"] as String
                                 val jointImg = jointDocument["jointImg"] as ArrayList<*>
                                 val jointMember  = jointDocument["jointMember"] as Long
                                 val jointPrice = jointDocument["jointPrice"] as Long
@@ -261,6 +381,16 @@ class ShoppingBasketFragment : Fragment() {
                     .load(it)
                     .into(holder.imageViewProduct)
             }
+
+            holder.checkBoxProdut.isChecked = selectedProducts.contains(position)
+            holder.checkBoxProdut.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    selectedProducts.add(position)
+                } else {
+                    selectedProducts.remove(position)
+                }
+            }
+
         }
 
     }
@@ -317,6 +447,16 @@ class ShoppingBasketFragment : Fragment() {
                     .load(it)
                     .into(holder.imageViewGroupBuying)
             }
+
+            holder.checkBoxGroupBuying.isChecked = selectedGroupProducts.contains(position)
+            holder.checkBoxGroupBuying.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    selectedGroupProducts.add(position)
+                } else {
+                    selectedGroupProducts.remove(position)
+                }
+            }
+
         }
 
     }
