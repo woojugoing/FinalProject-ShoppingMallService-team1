@@ -20,6 +20,7 @@ class UserInfoMainFragment : Fragment() {
     lateinit var fragmentUserInfoMainBinding: FragmentUserInfoMainBinding
     lateinit var mainActivity: MainActivity
     var fragmentState = ""
+    val userInfoViewModel = UserInfoViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,8 +36,8 @@ class UserInfoMainFragment : Fragment() {
 
 
         fragmentUserInfoMainBinding.run {
-            textViewUserInfoAddress.append(LoginViewModel.customer.customerAddressAddress)
-
+            textViewUserInfoAddress.text = "${LoginViewModel.customer.customerAddressAddress}" +
+                    " ${LoginViewModel.customer.customerAddressDetail}"
 
             toolbarUserInfoMain.run {
                 title = "내 정보"
@@ -121,6 +122,9 @@ class UserInfoMainFragment : Fragment() {
                 // 입력 완료
                 binding.buttonChangeAddressConfirm.setOnClickListener {
                     Toast.makeText(mainActivity, "상세 주소가 정상적으로 저장되었습니다.", Toast.LENGTH_SHORT).show()
+                    // 사용자 입력 상세주소 ViewModel 저장
+                    LoginViewModel.customer.customerAddressDetail = binding.editTextChangeAddressDetail.text.toString()
+                    userInfoViewModel.saveAddress(LoginViewModel.customer)
                     dialog.dismiss()
                 }
 
