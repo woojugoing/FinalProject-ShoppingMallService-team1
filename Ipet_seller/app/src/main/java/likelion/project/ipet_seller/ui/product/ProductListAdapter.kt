@@ -11,7 +11,7 @@ import likelion.project.ipet_seller.databinding.ItemProductlistBinding
 import likelion.project.ipet_seller.model.Product
 import likelion.project.ipet_seller.ui.main.MainActivity
 
-class ProductListAdapter(private val mainActivity: MainActivity, val onItemClickListener: (Product) -> Unit) : RecyclerView.Adapter<ProductListAdapter.ProductListViewHolder>() {
+class ProductListAdapter(private val mainActivity: MainActivity, val onItemClickListener: (Product, Int) -> Unit) : RecyclerView.Adapter<ProductListAdapter.ProductListViewHolder>() {
 
     private var productList = emptyList<Product>()
 
@@ -37,7 +37,11 @@ class ProductListAdapter(private val mainActivity: MainActivity, val onItemClick
 
             // 상품 삭제 버튼 클릭 시 이벤트
             itemProductListDelete.setOnClickListener {
-                onItemClickListener(productList[adapterPosition])
+                onItemClickListener(productList[adapterPosition], 0)
+            }
+
+            itemView.setOnClickListener {
+                onItemClickListener(productList[adapterPosition], 1)
             }
         }
     }

@@ -1,6 +1,7 @@
 package likelion.project.ipet_seller.ui.product
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import likelion.project.ipet_seller.R
 import likelion.project.ipet_seller.databinding.FragmentProductListBinding
 import likelion.project.ipet_seller.ui.main.MainActivity
@@ -34,10 +37,17 @@ class ProductListFragment : Fragment() {
             this,
             ProductViewModelFactory(mainActivity)
         )[ProductListViewModel::class.java]
-        productAdapter = ProductListAdapter(mainActivity, {
-            viewModel.deleteProduct(it)
-            viewModel.fetchProducts()
-        })
+        productAdapter = ProductListAdapter(mainActivity) { product, number ->
+            if (number == 0) {
+                viewModel.deleteProduct(product)
+                viewModel.fetchProducts()
+            } else {
+                val bundle = Bundle()
+                bundle.putString("product", Json.encodeToString(product))
+                mainActivity.replaceFragment(MainActivity.PRDUCT_FRAGMENT, true, bundle)
+            }
+
+        }
         observe()
 
         fragmentProductListBinding.run {
