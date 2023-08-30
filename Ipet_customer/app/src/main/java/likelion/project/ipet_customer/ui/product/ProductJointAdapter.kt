@@ -58,7 +58,8 @@ class ProductJointAdapter(
                 text = joint.jointTerm
             }
             textViewCardMember.run {
-                setTextAppearance(R.style.Typography_Regular12)
+                typeface = ResourcesCompat.getFont(itemView.context, R.font.pretendard_regular)
+                textSize = 12f
                 text = "${joint.jointMember}/${joint.jointTotalMember}"
             }
             if (joint.jointImg[0] != "") {
