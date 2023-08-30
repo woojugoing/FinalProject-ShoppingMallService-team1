@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.FragmentUserInfoMainBinding
@@ -19,8 +21,8 @@ class UserInfoMainFragment : Fragment() {
 
     lateinit var fragmentUserInfoMainBinding: FragmentUserInfoMainBinding
     lateinit var mainActivity: MainActivity
+    lateinit var userInfoViewModel: UserInfoViewModel
     var fragmentState = ""
-    val userInfoViewModel = UserInfoViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,12 +30,7 @@ class UserInfoMainFragment : Fragment() {
     ): View? {
         fragmentUserInfoMainBinding = FragmentUserInfoMainBinding.inflate(inflater)
         mainActivity = activity as MainActivity
-
-        Log.i("user", LoginViewModel.customer.customerId)
-        Log.i("user", LoginViewModel.customer.customerName)
-        Log.i("user", LoginViewModel.customer.customerEmail)
-        Log.i("user", LoginViewModel.customer.customerAddressAddress)
-
+        userInfoViewModel = UserInfoViewModel()
 
         fragmentUserInfoMainBinding.run {
             textViewUserInfoAddress.text = "${LoginViewModel.customer.customerAddressAddress}" +
@@ -126,6 +123,8 @@ class UserInfoMainFragment : Fragment() {
                     // 사용자 입력 상세주소 ViewModel 저장
                     LoginViewModel.customer.customerAddressDetail = binding.editTextChangeAddressDetail.text.toString()
                     userInfoViewModel.saveAddress(LoginViewModel.customer)
+                    textViewUserInfoAddress.text = "${LoginViewModel.customer.customerAddressAddress}" +
+                            " ${LoginViewModel.customer.customerAddressDetail}"
                     dialog.dismiss()
                 }
 
