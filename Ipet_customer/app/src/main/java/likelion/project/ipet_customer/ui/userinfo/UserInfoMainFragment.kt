@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.launch
 import likelion.project.ipet_customer.R
 import likelion.project.ipet_customer.databinding.FragmentUserInfoMainBinding
 import likelion.project.ipet_customer.databinding.ItemUserinfoChangeaddressBinding
@@ -33,6 +35,12 @@ class UserInfoMainFragment : Fragment() {
         userInfoViewModel = UserInfoViewModel()
 
         fragmentUserInfoMainBinding.run {
+            userInfoViewModel.viewModelScope.launch {
+                textViewUserInfoDeliveryConfirm.text = userInfoViewModel.getAllStatus()[0].toString()
+                textViewUserInfoDeliveryWay.text = userInfoViewModel.getAllStatus()[1].toString()
+                textViewUserInfoDeliveryWay2.text = userInfoViewModel.getAllStatus()[2].toString()
+            }
+
             textViewUserInfoAddress.text = "${LoginViewModel.customer.customerAddressAddress}" +
                     " ${LoginViewModel.customer.customerAddressDetail}"
 
