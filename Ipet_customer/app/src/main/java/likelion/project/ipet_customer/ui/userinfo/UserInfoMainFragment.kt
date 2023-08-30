@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -41,15 +42,14 @@ class UserInfoMainFragment : Fragment() {
                 textViewUserInfoDeliveryWay2.text = userInfoViewModel.getAllStatus()[2].toString()
             }
 
-            textViewUserInfoAddress.text = "${LoginViewModel.customer.customerAddressAddress}" +
-                    " ${LoginViewModel.customer.customerAddressDetail}"
+            textViewUserInfoAddress.run {
+                typeface = ResourcesCompat.getFont(context, R.font.pretendard_regular)
+                text = "${LoginViewModel.customer.customerAddressAddress}" +
+                        " ${LoginViewModel.customer.customerAddressDetail}"
+            }
 
             toolbarUserInfoMain.run {
                 title = "내 정보"
-                setNavigationIcon(R.drawable.ic_back_24dp)
-                setNavigationOnClickListener {
-                    mainActivity.replaceFragment(MainActivity.PRODUCT_INFO_FRAGMENT, false, null)
-                }
             }
 
             textViewUserInfoName.run{
