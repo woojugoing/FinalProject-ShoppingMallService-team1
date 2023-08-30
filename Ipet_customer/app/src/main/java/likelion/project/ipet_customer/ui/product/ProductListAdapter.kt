@@ -48,7 +48,7 @@ class ProductListAdapter(
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.textViewCardTitle.text = productList[position].productTitle
-        holder.textViewCardCost.text = productList[position].productPrice.toString()
+        holder.textViewCardCost.text = "${mainActivity.formatNumberToCurrency(productList[position].productPrice)}원"
         if (productList[position].productImg[0] != "") {
             Glide.with(holder.itemView)
                 .load(productList[position].productImg[0])
