@@ -4,6 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Space
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +20,6 @@ class ProductJointAdapter(
 ) : RecyclerView.Adapter<ProductJointAdapter.Holder>() {
 
     inner class Holder(rowBinding: ItemProductCardBinding):RecyclerView.ViewHolder(rowBinding.root) {
-        var linearLayoutAddMember: LinearLayout = rowBinding.linearLayoutItemAddMember
         var linearLayoutAddCostPrice: LinearLayout = rowBinding.linearLayoutItemAddCostPrice
         var linearLayoutAddTerm: LinearLayout = rowBinding.linearLayoutItemAddTerm
         private val imageViewCardHeart: ImageView = rowBinding.imageViewCardHeart
@@ -29,8 +29,12 @@ class ProductJointAdapter(
         private val textViewCardTerm: TextView = TextView(rowBinding.root.context)
         private val textViewCardMember: TextView = TextView(rowBinding.root.context)
         private val imageViewCardIcon: ImageView = ImageView(rowBinding.root.context)
+        private val space: Space = Space(rowBinding.root.context)
 
         init {
+            val spaceLayoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f)
+            space.layoutParams = spaceLayoutParams
+            linearLayoutAddCostPrice.addView(space)
             linearLayoutAddCostPrice.addView(imageViewCardIcon)
             linearLayoutAddCostPrice.addView(textViewCardMember)
             linearLayoutAddTerm.addView(textViewCardTerm)
@@ -73,7 +77,7 @@ class ProductJointAdapter(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
-       rowBinding.linearLayoutItemAddTerm.layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT
+        rowBinding.linearLayoutItemAddTerm.layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT
         return Holder(rowBinding)
     }
 
