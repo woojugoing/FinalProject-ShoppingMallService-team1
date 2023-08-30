@@ -465,7 +465,7 @@ class ShoppingBasketFragment : Fragment() {
 
         override fun onBindViewHolder(holder: ShoppingBasketGroupBuyingHolder, position: Int) {
             holder.textViewGroupBuyingName.text = jointDataList[position].jointTitle
-            holder.textViewGroupBuyingCount.text = "남은 사람 : ${jointDataList[position].jointTotalMember - jointDataList[position].jointMember}명"
+            holder.textViewGroupBuyingCount.text = "${jointDataList[position].jointMember}명 / ${jointDataList[position].jointTotalMember}명"
             holder.textViewGroupBuyingPeriod.text = jointDataList[position].jointTerm
             holder.textViewGroupBuyingPrice.text = "${mainActivity.formatNumberToCurrency(jointDataList[position].jointPrice)}원"
 
