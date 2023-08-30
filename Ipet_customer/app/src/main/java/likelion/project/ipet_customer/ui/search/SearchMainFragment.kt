@@ -111,7 +111,7 @@ class SearchMainFragment : Fragment() {
             }
 
             recyclerViewSearchResult.run {
-                adapter = SearchAdapter(productList, mainActivity, searchViewModel)
+                adapter = SearchAdapter(productList, mainActivity)
                 layoutManager = GridLayoutManager(context, 2)
             }
         }
